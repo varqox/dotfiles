@@ -110,4 +110,3 @@ paruS ripgrep # rg
 paruS fd
 paruS man-pages
 # TODO: user.js file in the default firefox profile to change settings programmatically instead of having to manually edit about:config (see: https://kb.mozillazine.org/User.js_file)
-# TODO: warn about modified git repo e.g. upon terminal startup, or periodically using e.g. swaynag

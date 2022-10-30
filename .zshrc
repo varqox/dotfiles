@@ -55,3 +55,8 @@ git-rename() {
 timer() {
 	sleep $1 && mpv ~/Dropbox/Documents/Ship_Brass_Bell-Mike_Koenig-1458750630.wav
 }
+
+# Warn about dotfiles change
+git -C "$HOME" update-index --refresh > /dev/null || false
+git -C "$HOME" diff-index --quiet HEAD -- || /bin/echo -e '\033[33mdotfiles changed, for backup purposes review, commit and push the changes\033[m'
+[ "$(git -C "$HOME" rev-parse origin/main)" = "$(git -C "$HOME" rev-parse HEAD)" ] || /bin/echo -e '\033[33mdotfiles changes are not pushed\033[m'
