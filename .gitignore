@@ -1,0 +1,12 @@
+/*
+# Ignore evething in .config, but make git descend to .config
+!/.config/
+/.config/*
+# Sway etc.
+!/.config/sway/
+!/.config/waybar/
+!/.config/kickoff/
+!/.config/swaylock/
+!/.config/mako/
+!/.config/mpv/
+!/.config/paru/
