@@ -24,9 +24,34 @@ function paruS {
     done
 }
 
+# sudo
+echo "%wheel ALL=(ALL) ALL" | sudo tee /etc/sudoers.d/wheel
+
+# Pacman
+sudo sed 's@#Color@Color@' /etc/pacman.conf -i
+sudo sed 's@#\?ParallelDownloads\s*=.*@ParallelDownloads = 8@' /etc/pacman.conf -i
+
+# Locales
+sudo sed 's@^#en_US.UTF-8@en_US.UTF-8@' /etc/locale.gen -i
+sudo sed 's@^#en_GB.UTF-8@en_GB.UTF-8@' /etc/locale.gen -i
+sudo sed 's@^#pl_PL.UTF-8@pl_PL.UTF-8@' /etc/locale.gen -i
+sudo locale-gen
+# restart all terminals (if you want the change to work immediately)
+
+# NTP
+sudo timedatectl set-ntp true
+
 # Zsh
 paruS zsh oh-my-zsh-git
 [ "$SHELL" = "/usr/bin/zsh" ] || sudo chsh -s /usr/bin/zsh "${USER}"
+
+# Network manager
+sudo systemctl enable --now NetworkManager
+
+# SSD: periodic (weekly) TRIM
+paruS util-linux
+sudo systemctl enable --now fstrim.timer
+# to change the period you need to edit the fstrim.timer systemd's file
 
 # Sway
 /bin/echo -e '\033[1;32m==>\033[0;1m Install and setup sway\033[m'
@@ -83,5 +108,6 @@ paruS procps-ng # pkill
 paruS htop
 paruS ripgrep # rg
 paruS fd
+paruS man-pages
 # TODO: user.js file in the default firefox profile to change settings programmatically instead of having to manually edit about:config (see: https://kb.mozillazine.org/User.js_file)
 # TODO: warn about modified git repo e.g. upon terminal startup, or periodically using e.g. swaynag
