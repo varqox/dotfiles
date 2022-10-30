@@ -1,0 +1,46 @@
+[alias]
+	lg = log --color --graph --decorate --oneline
+	lga = log --color --graph --decorate --oneline --all
+	lg2 = log --color --graph --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status
+	co = checkout
+	di = diff
+	panic = !tar cvzf ../git_panic.tgz `ls -A`
+	pushf = push --force-with-lease
+	pf = push --force-with-lease
+	subi = submodule update --init
+	ds = diff --staged
+	cp = cherry-pick
+	cpa = cherry-pick --abort
+	cpc = cherry-pick --continue
+	ca = commit --amend
+	cf = commit --fixup
+	rb = rebase
+	rbc = rebase --continue
+	rba = rebase --abort
+	rbi = rebase -i
+	rbia = rebase -i --autostash
+	prba = pull --rebase --autostash
+	pra = pull --rebase --autostash
+	ls = log --stat
+	spi = stash pop --index
+[user]
+	email = varqox@gmail.com
+	name = Krzysztof Małysa
+[push]
+	default = simple
+[credential]
+	helper = cache --timeout=2592000
+[core]
+	editor = vim
+[diff]
+	renames = copies
+	algorithm = histogram
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+[advice]
+	detachedHead = false
+[oh-my-zsh]
+	hide-info = 1
