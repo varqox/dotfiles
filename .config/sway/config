@@ -1,0 +1,177 @@
+# WAYLAND_DISPLAY and XDG_CURRENT_DESKTOP=sway are required for screencast to work (xdg-desktop-portal-wlr requires it)
+# without WAYLAND_DISPLAY waybar takes 10+ seconds to start
+# without DISPLAY GTK apps take 20+ seconds to start
+exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+input type:keyboard {
+	xkb_layout "pl"
+	xkb_variant "dvp"
+	xkb_options "caps:escape"
+	repeat_delay 250
+	repeat_rate 40
+}
+input type:pointer {
+	scroll_factor 2
+}
+input type:touchpad {
+	tap enabled
+}
+
+set $laptop eDP-1
+output $laptop {
+    mode 1920x1080
+    #pos 0 360
+    pos 2560 360
+}
+set $monitor "Unknown Q24P2W1 HCMM1HA004037"
+output $monitor {
+    mode 2560x1440@74.968Hz
+    #pos 1920 0
+    pos 0 0
+}
+
+output * bg $HOME/.config/sway/wallpaper.jpg fill
+
+font Hack 10
+font Ubuntu Mono 12
+
+bar {
+    swaybar_command waybar
+    # TODO: rewrite battery status as a custom waybar module
+}
+
+bindsym --no-repeat Ctrl+Alt+r reload
+
+set $if_bose_headphones_then_4_else_1 $(pamixer --get-default-sink | grep bluez_output.4C_87_5D_07_5B_C4 -q && echo 4 || echo 1)
+bindsym XF86AudioRaiseVolume exec pamixer -i $if_bose_headphones_then_4_else_1
+bindsym Ctrl+Alt+plus exec pamixer -i $if_bose_headphones_then_4_else_1
+bindsym XF86AudioLowerVolume exec pamixer -d $if_bose_headphones_then_4_else_1
+bindsym Ctrl+Alt+minus exec pamixer -d $if_bose_headphones_then_4_else_1
+bindsym --no-repeat --locked Ctrl+Alt+asterisk exec pamixer -t
+bindsym --no-repeat --locked XF86AudioMute exec pamixer -t
+bindsym --no-repeat XF86AudioMicMute exec pamixer --default-source -t
+bindsym --locked XF86MonBrightnessDown exec light -U 2
+bindsym --locked XF86MonBrightnessUp exec light -A 2
+bindsym --no-repeat XF86AudioPause exec waybar-mpris --send toggle
+bindsym XF86AudioPlay exec waybar-mpris --send toggle
+bindsym XF86AudioNext exec waybar-mpris --send next
+bindsym XF86AudioPrev exec waybar-mpris --send prev
+bindsym --no-repeat XF86Display exec wdisplays
+bindsym XF86PowerOff exec wlogout
+bindsym --no-repeat XF86Bluetooth exec "$HOME/.config/sway/toggle_bluetooth.sh"
+bindsym --no-repeat F1 exec waybar-mpris --send toggle
+
+set $lock_screen "$HOME/.config/sway/lock_screen.sh"
+
+exec swayidle -w \
+    timeout 300 '$lock_screen' \
+    timeout 310 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    before-sleep '$lock_screen' \
+    after-resume 'until bluetoothctl power on; do sleep 0.1; done'
+
+# Lock the screen on lid close (even if not going to suspend), but do not lock screen when sway is started with the lid closed
+# (lid:on are triggered if sway starts with the closed lid, but lid:off is not triggered if sway starts with the open lid)
+exec swaymsg bindswitch lid:on exec '$lock_screen'
+
+bindsym --no-repeat Ctrl+Alt+l exec '$lock_screen'
+bindsym --no-repeat --locked Ctrl+Alt+s exec systemctl suspend
+
+# Kill 'timer' expiration sound
+bindsym Ctrl+Alt+g exec pgrep mpv | xargs ps | grep /home/quasar/Dropbox/Documents/ | cut -f 3 -d ' ' | xargs kill
+
+bindsym Ctrl+Alt+Delete exec wlogout
+bindsym Ctrl+Alt+t exec xfce4-terminal
+bindsym Ctrl+Alt+f exec firefox
+bindsym Ctrl+Alt+h exec audacious -t
+bindsym Mod4+s exec subl --launch-or-new-window
+bindsym Mod4+k exec keepassxc
+# Kill focused window
+bindsym Ctrl+Alt+k kill
+bindsym Ctrl+Shift+w kill
+# Launcher
+bindsym --no-repeat Ctrl+Alt+d exec kickoff
+#bindsym --no-repeat Ctrl+Alt+d exec xfce4-terminal -T launcher --command='bash -c "dmenu_path | fzf | xargs -r swaymsg exec --"'
+for_window [app_id="^xfce4-terminal" title="^launcher"] floating enable, border none, opacity 1
+for_window [app_id="^zoom$"] floating enable
+for_window [app_id="^zoom$" title="^Zoom Meeting$"] floating disable
+
+floating_modifier Alt normal
+
+exec 'until bluetoothctl power on; do sleep 0.1; done'
+exec nm-applet --indicator
+exec blueman-applet
+exec dropbox
+#exec waybar-mpris > /dev/null
+
+# I switched to logiops
+#exec pgrep -x solaar > /dev/null || solaar -w hide -b solaar
+
+# Workspaces make 2D grid (top-left has num 11, of which right neighbour has num 12, down neighbour has nmu 21, etc.)
+workspace {
+	# It is important that laptop workspaces are listed first, because upon the first external monitor attach sway selects the first non-existient (unused) workspace from this list to focus on the laptop screen and we want the laptop workspace to show on the laptop screen
+	11:11 output $laptop
+	12:12 output $laptop
+	13:13 output $laptop
+	21:21 output $laptop
+	22:22 output $laptop
+	23:23 output $laptop
+	31:31 output $laptop
+	32:32 output $laptop
+	33:33 output $laptop
+
+	111:11 output $monitor $laptop
+	112:12 output $monitor $laptop
+	113:13 output $monitor $laptop
+	121:21 output $monitor $laptop
+	122:22 output $monitor $laptop
+	123:23 output $monitor $laptop
+	131:31 output $monitor $laptop
+	132:32 output $monitor $laptop
+	133:33 output $monitor $laptop
+}
+# focus workspace 11:11 on laptop screen
+workspace 11:11
+# focus workspace 111 on monitor screen
+workspace 111:11
+
+# Switching workspaces wraps around left-right and top-bottom
+set $workspace_switcher "$HOME/.config/sway/switch_workspace"
+
+bindsym Ctrl+Alt+Up exec $workspace_switcher up
+bindsym Ctrl+Alt+Down exec $workspace_switcher down
+bindsym Ctrl+Alt+Left exec $workspace_switcher left
+bindsym Ctrl+Alt+Right exec $workspace_switcher right
+
+bindsym Ctrl+Alt+Shift+Up exec $workspace_switcher move up
+bindsym Ctrl+Alt+Shift+Down exec $workspace_switcher move down
+bindsym Ctrl+Alt+Shift+Left exec $workspace_switcher move left
+bindsym Ctrl+Alt+Shift+Right exec $workspace_switcher move right
+
+bindsym Ctrl+Alt+n focus output right
+
+# Screenshots
+bindsym --no-repeat Print exec mkdir -p -m 700 /tmp/screenshots/ && grim - | tee "$(date '+/tmp/screenshots/%F %T.png')" | wl-copy
+bindsym --no-repeat Ctrl+Print exec mkdir -p -m 700 /tmp/screenshots/ && grim -g "$(slurp -d)" - | tee "$(date '+/tmp/screenshots/%F %T.png')" | wl-copy
+
+# Notifications
+exec mako
+
+hide_edge_borders both
+
+bindsym Ctrl+Alt+Shift+f floating toggle
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] floating enable, sticky enable, border normal, resize set height 54 px, border none, move absolute position 0 0
+for_window [app_id="firefox"] border none
+for_window [app_id="org.keepassxc.KeePassXC"] floating enable
+for_window [app_id="anki"] floating enable
+
+#for_window [title=".*"] floating enable
+#for_window [app_id="sublime_text"] floating disable
+#for_window [app_id="sublime_merge"] floating disable
+#for_window [app_id="xfce4-terminal" title="Terminal"] floating disable
+#for_window [app_id="firefox"] floating disable
+
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'

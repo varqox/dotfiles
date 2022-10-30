@@ -1,0 +1,9 @@
+image=$HOME/.config/sway/wallpaper.jpg
+scaling=fill
+clock
+indicator
+show-failed-attempts
+ignore-empty-password
+daemonize
+font=Ubuntu Mono
+font-size=28
