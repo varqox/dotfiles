@@ -105,3 +105,5 @@ function backup() (
 		done
 	fi
 )
+
+alias bp="backup"
