@@ -61,3 +61,47 @@ timer() {
 git -C "$HOME" update-index --refresh > /dev/null || false
 git -C "$HOME" diff-index --quiet HEAD -- || /bin/echo -e '\033[33mdotfiles changed, for backup purposes review, commit and push the changes\033[m'
 [ "$(git -C "$HOME" rev-parse origin/main)" = "$(git -C "$HOME" rev-parse HEAD)" ] || /bin/echo -e '\033[33mdotfiles changes are not pushed\033[m'
+
+
+function backup() (
+	function do_backup() (
+		set -e
+		# chdir to the parent folder of the specified path
+		cd -P -- "$(dirname -- "$1")"
+		# Check if specified path is a file or a directory
+		local fname=$(basename -- "$1")
+		if [ -f "${fname}" ]; then
+			local out_file="$HOME/backup/$(echo "${PWD#$HOME/}/${fname}" | sed 's@/@,@g').tar.zst"
+			tar --create --zst --file "${out_file}" "${fname}"
+		else
+			# chdir to the directory
+			cd -P -- "${fname}"
+			local out_file="$HOME/backup/$(echo "${PWD#$HOME/}" | sed 's@/@,@g').tar.zst"
+
+			function list_git_files() {
+				git ls-files -z --cached --recurse-submodules
+				git ls-files -z --others --exclude-standard
+				PROJECT_DIR=$PWD git submodule foreach --quiet 'git ls-files -z --others --exclude-standard | while read -d "" x; do echo -n "${PWD#$PROJECT_DIR/}/$x"; echo -ne "\0"; done'
+				echo -ne '.git\0'
+			}
+			function ls_all_files() {
+				ls --zero --almost-all
+			}
+
+			if [ -d '.git/' ]; then
+				list_git_files
+			else
+				ls_all_files
+			fi | xargs --null tar --create --zst --file "${out_file}"
+		fi
+		du -sh "${out_file}"
+	)
+
+	if [ -z "$1" ]; then
+		do_backup .
+	else
+		for x in "$@"; do
+			do_backup "$x"
+		done
+	fi
+)
