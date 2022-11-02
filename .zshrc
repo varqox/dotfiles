@@ -39,8 +39,9 @@ export LESS_TERMCAP_so=$'\e[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 
-alias l="ls -lAh"
-alias watch='watch -n 0.3 '
+alias l='ls -lAh'
+alias o='exo-open'
+alias watch='watch -n 0.3'
 alias gdb='gdb -q'
 alias ninja='nice ninja'
 alias dev='bash -c '"'"'(trap "test build/compile_commands.json -nt compile_commands.json && compdb -p build list > compile_commands.json" EXIT; nice ninja -C build $@)'"'"' ninja'
