@@ -80,8 +80,8 @@
         "on-click": "pamixer -t",
         "on-click-right": "pamixer --default-source -t",
         "on-click-middle": "pavucontrol",
-        "on-scroll-up": "pamixer -i 1",
-        "on-scroll-down": "pamixer -d 1",
+        "on-scroll-up": "pamixer -i $(pamixer --get-default-sink | grep bluez_output.4C_87_5D_07_5B_C4 -q && echo 4 || echo 1)",
+        "on-scroll-down": "pamixer -d $(pamixer --get-default-sink | grep bluez_output.4C_87_5D_07_5B_C4 -q && echo 4 || echo 1)",
         "smooth-scrolling-threshold": 2,
     },
     "network": {
