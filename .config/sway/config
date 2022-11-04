@@ -25,7 +25,8 @@ output $laptop {
 }
 set $monitor "Unknown Q24P2W1 HCMM1HA004037"
 output $monitor {
-    mode 2560x1440@74.968Hz
+    mode 2560x1440@59.951Hz
+    #mode 2560x1440@74.968Hz
     #pos 1920 0
     pos 0 0
 }
