@@ -44,10 +44,17 @@ bar {
 bindsym --no-repeat Ctrl+Alt+r reload
 
 set $if_bose_headphones_then_4_else_1 $(pamixer --get-default-sink | grep bluez_output.4C_87_5D_07_5B_C4 -q && echo 4 || echo 1)
-bindsym XF86AudioRaiseVolume exec pamixer -i $if_bose_headphones_then_4_else_1
-bindsym Ctrl+Alt+plus exec pamixer -i $if_bose_headphones_then_4_else_1
-bindsym XF86AudioLowerVolume exec pamixer -d $if_bose_headphones_then_4_else_1
-bindsym Ctrl+Alt+minus exec pamixer -d $if_bose_headphones_then_4_else_1
+set $if_bose_headphones_then_4_else_5 $(pamixer --get-default-sink | grep bluez_output.4C_87_5D_07_5B_C4 -q && echo 4 || echo 5)
+bindsym XF86AudioRaiseVolume exec pamixer -i $if_bose_headphones_then_4_else_5
+bindsym XF86AudioLowerVolume exec pamixer -d $if_bose_headphones_then_4_else_5
+bindsym Ctrl+XF86AudioRaiseVolume exec pamixer -i $if_bose_headphones_then_4_else_1
+bindsym Ctrl+XF86AudioLowerVolume exec pamixer -d $if_bose_headphones_then_4_else_1
+bindsym Shift+XF86AudioRaiseVolume exec pamixer -i $if_bose_headphones_then_4_else_1
+bindsym Shift+XF86AudioLowerVolume exec pamixer -d $if_bose_headphones_then_4_else_1
+bindsym Ctrl+Alt+plus exec pamixer -i $if_bose_headphones_then_4_else_5
+bindsym Ctrl+Alt+minus exec pamixer -d $if_bose_headphones_then_4_else_5
+bindsym Ctrl+Alt+Shift+plus exec pamixer -i $if_bose_headphones_then_4_else_1
+bindsym Ctrl+Alt+Shift+minus exec pamixer -d $if_bose_headphones_then_4_else_1
 bindsym --no-repeat --locked Ctrl+Alt+asterisk exec pamixer -t
 bindsym --no-repeat --locked XF86AudioMute exec pamixer -t
 bindsym --no-repeat XF86AudioMicMute exec pamixer --default-source -t
