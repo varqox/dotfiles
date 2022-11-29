@@ -46,6 +46,16 @@ alias gdb='gdb -q'
 alias ninja='nice ninja'
 alias dev='bash -c '"'"'(trap "test build/compile_commands.json -nt compile_commands.json && compdb -p build list > compile_commands.json" EXIT; nice ninja -C build $@)'"'"' ninja'
 
+dt() {
+	if [ -z "$1" ] || [[ "$1" =~ ^- ]]; then
+		meson test -C build "${@}"
+	else
+		#meson test -C build $(meson test -C build --list | fzf --filter "$1" | sed 's@ / @:@') "${@:2}"
+		local tests=$(meson test -C build --list | fzf --filter "$1" | sed 's@ / @:@')
+		meson test -C build --list | (fzf --filter "$1" || echo 'No matching tests' >&2) | sed 's@ / @:@' | xargs --no-run-if-empty meson test -C build "${@:2}"
+	fi
+}
+
 alias obosim='cd ~/src/obosim/'
 alias simlib='cd subprojects/simlib/'
 
@@ -61,7 +71,6 @@ timer() {
 git -C "$HOME" update-index --refresh > /dev/null || false
 git -C "$HOME" diff-index --quiet HEAD -- || /bin/echo -e '\033[33mdotfiles changed, for backup purposes review, commit and push the changes\033[m'
 [ "$(git -C "$HOME" rev-parse origin/main)" = "$(git -C "$HOME" rev-parse HEAD)" ] || /bin/echo -e '\033[33mdotfiles changes are not pushed\033[m'
-
 
 function backup() (
 	function do_backup() (
@@ -107,3 +116,49 @@ function backup() (
 )
 
 alias bp="backup"
+
+function transcode_opus {
+	local in_file="$1"
+	local out_file="$2"
+	if [ -z "${out_file}" ]; then
+		out_file="${in_file%.*}.opus"
+	fi
+	echo -e "Transcoding \033[1m${in_file}\033[m into \033[1m${out_file}\033[m"
+	nice ffmpeg -i "${in_file}" -c:a libopus "${out_file}"
+	#sox "${in_file}" -t wav - | opusenc - "${out_file}"
+}
+function transcode_opus_all {
+	for x in "$@"; do
+		transcode_opus "${x}"
+	done
+}
+
+function transcode_av1 {
+	local in_file="$1"
+	local out_file="$2"
+	if [ -z "${out_file}" ]; then
+		out_file="${in_file%.*}.mkv"
+	fi
+	echo -e "Transcoding \033[1m${in_file}\033[m into \033[1m${out_file}\033[m"
+	nice ffmpeg -i "${in_file}" -c:v libsvtav1 -c:a libopus "${out_file}"
+}
+function transcode_av1_all {
+	for x in "$@"; do
+		transcode_av1 "${x}"
+	done
+}
+
+function transcode_avif {
+	local in_file="$1"
+	local out_file="$2"
+	if [ -z "${out_file}" ]; then
+		out_file="${in_file%.*}.avif"
+	fi
+	echo -e "Transcoding \033[1m${in_file}\033[m into \033[1m${out_file}\033[m"
+	nice avifenc -j all "${in_file}" "${out_file}"
+}
+function transcode_avif_all {
+	for x in "$@"; do
+		transcode_avif "${x}"
+	done
+}
