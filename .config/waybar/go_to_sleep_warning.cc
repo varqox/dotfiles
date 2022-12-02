@@ -205,6 +205,7 @@ int main(int /*argc*/, char** argv) {
         die("prctl(PR_SET_PDEATHSIG)");
     }
     recompile_and_exec_if_source_file_or_executable_has_changed(argv);
+    print_message(""); for (;;) { pause(); }
 
     std::optional<time_t> due_shutdown_time;
     auto check_if_due_shutdown_time_passed = [&] {
