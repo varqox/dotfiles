@@ -39,6 +39,9 @@ export LESS_TERMCAP_so=$'\e[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 
+# For crontab -e
+export EDITOR=vim
+
 alias l='ls -lAh'
 alias o='exo-open'
 alias watch='watch -n 0.3'
