@@ -165,3 +165,5 @@ function transcode_avif_all {
 		transcode_avif "${x}"
 	done
 }
+
+alias speedtest='speedtest --secure'
