@@ -19,4 +19,4 @@ cat "$fifo" | while read; do
     fi
 done
 
-systemctl suspend
+exec systemctl suspend
