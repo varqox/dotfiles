@@ -37,7 +37,8 @@ font Hack 10
 font Ubuntu Mono 12
 
 bar {
-    swaybar_command waybar
+	# swaybar_command is run directly without shell, so we cannot use $HOME etc.
+    swaybar_command .config/waybar/run-waybar.sh
     # TODO: rewrite battery status as a custom waybar module
 }
 
