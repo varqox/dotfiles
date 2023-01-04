@@ -23,7 +23,7 @@ output $laptop {
     #pos 0 360
     pos 2560 360
 }
-set $monitor "Unknown Q24P2W1 HCMM1HA004037"
+set $monitor "AOC Q24P2W1 HCMM1HA004037"
 output $monitor {
     mode 2560x1440@59.951Hz
     #mode 2560x1440@74.968Hz
