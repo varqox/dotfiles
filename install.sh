@@ -65,7 +65,7 @@ paruS waybar-mpris-git # for media (music and video) control shortcuts
 paruS wdisplays # for screen switch shortcut
 paruS wlogout # for logging out shortcut
 paruS tlp bluez-utils # bluetooth control shortcut
-paruS swaylock-effects # screen locker
+paruS swaylock # screen locker
 paruS swayidle # screen lock after idle period
 paruS upower # suspending as soon as ac is unconnected
 paruS xfce4-terminal # terminal
