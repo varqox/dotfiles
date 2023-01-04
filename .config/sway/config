@@ -71,6 +71,7 @@ bindsym --no-repeat XF86Bluetooth exec "$HOME/.config/sway/toggle_bluetooth.sh"
 bindsym --no-repeat F1 exec waybar-mpris --send toggle
 
 set $lock_screen "$HOME/.config/sway/lock_screen.sh"
+set $lock_screen_if_no_external_display "$HOME/.config/sway/lock_screen_if_no_external_display.sh"
 
 exec swayidle -w \
     timeout 300 '$lock_screen' \
@@ -80,7 +81,7 @@ exec swayidle -w \
 
 # Lock the screen on lid close (even if not going to suspend), but do not lock screen when sway is started with the lid closed
 # (lid:on are triggered if sway starts with the closed lid, but lid:off is not triggered if sway starts with the open lid)
-exec swaymsg bindswitch lid:on exec '$lock_screen'
+exec swaymsg bindswitch lid:on exec '$lock_screen_if_no_external_display'
 
 bindsym --no-repeat Ctrl+Alt+l exec '$lock_screen'
 bindsym --no-repeat --locked Ctrl+Alt+s exec systemctl suspend
