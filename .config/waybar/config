@@ -4,7 +4,7 @@
     "height": 24,
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media", "custom/go_to_sleep_warning"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "network", "cpu", "temperature", "memory", "backlight", "battery", "clock"],
+    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "network", "cpu", "temperature", "memory", "backlight"/*, "battery"*/, "upower", "clock"],
     // Modules configuration
     "sway/workspaces": {
         "format": "{name}",
@@ -116,7 +116,7 @@
         "on-scroll-down": "light -T 0.943",
         "smooth-scrolling-threshold": 2,
     },
-    "battery": {
+    /*"battery": {
         "bat": "BAT0",
         "interval": 4,
         "states": {
@@ -131,6 +131,10 @@
         "format": "{icon} {capacity}% {time}",
         "format-icons": ["", "", "", "", ""],
         "format-time": "{H}:{M:02}",
+    },*/
+    "upower": {
+        "format": "{percentage} {time}",
+        "format-alt": "{percentage}",
     },
     "clock": {
         "interval": 1,
