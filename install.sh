@@ -109,4 +109,5 @@ paruS htop
 paruS ripgrep # rg
 paruS fd
 paruS man-pages
+paruS diff-so-fancy
 # TODO: user.js file in the default firefox profile to change settings programmatically instead of having to manually edit about:config (see: https://kb.mozillazine.org/User.js_file)

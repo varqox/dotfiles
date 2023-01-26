@@ -33,6 +33,7 @@
 	helper = cache --timeout=2592000
 [core]
 	editor = vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [diff]
 	renames = copies
 	algorithm = histogram
@@ -44,3 +45,15 @@
 	detachedHead = false
 [oh-my-zsh]
 	hide-info = 1
+[color]
+	ui = true
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146
+	commit = yellow bold
+	old = red
+	new = green
+	whitespace = red reverse
+[interactive]
+	diffFilter = diff-so-fancy --patch
