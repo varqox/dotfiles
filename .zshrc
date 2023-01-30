@@ -16,7 +16,7 @@ plugins=(git)
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir $ZSH_CACHE_DIR
+	mkdir $ZSH_CACHE_DIR
 fi
 
 source $ZSH/oh-my-zsh.sh
@@ -47,7 +47,8 @@ alias o='exo-open'
 alias watch='watch -n 0.3'
 alias gdb='gdb -q'
 alias ninja='nice ninja'
-alias dev='bash -c '"'"'(trap "test build/compile_commands.json -nt compile_commands.json && compdb -p build list > compile_commands.json" EXIT; nice ninja -C build $@)'"'"' ninja'
+#alias dev='bash -c '"'"'(trap "test build/compile_commands.json -nt compile_commands.json && compdb -p build list > compile_commands.json" EXIT; nice ninja -C build $@)'"'"' ninja'
+alias dev='nice ninja -C build'
 alias cargo='nice cargo'
 alias diff='git diff --no-index'
 alias dis='git diff --no-index --ignore-all-space'
