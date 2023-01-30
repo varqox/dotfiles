@@ -70,10 +70,6 @@ git-rename() {
 	git grep -lz -P "$1" | xargs -0 sed -i "s@$1@$2@g"
 }
 
-timer() {
-	sleep $1 && mpv ~/Dropbox/Documents/Ship_Brass_Bell-Mike_Koenig-1458750630.wav
-}
-
 # Warn about dotfiles change
 git -C "$HOME" update-index --refresh > /dev/null || false
 git -C "$HOME" diff-index --quiet HEAD -- || /bin/echo -e '\033[33mdotfiles changed, for backup purposes review, commit and push the changes\033[m'
