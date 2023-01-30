@@ -102,6 +102,10 @@ bindsym Ctrl+Shift+w kill
 # Launcher
 bindsym --no-repeat Ctrl+Alt+d exec kickoff
 #bindsym --no-repeat Ctrl+Alt+d exec xfce4-terminal -T launcher --command='bash -c "dmenu_path | fzf | xargs -r swaymsg exec --"'
+
+bindsym --no-repeat Ctrl+Alt+w exec xfce4-terminal --title=connect-to-wifi --command='sh -c $HOME/.connect-to-wifi.sh'
+for_window [app_id="^xfce4-terminal" title="^connect-to-wifi"] floating enable
+
 for_window [app_id="^xfce4-terminal" title="^launcher"] floating enable, border none, opacity 1
 for_window [app_id="^zoom$"] floating enable
 for_window [app_id="^zoom$" title="^Zoom Meeting$"] floating disable

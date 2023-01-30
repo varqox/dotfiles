@@ -170,20 +170,4 @@ function transcode_avif_all {
 }
 
 alias speedtest='speedtest --secure'
-
-function connect {
-	iwctl station wlan0 scan;
-	local wifi_name=$((until iwctl station wlan0 show | grep -P 'Scanning\s+no' --quiet; do
-		iwctl station wlan0 get-networks | tail -n +5
-		sleep 0.1;
-	done; iwctl station wlan0 get-networks | tail -n +5) | # stream of networks
-		sed --unbuffered 's/\x1b\[\(0m\|1;90m\**\)//g' | # stream without special characters
-		sed --unbuffered 's/^......//' | # stream without the visual prefix
-		grep --line-buffered -Pv '^$' | # stream without empty lines
-		stdbuf --output=L awk -r '!a[$0]++' | # deduplicated stream of networks
-		fzf | sed 's/  *\([[:graph:]]*\)  *\(\*\**\) *$//g')
-	if [ ! -z "${wifi_name}" ]; then
-		echo "Connecting to: ${wifi_name}..."
-		iwctl station wlan0 connect "${wifi_name}"
-	fi
-}
+alias connect='${HOME}/.connect-to-wifi.sh'
