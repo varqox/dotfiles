@@ -19,7 +19,7 @@
         "format": "{}",
         "max-length":130,
         "return-type": "json",
-        "exec": "waybar-mpris --pause '' --play '' --order SYMBOL:TITLE:ALBUM:ARTIST",
+        "exec": "waybar-mpris --pause '' --play '' --order SYMBOL:TITLE:ALBUM:ARTIST",
         "on-click": "waybar-mpris --send toggle",
         "on-click-right": "waybar-mpris --send player-next",
         "on-scroll-up": "waybar-mpris --send prev",
