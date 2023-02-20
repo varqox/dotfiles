@@ -118,48 +118,25 @@ exec dropbox
 # I switched to logiops
 #exec pgrep -x solaar > /dev/null || solaar -w hide -b solaar
 
-# Workspaces make 2D grid (top-left has num 11, of which right neighbour has num 12, down neighbour has nmu 21, etc.)
-workspace {
-	# It is important that laptop workspaces are listed first, because upon the first external monitor attach sway selects the first non-existient (unused) workspace from this list to focus on the laptop screen and we want the laptop workspace to show on the laptop screen
-	11:11 output $laptop
-	12:12 output $laptop
-	13:13 output $laptop
-	21:21 output $laptop
-	22:22 output $laptop
-	23:23 output $laptop
-	31:31 output $laptop
-	32:32 output $laptop
-	33:33 output $laptop
+# Arrange and navigate workspaces as layered 2D grids
+exec "$HOME/.config/sway/sway-workspace-switcher/target/release/sway-workspace-switcher"
+set $workspace_switcher_pipe "$HOME/.config/sway/sway-workspace-switcher/target/release/sway-workspace-switcher.pipe"
 
-	111:11 output $monitor $laptop
-	112:12 output $monitor $laptop
-	113:13 output $monitor $laptop
-	121:21 output $monitor $laptop
-	122:22 output $monitor $laptop
-	123:23 output $monitor $laptop
-	131:31 output $monitor $laptop
-	132:32 output $monitor $laptop
-	133:33 output $monitor $laptop
-}
-# focus workspace 11:11 on laptop screen
-workspace 11:11
-# focus workspace 111 on monitor screen
-workspace 111:11
+bindsym Ctrl+Alt+Up exec echo "go up" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+Down exec echo "go down" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+Left exec echo "go left" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+Right exec echo "go right" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+n exec echo "go to next layer" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+c exec echo "go to new layer" > $workspace_switcher_pipe
 
-# Switching workspaces wraps around left-right and top-bottom
-set $workspace_switcher "$HOME/.config/sway/switch_workspace"
+bindsym Ctrl+Alt+Shift+Up exec echo "carry up" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+Shift+Down exec echo "carry down" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+Shift+Left exec echo "carry left" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+Shift+Right exec echo "carry right" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+Shift+n exec echo "carry to next layer" > $workspace_switcher_pipe
+bindsym Ctrl+Alt+Shift+c exec echo "carry to new layer" > $workspace_switcher_pipe
 
-bindsym Ctrl+Alt+Up exec $workspace_switcher up
-bindsym Ctrl+Alt+Down exec $workspace_switcher down
-bindsym Ctrl+Alt+Left exec $workspace_switcher left
-bindsym Ctrl+Alt+Right exec $workspace_switcher right
-
-bindsym Ctrl+Alt+Shift+Up exec $workspace_switcher move up
-bindsym Ctrl+Alt+Shift+Down exec $workspace_switcher move down
-bindsym Ctrl+Alt+Shift+Left exec $workspace_switcher move left
-bindsym Ctrl+Alt+Shift+Right exec $workspace_switcher move right
-
-bindsym Ctrl+Alt+n focus output right
+#bindsym Ctrl+Alt+n focus output right
 
 # Screenshots
 bindsym --no-repeat Print exec mkdir -p -m 700 /tmp/screenshots/ && grim - | tee "$(date '+/tmp/screenshots/%F %T.png')" | wl-copy

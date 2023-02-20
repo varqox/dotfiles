@@ -85,6 +85,7 @@ paruS xdg-desktop-portal-wlr # screen sharing
 paruS gcc
 make -C "${HOME}/.config/sway/"
 make -C "${HOME}/.config/waybar/"
+(cd "${HOME}/.config/sway/sway-workspace-switcher/" && cargo build --release)
 # Disable systemd's handling of power button
 sudo mkdir -p /etc/systemd/logind.conf.d/; sudo tee /etc/systemd/logind.conf.d/powerkey.conf > /dev/null <<- HEREDOCEND
     [Login]
