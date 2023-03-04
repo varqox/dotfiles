@@ -109,6 +109,9 @@ for_window [app_id="^zoom$" title="^Zoom Meeting$"] floating disable
 
 floating_modifier Alt normal
 
+# Preserve clipboard (standard and primary) after the application quits
+exec 'until [ "$(systemctl --user is-active clipmon)" = "active" ]; do systemctl --user start clipmon; sleep 0.1; done'
+
 exec 'until bluetoothctl power on; do sleep 0.1; done'
 exec nm-applet --indicator
 exec blueman-applet

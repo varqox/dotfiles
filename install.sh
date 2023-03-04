@@ -70,6 +70,7 @@ paruS swayidle # screen lock after idle period
 paruS upower # suspending as soon as ac is unconnected
 paruS xfce4-terminal # terminal
 paruS kickoff # application launcher
+paruS clipmon # clipboard manager to preserve clipboard after the application quits
 # paruS firefox # web browser
 # paruS audacious # music player
 # paruS sublime-text # text editor
