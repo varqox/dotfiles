@@ -70,6 +70,7 @@ bindsym --no-repeat XF86Display exec wdisplays
 bindsym XF86PowerOff exec wlogout
 bindsym --no-repeat XF86Bluetooth exec "$HOME/.config/sway/toggle_bluetooth.sh"
 bindsym --no-repeat F1 exec waybar-mpris --send toggle
+bindsym --no-repeat XF86Favorites exec waybar-mpris --send toggle
 
 set $lock_screen "$HOME/.config/sway/lock_screen.sh"
 set $lock_screen_if_no_external_display "$HOME/.config/sway/lock_screen_if_no_external_display.sh"
