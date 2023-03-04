@@ -1,9 +1,12 @@
 #!/bin/sh
 
-if [ "$(swaymsg -t get_outputs --pretty --raw | grep '^    "subpixel_hinting":' -c)" = "1" ]; then
-    start_activated="false" # no external displays
+external_display_exists=$([ "$(swaymsg -t get_outputs --pretty --raw | grep '^    "subpixel_hinting":' -c)" = "1" ] || echo yes)
+is_ac_connected=$([ "$(cat /sys/class/power_supply/AC/online)" = "1" ] && echo yes)
+
+if [ "${external_display_exists}" = yes ] || [ "${is_ac_connected}" = yes ]; then
+    start_activated="true" # inhibit idle
 else
-    start_activated="true" # there are external displays
+    start_activated="false" # allow idle
 fi
 printf "{\n    \"idle_inhibitor\": {\n        \"start-activated\": ${start_activated},\n    },\n}\n" > $HOME/.config/waybar/idle_inhibitor_start_activated
 
