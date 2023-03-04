@@ -90,7 +90,7 @@ bindsym --no-repeat --locked Ctrl+Alt+s exec systemctl suspend
 
 bindsym Ctrl+Alt+Delete exec wlogout
 bindsym Ctrl+Alt+t exec xfce4-terminal
-bindsym Ctrl+Alt+f exec firefox
+bindsym Ctrl+Alt+f exec firefox-developer-edition
 bindsym Ctrl+Alt+h exec audacious -t
 bindsym Mod4+s exec subl --launch-or-new-window
 bindsym Mod4+k exec keepassxc
@@ -166,6 +166,7 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_type="menu"] floating enable
 for_window [window_role="About"] floating enable
 
+for_window [app_id="firefox" title="Firefox .*— Sharing Indicator"] floating enable, sticky enable, border normal, resize set height 54 px, border none, move absolute position 0 0
 for_window [app_id="firefox"] border none
 for_window [app_id="org.keepassxc.KeePassXC"] floating enable
 for_window [app_id="anki"] floating enable
