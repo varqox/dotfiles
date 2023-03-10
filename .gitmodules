@@ -7,3 +7,6 @@
 [submodule ".config/sway/sway-workspace-switcher"]
 	path = .config/sway/sway-workspace-switcher
 	url = https://github.com/varqox/sway-workspace-switcher
+[submodule ".config/sway/sway-focus-switcher"]
+	path = .config/sway/sway-focus-switcher
+	url = https://github.com/varqox/sway-focus-switcher

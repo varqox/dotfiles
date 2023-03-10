@@ -91,7 +91,6 @@ bindsym --no-repeat --locked Ctrl+Alt+s exec systemctl suspend
 bindsym Ctrl+Alt+Delete exec wlogout
 bindsym Ctrl+Alt+t exec xfce4-terminal
 bindsym Ctrl+Alt+f exec firefox-developer-edition
-bindsym Ctrl+Alt+h exec audacious -t
 bindsym Mod4+s exec subl --launch-or-new-window
 bindsym Mod4+k exec keepassxc
 # Kill focused window
@@ -143,7 +142,8 @@ bindsym Ctrl+Alt+Shift+Right exec echo "carry right" > $workspace_switcher_pipe
 bindsym Ctrl+Alt+Shift+n exec echo "carry to next layer" > $workspace_switcher_pipe
 bindsym Ctrl+Alt+Shift+c exec echo "carry to new layer" > $workspace_switcher_pipe
 
-#bindsym Ctrl+Alt+n focus output right
+bindsym Ctrl+Alt+h exec "$HOME/.config/sway/sway-focus-switcher/target/release/sway-focus-switcher" next
+bindsym Ctrl+Shift+Alt+h exec "$HOME/.config/sway/sway-focus-switcher/target/release/sway-focus-switcher" prev
 
 # Screenshots
 bindsym --no-repeat Print exec mkdir -p -m 700 /tmp/screenshots/ && grim - | tee "$(date '+/tmp/screenshots/%F %T.png')" | wl-copy
