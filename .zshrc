@@ -168,3 +168,5 @@ function transcode_avif_all {
 
 alias speedtest='speedtest --secure'
 alias connect='${HOME}/.connect-to-wifi.sh'
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

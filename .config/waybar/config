@@ -92,7 +92,7 @@
         "format-linked": " {ifname} (No IP)",
         "format-disconnected": "Disconnected",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "on-click-right": "xfce4-terminal -e nmtui",
+        "on-click-right": "foot -e nmtui",
     },
     "cpu": {
         "interval": 2,

@@ -68,9 +68,9 @@ paruS tlp bluez-utils # bluetooth control shortcut
 paruS swaylock # screen locker
 paruS swayidle # screen lock after idle period
 paruS upower # suspending as soon as ac is unconnected
-paruS xfce4-terminal # terminal
+paruS foot # terminal
 paruS kickoff # application launcher
-paruS clipmon # clipboard manager to preserve clipboard after the application quits
+# paruS clipmon # clipboard manager to preserve clipboard after the application quits
 # paruS firefox # web browser
 # paruS audacious # music player
 # paruS sublime-text # text editor
@@ -80,6 +80,7 @@ paruS network-manager-applet # network manager applet
 paruS blueman # bluetooth applet
 paruS dropbox
 paruS grim slurp wl-clipboard # making screenshots
+paruS hyprpicker # screen color picker
 paruS mako libnotify # notifications
 paruS xdg-desktop-portal-wlr # screen sharing
 # Compile all helper programs

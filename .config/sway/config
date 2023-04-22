@@ -89,7 +89,7 @@ bindsym --no-repeat Ctrl+Alt+l exec '$lock_screen'
 bindsym --no-repeat --locked Ctrl+Alt+s exec systemctl suspend
 
 bindsym Ctrl+Alt+Delete exec wlogout
-bindsym Ctrl+Alt+t exec xfce4-terminal
+bindsym Ctrl+Alt+t exec foot
 bindsym Ctrl+Alt+f exec firefox-developer-edition
 bindsym Mod4+s exec subl --launch-or-new-window
 bindsym Mod4+k exec keepassxc
@@ -98,22 +98,21 @@ bindsym Ctrl+Alt+k kill
 bindsym Ctrl+Shift+w kill
 # Launcher
 bindsym --no-repeat Ctrl+Alt+d exec kickoff
-#bindsym --no-repeat Ctrl+Alt+d exec xfce4-terminal -T launcher --command='bash -c "dmenu_path | fzf | xargs -r swaymsg exec --"'
 
-bindsym --no-repeat Ctrl+Alt+w exec xfce4-terminal --title=connect-to-wifi --command='sh -c $HOME/.connect-to-wifi.sh'
-for_window [app_id="^xfce4-terminal" title="^connect-to-wifi"] floating enable
+bindsym --no-repeat Ctrl+Alt+w exec foot --title=connect-to-wifi sh -c $HOME/.connect-to-wifi.sh
+for_window [app_id="^foot" title="^connect-to-wifi"] floating enable
 
-bindsym --no-repeat Ctrl+Alt+b exec xfce4-terminal --title=connect-bluetooth --command='sh -c $HOME/.connect-bluetooth.sh'
-for_window [app_id="^xfce4-terminal" title="^connect-bluetooth"] floating enable
+bindsym --no-repeat Ctrl+Alt+b exec foot --title=connect-bluetooth sh -c $HOME/.connect-bluetooth.sh
+for_window [app_id="^foot" title="^connect-bluetooth"] floating enable
 
-for_window [app_id="^xfce4-terminal" title="^launcher"] floating enable, border none, opacity 1
+for_window [app_id="^foot" title="^launcher"] floating enable, border none, opacity 1
 for_window [app_id="^zoom$"] floating enable
 for_window [app_id="^zoom$" title="^Zoom Meeting$"] floating disable
 
 floating_modifier Alt normal
 
 # Preserve clipboard (standard and primary) after the application quits
-exec 'until [ "$(systemctl --user is-active clipmon)" = "active" ]; do systemctl --user start clipmon; sleep 0.1; done'
+# exec 'until [ "$(systemctl --user is-active clipmon)" = "active" ]; do systemctl --user start clipmon; sleep 0.1; done'
 
 exec 'until bluetoothctl power on; do sleep 0.1; done'
 exec nm-applet --indicator
@@ -125,7 +124,7 @@ exec dropbox
 #exec pgrep -x solaar > /dev/null || solaar -w hide -b solaar
 
 # Arrange and navigate workspaces as layered 2D grids
-exec "$HOME/.config/sway/sway-workspace-switcher/target/release/sway-workspace-switcher"
+exec "RUST_LOG=trace $HOME/.config/sway/sway-workspace-switcher/target/release/sway-workspace-switcher 2>&1 > $HOME/.config/sway/sway-workspace-switcher/target/release/sway-workspace-switcher.log"
 set $workspace_switcher_pipe "$HOME/.config/sway/sway-workspace-switcher/target/release/sway-workspace-switcher.pipe"
 
 bindsym Ctrl+Alt+Up exec echo "go up" > $workspace_switcher_pipe
@@ -173,12 +172,6 @@ for_window [app_id="firefox" title="Firefox .*— Sharing Indicator"] floating e
 for_window [app_id="firefox"] border none
 for_window [app_id="org.keepassxc.KeePassXC"] floating enable
 for_window [app_id="anki"] floating enable
-
-#for_window [title=".*"] floating enable
-#for_window [app_id="sublime_text"] floating disable
-#for_window [app_id="sublime_merge"] floating disable
-#for_window [app_id="xfce4-terminal" title="Terminal"] floating disable
-#for_window [app_id="firefox"] floating disable
 
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4

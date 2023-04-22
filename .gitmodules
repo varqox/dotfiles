@@ -1,9 +1,6 @@
 [submodule ".config/sway/mediactl"]
 	path = .config/sway/mediactl
 	url = https://github.com/aaaaaaaalex/mediactl
-[submodule ".config/sway/rapidjson"]
-	path = .config/sway/rapidjson
-	url = https://github.com/Tencent/rapidjson
 [submodule ".config/sway/sway-workspace-switcher"]
 	path = .config/sway/sway-workspace-switcher
 	url = https://github.com/varqox/sway-workspace-switcher
