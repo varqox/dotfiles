@@ -176,3 +176,6 @@ function setup_github_remotes {
 	git remote set-url --push origin "git@github.com:varqox/$1.git"
 }
 
+function przepis {
+	fd '.md$' src/przepisy-kulinarne/ | grep -Pv '/README.md' | fzf --exit-0 | xargs bat
+}
