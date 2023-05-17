@@ -170,3 +170,9 @@ alias speedtest='speedtest --secure'
 alias connect='${HOME}/.connect-to-wifi.sh'
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+function setup_github_remotes {
+	git remote set-url origin "https://github.com/varqox/$1.git"
+	git remote set-url --push origin "git@github.com:varqox/$1.git"
+}
+
