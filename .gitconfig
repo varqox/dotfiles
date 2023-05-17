@@ -22,7 +22,7 @@
 	rbia = rebase -i --autostash
 	prba = pull --rebase --autostash
 	pra = pull --rebase --autostash
-	ls = log --stat
+	ls = log --compact-summary
 	spi = stash pop --index
 [user]
 	email = varqox@gmail.com
