@@ -45,6 +45,9 @@ sudo timedatectl set-ntp true
 paruS zsh oh-my-zsh-git
 [ "$SHELL" = "/usr/bin/zsh" ] || sudo chsh -s /usr/bin/zsh "${USER}"
 
+# Neovim
+paruS neovim
+
 # Network manager
 sudo systemctl enable --now NetworkManager
 

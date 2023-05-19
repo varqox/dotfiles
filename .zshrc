@@ -40,7 +40,8 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
 
 # For crontab -e
-export EDITOR=vim
+export EDITOR=nvim
+alias vim='nvim'
 
 alias l='ls -lAh'
 alias o='exo-open'
