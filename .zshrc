@@ -54,7 +54,7 @@ alias cargo='nice cargo'
 alias diff='git diff --no-index'
 alias dis='git diff --no-index --ignore-all-space'
 
-dt() {
+dtt() {
 	if [ -z "$1" ] || [[ "$1" =~ ^- ]]; then
 		meson test -C build "${@}"
 	else
@@ -62,6 +62,10 @@ dt() {
 		local tests=$(meson test -C build --list | fzf --filter "$1" | sed 's@ / @:@')
 		meson test -C build --list | (fzf --filter "$1" || echo 'No matching tests' >&2) | sed 's@ / @:@' | xargs --no-run-if-empty meson test -C build "${@:2}"
 	fi
+}
+
+dt() {
+	dtt "$1" --print-errorlogs "${@:2}"
 }
 
 alias obosim='cd ~/src/obosim/'
