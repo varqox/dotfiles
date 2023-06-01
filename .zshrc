@@ -58,8 +58,7 @@ dtt() {
 	if [ -z "$1" ] || [[ "$1" =~ ^- ]]; then
 		meson test -C build "${@}"
 	else
-		#meson test -C build $(meson test -C build --list | fzf --filter "$1" | sed 's@ / @:@') "${@:2}"
-		local tests=$(meson test -C build --list | fzf --filter "$1" | sed 's@ / @:@')
+		ninja -C build build.ninja --quiet && # rebuild if necessary and print errors
 		meson test -C build --list | (fzf --filter "$1" || echo 'No matching tests' >&2) | sed 's@ / @:@' | xargs --no-run-if-empty meson test -C build "${@:2}"
 	fi
 }
