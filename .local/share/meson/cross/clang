@@ -1,0 +1,8 @@
+[binaries]
+c = 'clang'
+c_ld = 'mold'
+cpp = 'clang++'
+cpp_args = '-fcolor-diagnostics'
+cpp_ld = 'mold'
+strip = 'strip'
+pkgconfig = '/usr/sbin/pkg-config'

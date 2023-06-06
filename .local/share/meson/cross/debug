@@ -1,0 +1,15 @@
+[binaries]
+strip = 'strip'
+pkgconfig = '/usr/sbin/pkg-config'
+
+[properties]
+project_configuration = [
+	'c_std=gnu11',
+	'cpp_std=gnu++17',
+	'warning_level=3',
+	'b_sanitize=address,undefined',
+	'b_lundef=false']
+
+[built-in options]
+c_args = '-DDEBUG'
+cpp_args = ['-DDEBUG', '-D_GLIBCXX_DEBUG']
