@@ -71,7 +71,7 @@ paruS tlp bluez-utils # bluetooth control shortcut
 paruS swaylock # screen locker
 paruS swayidle # screen lock after idle period
 paruS upower # suspending as soon as ac is unconnected
-paruS foot # terminal
+paruS alacritty # terminal
 paruS kickoff # application launcher
 # paruS clipmon # clipboard manager to preserve clipboard after the application quits
 # paruS firefox # web browser
