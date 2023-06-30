@@ -1,9 +1,15 @@
-[submodule ".config/sway/mediactl"]
-	path = .config/sway/mediactl
+[submodule "mediactl"]
+	path = sway/mediactl
 	url = https://github.com/aaaaaaaalex/mediactl
-[submodule ".config/sway/sway-workspace-switcher"]
-	path = .config/sway/sway-workspace-switcher
+[submodule "sway-workspace-switcher"]
+	path = sway/sway-workspace-switcher
 	url = https://github.com/varqox/sway-workspace-switcher
-[submodule ".config/sway/sway-focus-switcher"]
-	path = .config/sway/sway-focus-switcher
+[submodule "sway-focus-switcher"]
+	path = sway/sway-focus-switcher
 	url = https://github.com/varqox/sway-focus-switcher
+[submodule "mpv/scripts/autosubsync"]
+	path = mpv/scripts/autosubsync
+	url = https://github.com/joaquintorres/autosubsync-mpv
+[submodule "mpv/scripts/autosub"]
+	path = mpv/scripts/autosub
+	url = https://github.com/davidde/mpv-autosub

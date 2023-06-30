@@ -1,0 +1,3 @@
+if [ "$(readlink /proc/self/fd/0)" = "/dev/tty1" ]; then
+	[ -x "${XDG_CONFIG_HOME:-$HOME/.config}/sway/run-sway.sh" ] && exec "${XDG_CONFIG_HOME:-$HOME/.config}/sway/run-sway.sh"
+fi

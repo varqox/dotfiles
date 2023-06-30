@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+source "$(dirname -- "$0")/common.sh"
+
+paruS make
+exec make --jobs=1 --quiet
