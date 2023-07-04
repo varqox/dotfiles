@@ -32,12 +32,9 @@ all: install-fd
 all: install-man-pages
 all: install-dropbox
 all: install-gcc
-all: install-gdb
-all: install-ninja
 all: install-clang
+all: install-gdb
 all: install-mold
-all: install-pkgconf # for pkg-config in meson cross files
-all: install-binutils # for strip in meson cross files
 
 .PHONY: FORCE
 FORCE:
@@ -118,8 +115,8 @@ sublime-text: FORCE install-sublime-text
 sublime-merge: FORCE install-sublime-merge
 	sublime-merge/configure.sh
 
-meson: FORCE install-meson
-	meson/configure.sh
+meson: FORCE
+	meson/install_and_configure.sh
 
 firefox: FORCE
 	firefox/install.sh
