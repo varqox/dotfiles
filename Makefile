@@ -10,6 +10,7 @@ all: locales
 all: networkmanager
 all: ssd
 all: ntp
+all: earlyoom
 all: zsh
 all: scripts
 all: git
@@ -37,7 +38,6 @@ all: install-mold
 all: install-pkgconf # for pkg-config in meson cross files
 all: install-binutils # for strip in meson cross files
 # all: tlp # TODO
-# all: earlyoom # TODO
 
 .PHONY: FORCE
 FORCE:
@@ -67,6 +67,9 @@ ssd: FORCE
 
 ntp: FORCE
 	ntp/enable.sh
+
+earlyoom: FORCE
+	earlyoom/install_and_configure.sh
 
 zsh: FORCE install-zsh
 	zsh/configure.sh
