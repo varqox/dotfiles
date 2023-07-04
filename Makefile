@@ -18,6 +18,7 @@ all: systemd
 all: sway
 all: meson
 all: firefox
+all: audacious
 all: age
 all: mpv
 all: install-procps-ng # pkill
@@ -109,6 +110,9 @@ meson: FORCE install-meson
 firefox: FORCE
 	firefox/install.sh
 	firefox/configure.sh
+
+audacious: FORCE install-audacious
+	audacious/configure.sh
 
 age: FORCE
 	age/install_and_configure.sh
