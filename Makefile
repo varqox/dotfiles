@@ -16,6 +16,7 @@ all: git
 all: pipewire
 all: systemd
 all: sway
+all: sublime-text
 all: meson
 all: firefox
 all: audacious
@@ -103,6 +104,9 @@ kickoff: FORCE
 
 mako: FORCE install-mako
 	mako/configure.sh
+
+sublime-text: FORCE install-sublime-text
+	sublime-text/configure.sh
 
 meson: FORCE install-meson
 	meson/configure.sh

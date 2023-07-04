@@ -1,0 +1,55 @@
+{
+	"ignored_packages":
+	[
+		"PlainTasks",
+	],
+	"show_encoding": true,
+	"theme": "Default Dark.sublime-theme",
+	"color_scheme": "Mariana.sublime-color-scheme",
+	"font_face": "Ubuntu Mono",
+	"font_size": 11,
+	"rulers": [100, 120],
+	"ruler_style": "stippled",
+	"spell_check": true,
+	"word_wrap": true,
+	"highlight_line": true,
+	"caret_style": "phase",
+	"match_brackets_angle": true,
+	"line_padding_top": 0,
+	"line_padding_bottom": 0,
+	"scroll_context_lines": 5,
+	"scroll_speed": 1,
+	"draw_white_space": ["selection", "trailing"],
+	"trim_trailing_white_space_on_save": "not_on_caret",
+	"ensure_newline_at_eof_on_save": true,
+	"auto_find_in_selection": true,
+	"file_tab_style": "rounded",
+	"highlight_modified_tabs": true,
+	"bold_folder_labels": true,
+	"hardware_acceleration": "opengl",
+	"show_rel_path": true,
+	"show_project_first": true,
+	"preview_on_click": "only_left",
+	"reveal_menu": false,
+	"added_words":
+	[
+		"themself",
+		"bugous",
+		"sanitization",
+		"runtimes",
+		"executables",
+	],
+	"dark_color_scheme": "Breakers.sublime-color-scheme",
+	"light_color_scheme": "Breakers.sublime-color-scheme",
+	"ignored_words":
+	[
+		"tracee"
+	],
+	"open_tabs_after_current": false,
+	"goto_anything_exclude_gitignore": true,
+	"dictionary": [
+		"Dictionaries/en_US.dic",
+		"Dictionaries/en_GB.dic",
+		"Dictionaries/pl_PL.dic",
+	],
+}

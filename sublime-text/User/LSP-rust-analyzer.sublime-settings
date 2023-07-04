@@ -1,0 +1,22 @@
+// Settings in here override those in "LSP-rust-analyzer/LSP-rust-analyzer.sublime-settings"
+
+{
+	"settings": {
+		"rust-analyzer.hover.actions.references.enable": true,
+		"rust-analyzer.inlayHints.bindingModeHints.enable": true,
+		"rust-analyzer.inlayHints.lifetimeElisionHints.enable": "always",
+		"rust-analyzer.lens.references.adt.enable": true,
+		"rust-analyzer.lens.references.enumVariant.enable": true,
+		"rust-analyzer.lens.references.method.enable": true,
+		"rust-analyzer.lens.references.trait.enable": true,
+		"rust-analyzer.restartServerOnConfigChange": true,
+		"rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
+		"rust-analyzer.semanticHighlighting.punctuation.enable": true,
+		"rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
+		"rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
+		"rust-analyzer.typing.autoClosingAngleBrackets.enable": true,
+		"rust-analyzer.workspace.symbol.search.limit": 1024,
+	},
+
+	"command": ["rust-analyzer"],
+}

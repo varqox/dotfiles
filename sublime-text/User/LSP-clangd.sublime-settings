@@ -1,0 +1,14 @@
+// Settings in here override those in "LSP-clangd/LSP-clangd.sublime-settings"
+{
+	"initializationOptions": {
+		"custom_command": ["clangd", "--include-cleaner-stdlib"],
+		"clangdFileStatus": true,
+		"clangd.background-index": true,
+		"clangd.clang-tidy": true,
+		"clangd.function-arg-placeholders": true,
+		"clangd.header-insertion": "iwyu",
+		"clangd.header-insertion-decorators": true,
+		"clangd.malloc-trim": true,
+		"clangd.pch-storage": "disk",
+	}
+}

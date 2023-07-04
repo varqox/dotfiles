@@ -1,0 +1,79 @@
+[
+	{ "keys": ["ctrl+k", "ctrl+m"], "command": "set_mark" },
+
+	{ "keys": ["shift+escape"], "command": "cancel"},
+	{ "keys": ["shift+escape"], "command": "single_selection", "context":
+		[
+			{ "key": "num_selections", "operator": "not_equal", "operand": 1 }
+		]
+	},
+	{ "keys": ["shift+escape"], "command": "clear_fields", "context":
+		[
+			{ "key": "has_next_field", "operator": "equal", "operand": true }
+		]
+	},
+	{ "keys": ["shift+escape"], "command": "clear_fields", "context":
+		[
+			{ "key": "has_prev_field", "operator": "equal", "operand": true }
+		]
+	},
+	{ "keys": ["shift+escape"], "command": "hide_panel", "args": {"cancel": true},
+		"context":
+		[
+			{ "key": "panel_visible", "operator": "equal", "operand": true }
+		]
+	},
+	{ "keys": ["shift+escape"], "command": "hide_overlay", "context":
+		[
+			{ "key": "overlay_visible", "operator": "equal", "operand": true },
+			{ "key": "panel_has_focus", "operator": "equal", "operand": false }
+		]
+	},
+	{ "keys": ["shift+escape"], "command": "hide_auto_complete", "context":
+		[
+			{ "key": "auto_complete_visible", "operator": "equal", "operand": true }
+		]
+	},
+	{ "keys": ["shift+escape"], "command": "hide_popup", "context":
+		[
+			{ "key": "popup_visible", "operator": "equal", "operand": true }
+		]
+	},
+	// { "keys": ["escape", "o"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Add Line.sublime-macro"}, "context":
+	// 	[
+	// 		{ "key": "overlay_has_focus", "operator": "equal", "operand": false }
+	// 	]
+	// },
+	// { "keys": ["escape", "O"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Add Line Before.sublime-macro"} },
+	// { "keys": ["escape", "A"], "command": "move_to", "args": {"to": "eol", "extend": false} },
+	// { "keys": ["escape", "I"], "command": "move_to", "args": {"to": "bol", "extend": false} },
+
+	{ "keys": ["ctrl+shift+o"], "command": "prompt_open_folder" },
+	{ "keys": ["ctrl+("], "command": "focus_group", "args": { "group": 0 } },
+	{ "keys": ["ctrl+)"], "command": "focus_group", "args": { "group": 1 } },
+
+	// { "keys": ["alt"], "command": "" }, // not to interfere with alt+pageup and alt+pagedown macro on my keyboard
+	{ "keys": ["alt+pageup"], "command": "" }, // not to interfere with alt+pageup and alt+pagedown macro on my keyboard
+	{ "keys": ["alt+pagedown"], "command": "" }, // not to interfere with alt+pageup and alt+pagedown macro on my keyboard
+
+	{ "keys": ["alt+up"], "command": "move", "args": {"by": "pages", "forward": false} },
+	{ "keys": ["alt+down"], "command": "move", "args": {"by": "pages", "forward": true} },
+
+
+    {"keys": ["alt+h"], "command": "lsp_hover"},
+    {"keys": ["alt+d"], "command": "lsp_symbol_declaration"},
+    {"keys": ["alt+i"], "command": "lsp_symbol_definition"},
+    {"keys": ["alt+a"], "command": "lsp_code_actions"},
+    {"keys": ["alt+r"], "command": "lsp_symbol_rename"},
+    {"keys": ["alt+s"], "command": "lsp_symbol_references"},
+    // {"keys": ["alt+t"], "command": "lsp_symbol_type_definition"},
+
+    {"keys": ["alt+shift+d"], "command": "lsp_symbol_declaration", "args": { "side_by_side": true }},
+    {"keys": ["alt+shift+h"], "command": "lsp_symbol_declaration", "args": { "side_by_side": true }},
+    {"keys": ["alt+shift+i"], "command": "lsp_symbol_definition", "args": { "side_by_side": true }},
+    // {"keys": ["alt+shift+t"], "command": "lsp_symbol_type_definition", "args": { "side_by_side": true }},
+
+    { "keys": ["alt+d"], "command": "plain_tasks_complete","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+
+	{ "keys": ["ctrl+t"], "command": "" }, // disable shortcut
+]

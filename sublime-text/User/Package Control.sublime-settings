@@ -1,0 +1,29 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Clang Format",
+		"CUDA C++",
+		"Delete Current File",
+		"i3 wm",
+		"INI",
+		"LaTeX Snippets",
+		"LSP",
+		"LSP-clangd",
+		"LSP-rust-analyzer",
+		"MarkdownPreview",
+		"Monokai++",
+		"Ninja",
+		"Package Control",
+		"PackageResourceViewer",
+		"PlainTasks",
+		"Promela_Spin",
+		"SublimeLinter",
+		"SublimeLinter-annotations",
+		"TOML",
+	],
+	"debug": false,
+}
