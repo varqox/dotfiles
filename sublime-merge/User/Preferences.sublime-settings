@@ -1,0 +1,21 @@
+{
+	"word_wrap": "auto",
+	"tab_size": 4,
+	"side_bar_layout": "tabs",
+	"translate_tabs_to_spaces": false,
+	"diff_style": "side-by-side",
+	"hide_menu": false,
+	"hardware_acceleration": "opengl",
+	"render_commit_dialog_message_at_top": true,
+	"time_format": "24h",
+	"trim_trailing_white_space_on_save": false,
+	"added_words":
+	[
+		"backend",
+		"unstaged",
+	],
+	"image_diff_style": "onion-skin",
+	"auto_diff_style_min_chars": 100,
+	"font_face": "Ubuntu Mono",
+	"font_size": 11,
+}

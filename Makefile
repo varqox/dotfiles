@@ -17,6 +17,7 @@ all: pipewire
 all: systemd
 all: sway
 all: sublime-text
+all: sublime-merge
 all: meson
 all: firefox
 all: audacious
@@ -107,6 +108,9 @@ mako: FORCE install-mako
 
 sublime-text: FORCE install-sublime-text
 	sublime-text/configure.sh
+
+sublime-merge: FORCE install-sublime-merge
+	sublime-merge/configure.sh
 
 meson: FORCE install-meson
 	meson/configure.sh

@@ -1,0 +1,5 @@
+[
+    { "keys": ["ctrl+s"], "command": "set_preference", "args": {"setting": "diff_style", "value": "side-by-side"} },
+    { "keys": ["ctrl+i"], "command": "set_preference", "args": {"setting": "diff_style", "value": "inline"} },
+    { "keys": ["ctrl+d"], "command": "set_preference", "args": {"setting": "diff_style", "value": "auto"} },
+]
