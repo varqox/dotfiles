@@ -110,7 +110,10 @@ firefox: FORCE
 	firefox/install.sh
 	firefox/configure.sh
 
-mpv: FORCE
+age: FORCE
+	age/install_and_configure.sh
+
+mpv: FORCE age
 	mpv/install.sh
 	mpv/configure.sh
 	mpv/install-plugin-auto-save-state.sh
