@@ -103,12 +103,19 @@ function backup() (
 			function ls_all_files() {
 				ls --zero --almost-all
 			}
+			function filter_existing_files() {
+				while read -d '' x; do
+					if [ -e "${x}" ]; then
+						printf '%s\0' "${x}"
+					fi
+				done
+			}
 
 			if [ -d '.git/' ]; then
 				list_git_files
 			else
 				ls_all_files
-			fi | xargs --null tar --create --zst --file "${out_file}"
+			fi | filter_existing_files | xargs --null tar --create --zst --file "${out_file}"
 		fi
 		du -sh "${out_file}"
 	)
