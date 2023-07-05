@@ -3,7 +3,7 @@ set -e
 source "$(dirname -- "$0")/../common.sh"
 
 print_step "firefox: install"
-paruS firefox-developer-edition
+paruS firefox
 paruS ttf-hack
 paruS intel-media-driver # Video hardware acceleration under Wayland for Intel integrated GPUs
 paruS hunspell-pl # polish dictionary

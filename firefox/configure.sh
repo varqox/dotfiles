@@ -2,7 +2,7 @@
 set -e
 source "$(dirname -- "$0")/../common.sh"
 
-ff=firefox-developer-edition
+ff=firefox
 
 print_step "firefox: run ${ff} briefly to create the default profile"
 "${ff}" --headless --screenshot /dev/null
