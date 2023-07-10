@@ -10,6 +10,12 @@ input type:keyboard {
     repeat_delay 250
     repeat_rate 40
 }
+# Change xkb_variant between "dvp" and ""
+bindsym --no-repeat --locked Ctrl+Shift+Alt+Escape exec grep --quiet '^[[:blank:]]*xkb_variant "dvp"' $HOME/.config/sway/config && \
+    sed 's/^\([[:blank:]]*xkb_variant\) "dvp"/\1 ""/' $HOME/.config/sway/config -i || \
+    sed 's/^\([[:blank:]]*xkb_variant\) ""/\1 "dvp"/' $HOME/.config/sway/config -i && \
+    false || swaymsg reload
+
 input type:pointer {
     scroll_factor 2
 }
