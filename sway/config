@@ -177,7 +177,6 @@ for_window [app_id="firefox"] border none
 for_window [app_id="org.keepassxc.KeePassXC"] floating enable
 for_window [app_id="anki"] floating enable
 for_window [app_id="ssh-askpass-sublime"] floating enable
-for_window [app_id="^sublime_text$" title="^$"] kill
 
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
