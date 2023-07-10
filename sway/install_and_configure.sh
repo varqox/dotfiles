@@ -38,10 +38,10 @@ cp mediactl/mediactl "${XDG_CONFIG_HOME:-$HOME/.config}/sway/mediactl"
 tmp_paruS rust
 print_step "sway: build and copy sway-workspace-switcher"
 (cd sway-workspace-switcher && cargo build --release)
-cp sway-workspace-switcher/target/release/sway-workspace-switcher "${XDG_CONFIG_HOME:-$HOME/.config}/sway/sway-workspace-switcher"
+cp --remove-destination sway-workspace-switcher/target/release/sway-workspace-switcher "${XDG_CONFIG_HOME:-$HOME/.config}/sway/sway-workspace-switcher"
 
 print_step "sway: build and copy sway-focus-switcher"
 (cd sway-focus-switcher && cargo build --release)
-cp sway-focus-switcher/target/release/sway-focus-switcher "${XDG_CONFIG_HOME:-$HOME/.config}/sway/sway-focus-switcher"
+cp --remove-destination sway-focus-switcher/target/release/sway-focus-switcher "${XDG_CONFIG_HOME:-$HOME/.config}/sway/sway-focus-switcher"
 
 swaymsg reload
