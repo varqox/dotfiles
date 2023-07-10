@@ -4,17 +4,17 @@
 exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 input type:keyboard {
-	xkb_layout "pl"
-	xkb_variant "dvp"
-	xkb_options "caps:escape"
-	repeat_delay 250
-	repeat_rate 40
+    xkb_layout "pl"
+    xkb_variant "dvp"
+    xkb_options "caps:escape"
+    repeat_delay 250
+    repeat_rate 40
 }
 input type:pointer {
-	scroll_factor 2
+    scroll_factor 2
 }
 input type:touchpad {
-	tap enabled
+    tap enabled
 }
 
 set $laptop eDP-1
@@ -37,7 +37,7 @@ font Hack 10
 font Ubuntu Mono 12
 
 bar {
-	# swaybar_command is run directly without shell, so we cannot use $HOME etc.
+    # swaybar_command is run directly without shell, so we cannot use $HOME etc.
     swaybar_command .config/waybar/run-waybar.sh
 }
 
