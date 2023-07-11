@@ -12,6 +12,8 @@ sudo systemctl start pcscd.socket
 opensubtitles_credentials="--          { '--opensubtitles', 'USERNAME', 'PASSWORD' },"
 if [ ! -z "$(age-plugin-yubikey --list)" ] && [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/age-yubikey-identity.txt" ]; then
 	opensubtitles_credentials=$(age --decrypt --identity "${XDG_CONFIG_HOME:-$HOME/.config}/age-yubikey-identity.txt" opensubtitles_credentials.age)
+	# To encrypt use:
+	# age --encrypt --identity ~/.config/age-yubikey-identity.txt -o opensubtitles_credentials.age opensubtitles_credentials
 else
 	warn "Decrypting of opensubtitles_credentials.age skipped due to a missing YubiKey and age setup"
 fi
