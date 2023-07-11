@@ -25,6 +25,7 @@ all: firefox
 all: audacious
 all: age
 all: mpv
+all: sublimehq
 all: install-procps-ng # pkill
 all: install-htop
 all: install-ripgrep # rg
@@ -134,3 +135,6 @@ mpv: FORCE age
 	mpv/install-plugin-auto-save-state.sh
 	mpv/install-plugin-autosub.sh
 	mpv/install-plugin-autosubsync.sh
+
+sublimehq: FORCE sublime-text sublime-merge age
+	sublimehq/install_and_run_pacman_hook_patching_sublime_executables.sh

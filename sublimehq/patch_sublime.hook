@@ -1,0 +1,14 @@
+# Disable mildly annoying popup in Sublime Text and Sublime Merge
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = sublime-text
+Target = sublime-merge
+
+[Action]
+Description = Disable mildly annoying popup in Sublime Text and Sublime Merge
+Exec = /bin/bash -c 'while read x; do x="sublime_${x#sublime-}"; /usr/bin/python /etc/pacman.d/hooks/patch_sublime.py "/opt/${x}/${x}"; done'
+When = PostTransaction
+Depends = python-pwntools
+NeedsTargets
