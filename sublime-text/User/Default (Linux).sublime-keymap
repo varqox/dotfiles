@@ -76,4 +76,9 @@
     { "keys": ["alt+d"], "command": "plain_tasks_complete","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
 
 	{ "keys": ["ctrl+t"], "command": "" }, // disable shortcut
+	// Bookmarks
+	{ "keys": ["ctrl+k", "ctrl+t"], "command": "toggle_bookmark" },
+	{ "keys": ["ctrl+k", "ctrl+n"], "command": "next_bookmark" },
+	{ "keys": ["ctrl+k", "ctrl+h"], "command": "prev_bookmark" },
+	{ "keys": ["ctrl+k", "ctrl+shift+n"], "command": "prev_bookmark" },
 ]
