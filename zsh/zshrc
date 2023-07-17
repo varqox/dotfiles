@@ -64,7 +64,11 @@ dtt() {
 }
 
 dt() {
-	dtt "$1" --print-errorlogs "${@:2}"
+	if [ -z "$1" ]; then
+		dtt --print-errorlogs
+	else
+		dtt "$1" --print-errorlogs "${@:2}"
+	fi
 }
 
 alias obosim='cd ~/src/obosim/'
