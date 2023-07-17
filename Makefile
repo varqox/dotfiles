@@ -37,6 +37,11 @@ all: install-clang
 all: install-gdb
 all: install-mold
 
+# Make make silent by default
+ifndef VERBOSE
+.SILENT:
+endif
+
 .PHONY: FORCE
 FORCE:
 
