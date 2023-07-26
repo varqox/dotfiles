@@ -43,6 +43,7 @@ for prefs_js in ${HOME}/.mozilla/firefox/*/prefs.js; do
 	# install_mozilla_org_extension_to 'https://addons.mozilla.org/en-US/firefox/addon/facebook-container/' "${ff_dir}"
 	# install_mozilla_org_extension_to 'https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/' "${ff_dir}"
 	# install_mozilla_org_extension_to 'https://addons.mozilla.org/pl/firefox/addon/mutelinks/' "${ff_dir}"
+	# install_mozilla_org_extension_to 'https://addons.mozilla.org/en-US/firefox/addon/simple-translate/' "${ff_dir}"
 
 	curl 'https://www.fbpurity.com/fbpurity.THRTYX-WX.xpi' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0' --output "${tmp_dir}/x.xpi"
 	copy_xpi_to "${tmp_dir}/x.xpi" "${ff_dir}"
