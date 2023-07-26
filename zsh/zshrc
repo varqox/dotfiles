@@ -71,6 +71,10 @@ dt() {
 	fi
 }
 
+dts() {
+	dt "$1" -v --wrapper='strace -ffyyY -s 1000'
+}
+
 alias obosim='cd ~/src/obosim/'
 alias simlib='cd subprojects/simlib/'
 
