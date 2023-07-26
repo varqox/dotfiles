@@ -15,6 +15,7 @@
 	cpc = cherry-pick --continue
 	ca = commit --amend
 	cf = commit --fixup
+	caf = commit --amend --fixup
 	rb = rebase
 	rbc = rebase --continue
 	rba = rebase --abort
