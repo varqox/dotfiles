@@ -59,8 +59,8 @@ bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume --limit 1 @DEFAULT_SINK
 bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%-
 bindsym Ctrl+Alt+plus exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_5%+
 bindsym Ctrl+Alt+minus exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_5%-
-bindsym Ctrl+Alt+Shift+plus exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%+
-bindsym Ctrl+Alt+Shift+minus exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%-
+bindsym Ctrl+Alt+Shift+plus exec wpctl set-volume --limit 2 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%+
+bindsym Ctrl+Alt+Shift+minus exec wpctl set-volume --limit 2 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%-
 bindsym --no-repeat --locked Ctrl+Alt+asterisk exec wpctl set-mute @DEFAULT_SINK@ toggle
 bindsym --no-repeat --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
 bindsym --no-repeat XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
