@@ -192,7 +192,7 @@ function setup_github_remotes {
 }
 
 function przepis {
-	fd '.md$' src/przepisy-kulinarne/ | grep -Pv '/README.md' | fzf --exit-0 | xargs bat
+	fd '\.(md|html)$' "$HOME/src/przepisy-kulinarne/" | grep -Pv '/README.md' | fzf --exit-0 --print0 | read -r -d '' x && if [[ "$x" == *.html ]]; then firefox --new-window "$x"; else bat "$x"; fi
 }
 
 function diff_installed_file() (
