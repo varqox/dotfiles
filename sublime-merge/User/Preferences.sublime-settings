@@ -13,6 +13,8 @@
 	[
 		"backend",
 		"unstaged",
+		"deserialization",
+		"deserialize",
 	],
 	"image_diff_style": "onion-skin",
 	"auto_diff_style_min_chars": 100,
