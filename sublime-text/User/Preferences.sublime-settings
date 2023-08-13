@@ -40,6 +40,7 @@
 		"executables",
 		"cgroup",
 		"cgroups",
+		"namespace",
 	],
 	"dark_color_scheme": "Breakers.sublime-color-scheme",
 	"light_color_scheme": "Breakers.sublime-color-scheme",
