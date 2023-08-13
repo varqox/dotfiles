@@ -94,7 +94,7 @@ bindsym --no-repeat Ctrl+Alt+l exec '$lock_screen'
 bindsym --no-repeat --locked Ctrl+Alt+s exec systemctl suspend
 
 bindsym Ctrl+Alt+Delete exec wlogout
-bindsym Ctrl+Alt+t exec alacritty
+bindsym Ctrl+Alt+t exec alacritty msg create-window || alacritty
 bindsym Ctrl+Alt+f exec firefox
 bindsym Mod4+s exec subl --launch-or-new-window
 bindsym Mod4+k exec keepassxc
@@ -104,10 +104,10 @@ bindsym Ctrl+Shift+w kill
 # Launcher
 bindsym --no-repeat Ctrl+Alt+d exec kickoff
 
-bindsym --no-repeat Ctrl+Alt+w exec alacritty --title=connect-to-wifi -e sh -c $HOME/.local/bin/connect-to-wifi.sh
+bindsym --no-repeat Ctrl+Alt+w exec alacritty msg create-window --title=connect-to-wifi -e sh -c $HOME/.local/bin/connect-to-wifi.sh || alacritty --title=connect-to-wifi -e sh -c $HOME/.local/bin/connect-to-wifi.sh
 for_window [app_id="^Alacritty" title="^connect-to-wifi"] floating enable
 
-bindsym --no-repeat Ctrl+Alt+b exec alacritty --title=connect-bluetooth -e sh -c $HOME/.local/bin/connect-bluetooth.sh
+bindsym --no-repeat Ctrl+Alt+b exec alacritty msg create-window --title=connect-bluetooth -e sh -c $HOME/.local/bin/connect-bluetooth.sh || alacritty --title=connect-bluetooth -e sh -c $HOME/.local/bin/connect-bluetooth.sh
 for_window [app_id="^Alacritty" title="^connect-bluetooth"] floating enable
 
 for_window [app_id="^zoom$"] floating enable
