@@ -77,6 +77,13 @@ bindsym --no-repeat XF86Bluetooth exec "$HOME/.config/sway/toggle_bluetooth.sh"
 bindsym --no-repeat F1 exec waybar-mpris --send toggle
 bindsym --no-repeat XF86Favorites exec waybar-mpris --send toggle
 
+# to PageUp mapping
+bindsym --no-repeat Alt+Shift+Up exec 'touch "$HOME/.config/sway/page_up_in_progress"; inotifywait -e delete_self -qq "$HOME/.config/sway/page_up_in_progress" | wtype -P Prior -'
+bindsym --release Alt+Shift+Up exec rm "$HOME/.config/sway/page_up_in_progress"
+# to PageDown mapping
+bindsym --no-repeat Alt+Shift+Down exec 'touch "$HOME/.config/sway/page_down_in_progress"; inotifywait -e delete_self -qq "$HOME/.config/sway/page_down_in_progress" | wtype -P Next -'
+bindsym --release Alt+Shift+Down exec rm "$HOME/.config/sway/page_down_in_progress"
+
 set $lock_screen "$HOME/.config/sway/lock_screen.sh"
 set $lock_screen_if_no_external_display "$HOME/.config/sway/lock_screen_if_no_external_display.sh"
 
