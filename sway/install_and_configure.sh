@@ -11,8 +11,7 @@ paruS wdisplays # for screen switch shortcuts
 paruS wlogout # for logging out shortcut
 paruS tlp # bluetooth command
 paruS bluez-utils # for bluetooth control shortcuts (bluetoothctl)
-paruS wtype # for remapping sequence of keys into other sequences
-paruS inotify-tools # for remapping sequence of keys into other sequences
+paruS wtype inotify-tools # for remapping sequence of keys into other sequences
 paruS swayidle # screen lock after idle period
 paruS network-manager-applet # network manager applet
 paruS blueman # bluetooth applet
