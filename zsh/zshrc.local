@@ -63,6 +63,7 @@ git-rename() {
 function backup() (
 	function do_backup() (
 		set -e
+		test -e "$1" || { echo "path does not exist: $1" >&2; return 1; }
 		# chdir to the parent folder of the specified path
 		cd -P -- "$(dirname -- "$1")"
 		# Check if specified path is a file or a directory
@@ -101,13 +102,15 @@ function backup() (
 		du -sh "${out_file}"
 	)
 
+	rc=0
 	if [ -z "$1" ]; then
-		do_backup .
+		do_backup . || rc=1
 	else
 		for x in "$@"; do
-			do_backup "$x"
+			do_backup "$x" || rc=1
 		done
 	fi
+	return $rc
 )
 
 alias bp="backup"
