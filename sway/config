@@ -101,7 +101,7 @@ bindsym --no-repeat Ctrl+Alt+l exec '$lock_screen'
 bindsym --no-repeat --locked Ctrl+Alt+s exec systemctl suspend
 
 bindsym Ctrl+Alt+Delete exec wlogout
-bindsym Ctrl+Alt+t exec alacritty msg create-window || alacritty
+bindsym Ctrl+Alt+t exec alacritty msg create-window --working-directory "$HOME" || alacritty --working-directory "$HOME"
 bindsym Ctrl+Alt+f exec firefox
 bindsym Mod4+s exec subl --launch-or-new-window
 bindsym Mod4+k exec keepassxc
