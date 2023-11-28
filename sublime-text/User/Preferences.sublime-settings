@@ -41,12 +41,15 @@
 		"cgroup",
 		"cgroups",
 		"namespace",
+		"deserialized",
 	],
 	"dark_color_scheme": "Breakers.sublime-color-scheme",
 	"light_color_scheme": "Breakers.sublime-color-scheme",
 	"ignored_words":
 	[
-		"tracee"
+		"namespaces",
+		"syscall",
+		"tracee",
 	],
 	"open_tabs_after_current": false,
 	"goto_anything_exclude_gitignore": true,
