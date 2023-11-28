@@ -1,6 +1,6 @@
 [binaries]
 strip = 'strip'
-pkgconfig = '/usr/sbin/pkg-config'
+pkg-config = '/usr/sbin/pkg-config'
 
 [properties]
 project_configuration = [
