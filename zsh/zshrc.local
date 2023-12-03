@@ -70,7 +70,12 @@ function backup() (
 		local fname=$(basename -- "$1")
 		if [ -f "${fname}" ]; then
 			local out_file="$HOME/backup/$(echo "${PWD#$HOME/}/${fname}" | sed 's@/@,@g').tar.zst"
-			tar --create --zst --file "${out_file}" "${fname}"
+			(
+				function rm_tmp() { rm -rf "${out_file}.tmp" }
+				trap rm_tmp INT TERM;
+				tar --create --zst --file "${out_file}.tmp" "${fname}" &&
+				mv "${out_file}.tmp" "${out_file}"
+			)
 		else
 			# chdir to the directory
 			cd -P -- "${fname}"
@@ -97,7 +102,13 @@ function backup() (
 				list_git_files
 			else
 				ls_all_files
-			fi | filter_existing_files | xargs --null tar --create --zst --file "${out_file}"
+			fi | filter_existing_files |
+				(
+					function rm_tmp() { rm -rf "${out_file}.tmp" }
+					trap rm_tmp INT TERM;
+					xargs --null tar --create --zst --file "${out_file}.tmp" &&
+					mv "${out_file}.tmp" "${out_file}"
+				)
 		fi
 		du -sh "${out_file}"
 	)
