@@ -1,0 +1,149 @@
+html {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 400;
+}
+
+body {
+    text-rendering: optimizeLegibility;
+    display: flex;
+    margin: 0 2em;
+}
+
+nav {
+    flex: 0 0 13em;
+    padding: 0;
+}
+
+body.index nav {
+  text-align: center;
+  flex: 1 0 0;
+  margin: 0 10%;
+}
+body.index nav h1 {
+  font-size: 3em;
+}
+body.index nav .lang, body.index nav .rss {
+  height: 2em;
+  margin-bottom: 1em;
+}
+body.index nav li {
+  display: inline-block;
+  padding: .5em;
+  margin: .5em;
+}
+body.index nav ul.articles li {
+  background: #e9ecff;
+  border: 3px outset #f2f4ff;
+  border-radius: .5em;
+}
+
+article {
+  padding: 0 1em 8em;
+  min-width: 25em;
+  max-width: 50em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    margin-bottom: .5em;
+}
+
+nav time {
+    display: block;
+    color: #777;
+}
+
+.lang {
+  height: 1.5em;
+  vertical-align: baseline;
+  background: white;
+  opacity: .6;
+  cursor: pointer;
+  transition: opacity .5s;
+  border-radius: .2em;
+}
+
+.rss {
+  margin-left: .5em;
+  height: 1.5em;
+}
+
+.lang:hover {
+    opacity: 1;
+}
+
+::selection {
+    background: red;
+    color: white;
+}
+
+a { color: rgb(44, 65, 227); }
+a:visited { color: rgb(126, 60, 232); }
+a:hover { color: rgb(136, 154, 255); }
+
+p {
+    margin: 1em 0;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+blockquote {
+  margin: 1.2em 1em;
+  padding-left: 1em;
+  border-left: 1em solid #ccc;
+}
+
+hr {
+  border: 0;
+  border-top: 1px dashed #d2d2d2;
+  height: 0;
+  margin: 1.6em 0;
+}
+
+.good {
+  color: #7dd845;
+}
+
+.bad {
+  color: #d84745;
+}
+
+input, textarea {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  border: 2px solid #ccc;
+}
+
+em {
+    font-weight: 400;
+}
+
+strong {
+    font-weight: 500;
+}
+
+pre {
+  font-family: "Fira Mono";
+  overflow: auto;
+  background: #eee;
+  border: 1px dashed #ccc;
+  margin: 1.8em 0;
+  padding: 1em;
+}
+
+p code, ul code, dl code {
+  font-family: "Fira Mono";
+  background: #eee;
+  padding: 0 0.2em 0em;
+  border: 1px dashed #ccc;
+  position: relative;
+  top: -0.1em;
+  white-space: nowrap;
+}
