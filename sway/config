@@ -154,6 +154,7 @@ bindsym Ctrl+Alt+Shift+c exec echo "carry to new layer" > $workspace_switcher_pi
 
 bindsym Ctrl+Alt+h exec "$HOME/.config/sway/sway-focus-switcher" next
 bindsym Ctrl+Shift+Alt+h exec "$HOME/.config/sway/sway-focus-switcher" prev
+bindsym Alt+Tab exec "$HOME/.config/sway/sway-focus-switcher" next
 
 # Screenshots
 bindsym --no-repeat Print exec mkdir -p -m 700 /tmp/screenshots/ && grim - | tee "$(date '+/tmp/screenshots/%F %T.png')" | wl-copy
