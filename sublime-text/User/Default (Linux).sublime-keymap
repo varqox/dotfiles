@@ -62,8 +62,7 @@
 
     {"keys": ["alt+h"], "command": "lsp_hover"},
     {"keys": ["alt+d"], "command": "lsp_symbol_declaration"},
-    {"keys": ["alt+i"], "command": "lsp_symbol_definition"},
-    {"keys": ["alt+a"], "command": "lsp_code_actions"},
+    {"keys": ["alt+c"], "command": "lsp_code_actions"},
     {"keys": ["alt+r"], "command": "lsp_symbol_rename"},
     {"keys": ["alt+s"], "command": "lsp_symbol_references"},
     // {"keys": ["alt+t"], "command": "lsp_symbol_type_definition"},
@@ -81,4 +80,7 @@
 	{ "keys": ["ctrl+k", "ctrl+n"], "command": "next_bookmark" },
 	{ "keys": ["ctrl+k", "ctrl+h"], "command": "prev_bookmark" },
 	{ "keys": ["ctrl+k", "ctrl+shift+n"], "command": "prev_bookmark" },
+
+    { "keys": ["alt+i"], "command": "move_to", "args": {"to": "bol", "extend": false} },
+    { "keys": ["alt+a"], "command": "move_to", "args": {"to": "eol", "extend": false} },
 ]
