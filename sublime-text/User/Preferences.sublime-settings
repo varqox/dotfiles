@@ -58,5 +58,5 @@
 		"Dictionaries/en_GB.dic",
 		"Dictionaries/pl_PL.dic",
 	],
-	"index_files": true,
+	"index_files": false,
 }
