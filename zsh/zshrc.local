@@ -164,7 +164,16 @@ function transcode_avif {
 		out_file="${in_file%.*}.avif"
 	fi
 	echo -e "Transcoding \033[1m${in_file}\033[m into \033[1m${out_file}\033[m"
-	nice avifenc -j all "${in_file}" "${out_file}"
+	if [[ "${in_file}" == *.png ]] || [[ "${in_file}" == *.jpg ]] || [[ "${in_file}" == *.jpeg ]]; then
+		nice avifenc -j all "${in_file}" "${out_file}"
+	else
+		(
+			tmp_file=$(mktemp --suffix=.jpg) &&
+			trap "rm '${tmp_file}'" EXIT &&
+			nice convert "${in_file}" -quality 100 "${tmp_file}" &&
+			nice avifenc -j all "${tmp_file}" "${out_file}"
+		)
+	fi
 }
 function transcode_avif_all {
 	for x in "$@"; do
