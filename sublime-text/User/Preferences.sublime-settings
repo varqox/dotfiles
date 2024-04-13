@@ -42,11 +42,13 @@
 		"cgroups",
 		"namespace",
 		"deserialized",
+		"optionals",
 	],
 	"dark_color_scheme": "Breakers.sublime-color-scheme",
 	"light_color_scheme": "Breakers.sublime-color-scheme",
 	"ignored_words":
 	[
+		"cppcoreguidelines",
 		"namespaces",
 		"syscall",
 		"tracee",
