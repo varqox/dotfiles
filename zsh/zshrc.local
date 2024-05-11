@@ -1,6 +1,7 @@
 #PATH="/usr/lib/ccache/bin:$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:/usr/share/clang/" # Add run-clang-tidy.py and all to PATH
+
 ulimit -c 0 # disable core dumps, but allow enabling them on demand with ulimit -c unlimited
 
 export GCC_COLORS="auto" # for GCC to color diagnostic messages in conjuntion with ccache
