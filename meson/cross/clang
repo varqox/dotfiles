@@ -1,8 +1,7 @@
 [binaries]
-c = 'clang'
+c = ['sccache', 'clang']
 c_ld = 'mold'
-cpp = 'clang++'
-cpp_args = '-fcolor-diagnostics'
+cpp = ['sccache', 'clang++']
 cpp_ld = 'mold'
 strip = 'strip'
 pkg-config = '/usr/sbin/pkg-config'

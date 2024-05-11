@@ -6,6 +6,7 @@ print_step "meson: install meson and cross files' dependencies"
 paruS meson
 paruS clang
 paruS mold
+paruS sccache
 paruS pkgconf # for pkg-config in cross files
 paruS binutils # for strip in cross files
 
