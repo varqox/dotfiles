@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 source "$(dirname -- "$0")/../common.sh"
 
 print_step "meson: install meson and cross files' dependencies"

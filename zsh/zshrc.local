@@ -63,7 +63,7 @@ git-rename() {
 
 function backup() (
 	function do_backup() (
-		set -e
+		set -euo pipefail
 		test -e "$1" || { echo "path does not exist: $1" >&2; return 1; }
 		# chdir to the parent folder of the specified path
 		cd -P -- "$(dirname -- "$1")"
@@ -195,7 +195,7 @@ function przepis {
 }
 
 function diff_installed_file() (
-	set -e
+	set -euo pipefail
 	file="$1"
 	pkg=$(pacman -Q --owns --quiet "${file}")
 	pkg_version=$(pacman -Qi "${pkg}" | grep '^Version' | sed 's/^Version[^:]*: //')

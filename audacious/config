@@ -45,7 +45,7 @@ NumHotkeys=8
 
 [qtui]
 player_height=1031
-player_width=958
+player_width=1920
 playlist_headers_bold=TRUE
 show_remaining_time=TRUE
 

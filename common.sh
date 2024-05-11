@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 # Change working directory to the directory containing the currently run script
 cd -P "$(dirname -- "$0")"
@@ -9,7 +9,7 @@ tmp_dir=$(mktemp -d)
 trap 'kill $(jobs -p) 2> /dev/null || true; remove_tmp_packages; rm -rf ${tmp_dir}' EXIT
 
 function sudo() {
-    if [ -z "$COMMON_SUDO_SPAWNED" ]; then
+    if [[ -v COMMON_SUDO_SPAWNED ]]; then
         # Sudo loop so that sudo won't timeout
         /usr/bin/sudo -v # If sudo asks for password it will ask now and not fail in the loop below
         (while :; do /usr/bin/sudo -v; sleep 59; done)&
@@ -78,7 +78,7 @@ function safe_copy() {
     mkdir --parents $(dirname -- "${dest}")
     # cp --link does not fail if ${src} and ${dest} are the same file (their inodes are equal) and
     # cp --link --force replaces the destination with the hard link if the destination file exists
-    ([ ! -z "${link}" ] && cp --no-target-directory --link --force "${src}" "${dest}" 2> /dev/null) ||
+    ([[ ! -v link ]] && cp --no-target-directory --link --force "${src}" "${dest}" 2> /dev/null) ||
     cp --no-target-directory --remove-destination "${src}" "${dest}"
 }
 
@@ -143,9 +143,9 @@ function tmp_paruS {
 
 function remove_tmp_packages() {
     # If TMP_PACKAGES is not empty
-    if [ "${#TMP_PACKAGES[@]}" -ne 0 ]; then
+    if [[ -v TMP_PACKAGES ]] && [ "${#TMP_PACKAGES[@]}" -ne 0 ]; then
         # Filter packages to ones only installed as dependecies (non-explicit)
-        paru -Q --deps --quiet "${TMP_PACKAGES[@]}" |
+        (paru -Q --deps --quiet "${TMP_PACKAGES[@]}" || true) |
             # Remove only unrequired packages with their dependencies
             xargs --no-run-if-empty paru --noconfirm -R --recursive --nosave --unneeded
     fi

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 source "$(dirname -- "$0")/../common.sh"
 
 bash decrypt_patch_executable_to_disable_popup.py.age.sh "$tmp_dir/patcher.py"
