@@ -31,7 +31,6 @@ all: install-htop
 all: install-ripgrep # rg
 all: install-fd
 all: install-man-pages
-all: install-dropbox
 all: install-gcc
 all: install-clang
 all: install-gdb
