@@ -92,7 +92,10 @@ systemd: FORCE
 	systemd/disable_handling_of_power_button.sh
 	systemd/disable_handling_of_suspend_on_lid_close.sh
 
-sway: FORCE networkmanager scripts pipewire systemd swaylock waybar alacritty kickoff mako
+keepassxc: FORCE install-keepassxc install-qt5-wayland
+
+light: FORCE
+	light/install_and_configure.sh
 	sway/install_and_configure.sh
 
 swaylock: FORCE
