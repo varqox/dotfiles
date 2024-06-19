@@ -120,7 +120,7 @@ kickoff: FORCE
 mako: FORCE install-mako
 	mako/configure.sh
 
-sublime-text: FORCE install-sublime-text
+sublime-text: FORCE install-sublime-text-4
 	sublime-text/configure.sh
 
 sublime-merge: FORCE install-sublime-merge
