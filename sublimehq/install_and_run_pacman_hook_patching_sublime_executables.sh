@@ -18,5 +18,5 @@ if bash decrypt_patch_executable_to_disable_popup.py.age.sh "$tmp_dir/patcher.py
 			sudo cp --remove-destination "$tmp_dir/exe" "${executable}"
 	done
 else
-	print_step "sublimehq: skipping installing pacmang hook to patch and patching Sublime Text and Sublime Merge"
+	print_step "sublimehq: skipping installing pacman hook to patch and patching Sublime Text and Sublime Merge"
 fi
