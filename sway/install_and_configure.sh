@@ -6,7 +6,6 @@ print_step "sway: install sway and utilities"
 paruS sway
 paruS swaybg # for background
 paruS ttf-hack ttf-ubuntu-font-family # fonts
-paruS light # for brightness control shortcuts
 paruS wdisplays # for screen switch shortcuts
 paruS wlogout # for logging out shortcut
 paruS tlp # bluetooth command

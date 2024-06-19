@@ -17,6 +17,7 @@ all: scripts
 all: git
 all: pipewire
 all: systemd
+all: light
 all: sway
 all: sublime-text
 all: sublime-merge
@@ -96,6 +97,8 @@ keepassxc: FORCE install-keepassxc install-qt5-wayland
 
 light: FORCE
 	light/install_and_configure.sh
+
+sway: FORCE networkmanager scripts pipewire systemd swaylock waybar alacritty kickoff mako light
 	sway/install_and_configure.sh
 
 swaylock: FORCE
