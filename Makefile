@@ -18,6 +18,7 @@ all: git
 all: pipewire
 all: systemd
 all: light
+all: fonts
 all: sway
 all: sublime-text
 all: sublime-merge
@@ -93,12 +94,13 @@ systemd: FORCE
 	systemd/disable_handling_of_power_button.sh
 	systemd/disable_handling_of_suspend_on_lid_close.sh
 
-keepassxc: FORCE install-keepassxc install-qt5-wayland
+fonts: FORCE
+	fonts/install_and_configure.sh
 
 light: FORCE
 	light/install_and_configure.sh
 
-sway: FORCE networkmanager scripts pipewire systemd swaylock waybar alacritty kickoff mako light
+sway: FORCE networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako light keepassxc
 	sway/install_and_configure.sh
 
 swaylock: FORCE
@@ -117,29 +119,31 @@ kickoff: FORCE
 	kickoff/install.sh
 	kickoff/configure.sh
 
-mako: FORCE install-mako
+mako: FORCE install-mako fonts
 	mako/configure.sh
 
-sublime-text: FORCE install-sublime-text-4
+keepassxc: FORCE install-keepassxc install-qt5-wayland fonts
+
+sublime-text: FORCE install-sublime-text-4 fonts
 	sublime-text/configure.sh
 
-sublime-merge: FORCE install-sublime-merge
+sublime-merge: FORCE install-sublime-merge fonts
 	sublime-merge/configure.sh
 
 meson: FORCE
 	meson/install_and_configure.sh
 
-firefox: FORCE
+firefox: FORCE fonts
 	firefox/install.sh
 	firefox/configure.sh
 
-audacious: FORCE install-audacious
+audacious: FORCE install-audacious fonts
 	audacious/configure.sh
 
 age: FORCE
 	age/install_and_configure.sh
 
-mpv: FORCE age
+mpv: FORCE
 	mpv/install.sh
 	mpv/configure.sh
 	mpv/install-plugin-auto-save-state.sh
