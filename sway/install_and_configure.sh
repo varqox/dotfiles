@@ -21,7 +21,27 @@ paruS hyprpicker-git # screen color picker
 paruS libnotify # notifications
 
 print_step "sway: copy configs and scripts"
-safe_copy --link config "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config"
+# Get the laptop's display name and resolution
+edp_name="eDP-1"
+edp_mode="$(head -n 1 /sys/class/drm/card1-eDP-1/modes)"
+edp_width="$(sed 's/x.*//' <<< "$edp_mode")"
+edp_height="$(sed 's/^.*x//' <<< "$edp_mode")"
+# External display name and resolution
+external_name="AOC Q24P2W1 HCMM1HA004037"
+external_width=2560
+external_height=1440
+# Calculate positions of where to place the displays
+highest_height=$((edp_height > external_height ? edp_height : external_height))
+external_x=0
+external_y=$((highest_height - external_height))
+edp_x=${external_width}
+edp_y=$((highest_height - edp_height))
+# Rewrite and install the sway config
+cp config "${tmp_dir}/sway-config"
+sed -i "s/^# <<output laptop>$/output \"${edp_name}\" mode ${edp_width}x${edp_height} adaptive_sync on pos ${edp_x} ${edp_y}/" "${tmp_dir}/sway-config"
+sed -i "s/^# <<output external monitor>>$/output \"${external_name}\" mode ${external_width}x${external_height} adaptive_sync on pos ${external_x} ${external_y}/" "${tmp_dir}/sway-config"
+safe_copy "${tmp_dir}/sway-config" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config"
+# Other configs
 safe_copy --link wallpaper.jpg "${XDG_CONFIG_HOME:-$HOME/.config}/sway/wallpaper.jpg"
 safe_copy --link zprofile "$HOME/.zprofile"
 safe_copy --link run-sway.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/run-sway.sh"
