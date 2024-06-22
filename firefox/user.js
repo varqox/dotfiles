@@ -132,7 +132,7 @@ user_pref("full-screen-api.warning.timeout", 300);
 
 // Video hardware acceleration under Wayland
 user_pref("media.ffmpeg.vaapi.enabled", true);
-user_pref("media.av1.enabled", false); // disable AV1 to force video hardware decoding (my GPU does not hardware-decode av1)
+// user_pref("media.av1.enabled", false); // disable AV1 to force video hardware decoding (uncomment if GPU does not hardware-decode av1 and it is too weak to software-decode it)
 
 // Disable showing menu on pressing Alt
 user_pref("ui.key.menuAccessKeyFocuses", false);

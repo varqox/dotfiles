@@ -29,7 +29,14 @@ function install_mozilla_org_extension_to() {
 for prefs_js in ${HOME}/.mozilla/firefox/*/prefs.js; do
 	ff_dir="${prefs_js%/prefs.js}"
 	print_step "firefox: copy user.prefs"
-	safe_copy --link user.js "${ff_dir}/user.js"
+
+	if cat /proc/cpuinfo | grep '^model name' | grep 'i5-8250U' --quiet; then
+		cp user.js "${tmp_dir}/firefox-user.js"
+		sed -i 's@^// user_pref("media.av1.enabled", false);@user_pref("media.av1.enabled", false);@' "${tmp_dir}/firefox-user.js"
+		safe_copy "${tmp_dir}/firefox-user.js" "${ff_dir}/user.js"
+	else
+		safe_copy --link user.js "${ff_dir}/user.js"
+	fi
 
 	print_step "firefox: install extensions"
 	# These will install after signing in to firefox sync
