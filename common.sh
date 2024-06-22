@@ -105,6 +105,11 @@ function warn() {
     /bin/echo -e "\033[0;33m$1\033[m"
 }
 
+function error() {
+    /bin/echo -e "\033[0;31m$1\033[m"
+    exit 1
+}
+
 function install_paru_if_absent {
     if ! command -v paru > /dev/null; then
         print_step 'Installing paru'
@@ -153,4 +158,15 @@ function remove_tmp_packages() {
             # Remove only unrequired packages with their dependencies
             xargs --no-run-if-empty paru --noconfirm -R --recursive --nosave --unneeded
     fi
+}
+
+# Returns either "amd" or "intel"
+function cpu_vendor() {
+    tmp_paruS libcpuid
+    vendor_str=$(cpuid_tool --vendorstr | tail -n 1)
+    case "$vendor_str" in
+        "AuthenticAMD") echo amd ;;
+        "GenuineIntel") echo intel ;;
+        *) error "Unsupported CPU with cpuid: ${vendor_str}" ;;
+    esac
 }
