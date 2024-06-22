@@ -9,6 +9,10 @@ tmp_dir=$(mktemp -d)
 trap 'kill $(jobs -p) 2> /dev/null || true; remove_tmp_packages; rm -rf ${tmp_dir}' EXIT
 
 function sudo() {
+    if [ ! -x /usr/bin/sudo ]; then
+        printf 'Enter the root '
+        su root --login --command "pacman --noconfirm -S sudo && usermod --append --groups wheel '$USER' && echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel"
+    fi
     if [[ -v COMMON_SUDO_SPAWNED ]]; then
         # Sudo loop so that sudo won't timeout
         /usr/bin/sudo -v # If sudo asks for password it will ask now and not fail in the loop below
@@ -129,7 +133,7 @@ function paruS {
     # Filter arguments to only uninstalled packages (it is faster in case all packages are already installed)
     printf "%s\n" "$(filter_out_installed_packages "$@")" | \
         xargs --no-run-if-empty paru --noconfirm -S --needed
-    # Mark packages installed as dependencies as installed explicitly
+    # Mark specified packages as installed explicitly if they were previously installed as dependencies
     paru -D --asexplicit "$@"
 }
 

@@ -46,18 +46,18 @@ endif
 .PHONY: FORCE
 FORCE:
 
-install-%: FORCE
-	bash -c 'source common.sh; print_step "install: $*"; paruS $*'
-
 paru: FORCE
 	paru/install.sh
 	paru/configure.sh
+
+install-%: FORCE paru
+	bash -c 'source common.sh; print_step "install: $*"; paruS $*'
 
 pacman: FORCE
 	pacman/configure.sh
 
 sudo: FORCE
-	sudo/allow_wheel_group_users.sh
+	sudo/install_and_configure.sh
 
 locales: FORCE
 	locales/configure.sh
