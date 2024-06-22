@@ -6,7 +6,7 @@ print_step "tlp: install"
 paruS tlp
 
 print_step "tlp: configure"
-sudo_safe_copy my.conf "/etc/tlp.d/10-my.conf"
+sudo_safe_copy "$(cpu_vendor)".conf "/etc/tlp.d/10-my.conf"
 
 print_step "tlp: enable and restart"
 sudo systemctl enable tlp.service
