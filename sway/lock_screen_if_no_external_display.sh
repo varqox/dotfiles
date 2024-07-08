@@ -1,4 +1,4 @@
 #!/bin/sh
-if [ "$(swaymsg -t get_outputs --pretty --raw | grep '^    "subpixel_hinting":' -c)" = "1" ]; then
+if [ "$(cat /sys/class/drm/card*/status | grep '^connected$' --count)" == 1 ]; then
 	exec $HOME/.config/sway/lock_screen.sh
 fi
