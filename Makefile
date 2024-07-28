@@ -6,6 +6,7 @@ SHELL = /bin/sh
 all: paru
 all: pacman
 all: sudo
+all: pam
 all: locales
 all: networkmanager
 all: ssd
@@ -58,6 +59,9 @@ pacman: FORCE
 
 sudo: FORCE
 	sudo/install_and_configure.sh
+
+pam: FORCE
+	pam/lower_failed_password_delay.sh
 
 locales: FORCE
 	locales/configure.sh
