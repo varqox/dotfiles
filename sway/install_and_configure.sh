@@ -17,7 +17,7 @@ paruS blueman # bluetooth applet
 paruS dropbox python-gpgme gnome-shell-extension-appindicator # dropbox with dependencies
 paruS grim slurp wl-clipboard # making screenshots
 paruS xdg-desktop-portal-wlr # screen sharing
-paruS hyprpicker-git # screen color picker
+paruS hyprpicker # screen color picker
 paruS libnotify # notifications
 paruS eog # image viewer
 paruS evince # PDF viewer
