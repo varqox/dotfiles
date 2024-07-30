@@ -27,9 +27,9 @@ edp_mode="$(head -n 1 /sys/class/drm/card1-eDP-1/modes)"
 edp_width="$(sed 's/x.*//' <<< "$edp_mode")"
 edp_height="$(sed 's/^.*x//' <<< "$edp_mode")"
 # External display name and resolution
-external_name="AOC Q24P2W1 HCMM1HA004037"
-external_width=2560
-external_height=1440
+external_name="Microstep MAG274UPF CC2H454200402"
+external_width=3840
+external_height=2160
 # Calculate positions of where to place the displays
 highest_height=$((edp_height > external_height ? edp_height : external_height))
 external_x=0
