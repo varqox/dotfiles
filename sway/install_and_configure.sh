@@ -41,7 +41,7 @@ edp_y=$((highest_height - edp_height))
 # Rewrite and install the sway config
 cp config "${tmp_dir}/sway-config"
 sed -i "s/^# <<output laptop>$/output \"${edp_name}\" mode ${edp_width}x${edp_height} adaptive_sync on pos ${edp_x} ${edp_y}/" "${tmp_dir}/sway-config"
-sed -i "s/^# <<output external monitor>>$/output \"${external_name}\" mode ${external_width}x${external_height} adaptive_sync on pos ${external_x} ${external_y}/" "${tmp_dir}/sway-config"
+sed -i "s/^# <<output external monitor>>$/output \"${external_name}\" mode ${external_width}x${external_height}@144.000Hz adaptive_sync on pos ${external_x} ${external_y}/" "${tmp_dir}/sway-config"
 safe_copy "${tmp_dir}/sway-config" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config"
 # Other configs
 safe_copy --link wallpaper.jpg "${XDG_CONFIG_HOME:-$HOME/.config}/sway/wallpaper.jpg"
