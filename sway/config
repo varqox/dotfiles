@@ -117,12 +117,9 @@ floating_modifier Alt normal
 
 exec 'until bluetoothctl power on; do sleep 0.1; done'
 exec nm-applet --indicator
-exec blueman-applet
+# Blueman-applet silently fails for some time after sway startup
+exec 'sleep 0.5; exec blueman-applet'
 exec dropbox
-#exec waybar-mpris > /dev/null
-
-# I switched to logiops
-#exec pgrep -x solaar > /dev/null || solaar -w hide -b solaar
 
 # Arrange and navigate workspaces as layered 2D grids
 exec "RUST_LOG=trace $HOME/.config/sway/sway-workspace-switcher 2>&1 > $HOME/.config/sway/sway-workspace-switcher.log"
