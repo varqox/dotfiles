@@ -20,6 +20,7 @@ all: pipewire
 all: systemd
 all: light
 all: fonts
+all: thunar
 all: sway
 all: sublime-text
 all: sublime-merge
@@ -98,26 +99,18 @@ systemd: FORCE
 	systemd/disable_handling_of_power_button.sh
 	systemd/disable_handling_of_suspend_on_lid_close.sh
 
-fonts: FORCE
-	fonts/install_and_configure.sh
-
 light: FORCE
 	light/install_and_configure.sh
 
-sway: FORCE networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako light keepassxc
-	sway/install_and_configure.sh
-
-swaylock: FORCE
-	swaylock/install.sh
-	swaylock/configure.sh
-
-waybar: FORCE pipewire alacritty networkmanager
-	waybar/install.sh
-	waybar/configure.sh
+fonts: FORCE
+	fonts/install_and_configure.sh
 
 alacritty: FORCE
 	alacritty/install.sh
 	alacritty/configure.sh
+
+thunar: FORCE alacritty
+	thunar/install_and_configure.sh
 
 kickoff: FORCE
 	kickoff/install.sh
@@ -128,6 +121,17 @@ mako: FORCE install-mako fonts
 
 keepassxc: FORCE install-keepassxc install-qt5-wayland fonts
 
+sway: FORCE networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako light keepassxc thunar
+	sway/install_and_configure.sh
+
+swaylock: FORCE
+	swaylock/install.sh
+	swaylock/configure.sh
+
+waybar: FORCE pipewire alacritty networkmanager
+	waybar/install.sh
+	waybar/configure.sh
+
 sublime-text: FORCE install-sublime-text-4 fonts
 	sublime-text/configure.sh
 
@@ -137,7 +141,7 @@ sublime-merge: FORCE install-sublime-merge fonts
 meson: FORCE
 	meson/install_and_configure.sh
 
-firefox: FORCE fonts
+firefox: FORCE fonts thunar
 	firefox/install.sh
 	firefox/configure.sh
 
