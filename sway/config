@@ -79,7 +79,7 @@ set $lock_screen_if_no_external_display "$HOME/.config/sway/lock_screen_if_no_ex
 
 exec swayidle -w \
     timeout 300 '$lock_screen' \
-    timeout 310 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    timeout 310 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
     before-sleep '$lock_screen' \
     after-resume 'until bluetoothctl power on; do sleep 0.1; done'
 
