@@ -6,8 +6,10 @@ print_step "thunar: install thunar and utilities"
 paruS thunar gvfs tumbler thunar-archive-plugin file-roller thunar-media-tags-plugin
 
 print_step "thunar: configure"
-timeout 1 thunar || true # this creates ~/.config/Thunar/uca.xml
+# Make Thunar list files as detail list instead of icon list
+xfconf-query --channel thunar --property /last-view --set ThunarDetailsView
 # Make "Open Terminal Here" work
+timeout 1 thunar || true # this creates ~/.config/Thunar/uca.xml
 sed 's@<command>.*</command>@<command>alacritty --working-directory %f</command>@' -i "$HOME/.config/Thunar/uca.xml"
 
 print_step "thunar: make it a default file browser"
