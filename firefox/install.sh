@@ -14,3 +14,7 @@ esac
 paruS hunspell-pl # polish dictionary
 paruS hunspell-en_gb # english (United Kingdom) dictionary
 paruS hunspell-en_us # english (United States) dictionary
+
+print_step "firefox: set it as a default web-browser"
+xdg-settings set default-web-browser firefox.desktop
+xdg-mime default firefox.desktop text/html
