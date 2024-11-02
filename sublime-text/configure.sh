@@ -10,3 +10,6 @@ paruS hunspell-en_us # english (United States) dictionary
 
 print_step "sublime-text: copy preferences and snippets"
 safe_copy --link --recursive User "${XDG_CONFIG_HOME:-$HOME/.config}/sublime-text/Packages/User"
+
+print_step "sublime-text: make it a default editor"
+xdg-mime default sublime_text.desktop text/plain
