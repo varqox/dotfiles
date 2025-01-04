@@ -1,0 +1,2 @@
+# We have to check if any other power supply is online that is why we ignore ATTR{online}
+SUBSYSTEM=="power_supply", RUN+="/usr/bin/sh -c '[ \"$(cat /sys/class/power_supply/ACAD/online)\" == 1 ] && /usr/bin/ryzenadj --fast-limit=60000 --slow-limit=50000'"

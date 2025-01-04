@@ -13,6 +13,7 @@ all: ssd
 all: ntp
 all: earlyoom
 all: tlp
+all: tdp
 all: zsh
 all: scripts
 all: git
@@ -82,6 +83,9 @@ earlyoom: FORCE
 
 tlp: FORCE
 	tlp/install_and_configure.sh
+
+tdp: FORCE
+	tdp/install_and_configure.sh
 
 zsh: FORCE install-zsh
 	zsh/configure.sh
