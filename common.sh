@@ -67,9 +67,11 @@ function safe_copy() {
 
     local src="$1"
     local dest="$2"
-    # To support usage as safe_copy <(...) dest
-    if [ -L "${src}" ]; then
-        cat "${src}" > "$tmp_dir/src"
+    # To support usages:
+    # - safe_copy <(...) dest
+    # - safe_copy /dev/stdin dest <<< "abc"
+    if [[ "${src}" == /dev/fd/* ]] || [[ "${src}" == /proc/self/fd/* ]] || [ -L "${src}" ]; then
+        cat < "${src}" > "$tmp_dir/src"
         src="$tmp_dir/src"
     fi
 
