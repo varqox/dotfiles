@@ -122,7 +122,7 @@ exec 'sleep 0.5; exec blueman-applet'
 exec dropbox
 
 # Arrange and navigate workspaces as layered 2D grids
-exec "RUST_LOG=trace $HOME/.config/sway/sway-workspace-switcher 2>&1 > $HOME/.config/sway/sway-workspace-switcher.log"
+exec "$HOME/.config/sway/sway-workspace-switcher 2>&1 > $HOME/.config/sway/sway-workspace-switcher.log"
 set $workspace_switcher_pipe "$HOME/.config/sway/sway-workspace-switcher.pipe"
 
 bindsym Ctrl+Alt+Up exec echo "go up" > $workspace_switcher_pipe
