@@ -8,6 +8,7 @@ all: pacman
 all: sudo
 all: pam
 all: locales
+all: dns
 all: networkmanager
 all: ssd
 all: ntp
@@ -71,6 +72,9 @@ locales: FORCE
 networkmanager: FORCE
 	networkmanager/install.sh
 	networkmanager/configure.sh
+
+dns: FORCE
+	dns/install_and_configure.sh
 
 ssd: FORCE
 	ssd/set_up_periodic_trim.sh

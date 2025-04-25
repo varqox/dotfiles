@@ -854,6 +854,10 @@ user_pref("network.IDN_show_punycode", true);
 user_pref("dom.security.https_first", true);
 user_pref("dom.security.https_first_pbm", true); // DEFAULT
 
+// Use LibreDNS
+user_pref("network.trr.uri", "https://doh.libredns.gr/noads");
+user_pref("network.trr.custom_uri", "https://doh.libredns.gr/noads");
+
 // PREF: EDNS Client Subnet DNS extension (DNSSEC validation)
 // [NOTE] Not needed when using DoH/TRR [1]
 // When set to false, TRR asks the resolver to enable EDNS Client Subnet (ECS)
