@@ -18,6 +18,8 @@ export LESS_TERMCAP_us=$'\e[01;32m'
 export EDITOR=nvim
 alias vim='nvim'
 
+alias g='grep -P --line-buffered --color=always'
+alias gi='g --ignore-case'
 alias l='ls -lAh'
 alias o='exo-open'
 alias watch='watch -n 0.3'
@@ -203,3 +205,20 @@ function diff_installed_file() (
     pkg_arch=$(pacman -Qi "${pkg}" | grep '^Architecture' | sed 's/^Architecture[^:]*: //')
     /bin/diff <(tar -axf "/var/cache/pacman/pkg/${pkg}-${pkg_version}-${pkg_arch}.pkg.tar.zst" -O "${file#/}") "${file}"
 )
+
+function v() {
+    bat --force-colorization --paging never "$@"
+}
+
+function vl() {
+    bat --force-colorization --paging always --pager='less -R' "$@"
+}
+
+alias -g -- -h='-h 2>&1 | bash -c "bat --force-colorization --language help" --' # bash -c "..." -- causes all arguments after -h to be ignored but tricks like "| cat" still work!
+alias -g -- --help='--help 2>&1 | bash -c "bat --force-colorization --language help" --' # bash -c "..." -- causes all arguments after --help to be ignored but tricks like "| cat" still work!
+
+alias fp='fzf --preview "bat --color=always --style numbers {}"'
+
+function aria {
+    aria2c --continue --max-connection-per-server=16 --max-concurrent-downloads=128 --split=1000000 --min-split-size=1M --lowest-speed-limit=1K --stream-piece-selector=random --http-accept-gzip true --enable-http-pipelining true --allow-piece-length-change true --auto-save-interval=16 --download-result=full --file-allocation=falloc --summary-interval=8 --input-file <(printf "%s\n" "$@")
+}
