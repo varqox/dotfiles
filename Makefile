@@ -65,6 +65,7 @@ sudo: FORCE
 
 pam: FORCE
 	pam/lower_failed_password_delay.sh
+	pam/increase_faillock.sh
 
 locales: FORCE
 	locales/configure.sh
