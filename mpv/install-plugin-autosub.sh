@@ -3,7 +3,7 @@ set -euo pipefail
 source "$(dirname -- "$0")/../common.sh"
 
 print_step "mpv: autosub plugin: install subliminal"
-paruS subliminal
+paruS subliminal-git
 
 function change_subliminal_path() {
 	sed "s@^\(local subliminal = \).*@\1'/usr/bin/subliminal'@"
