@@ -7,8 +7,8 @@ paruS firefox
 paruS ttf-hack
 # Video hardware acceleration through VA-API
 case "$(cpu_vendor)" in
-	"amd") paruS libva-mesa-driver ;;
-	"intel") paruS intel-media-driver ;;
+	"amd") paruS mesa vulkan-radeon ;;
+	"intel") paruS intel-media-driver vulkan-intel ;;
 	*) error "Unsupported CPU vendor" ;;
 esac
 paruS hunspell-pl # polish dictionary

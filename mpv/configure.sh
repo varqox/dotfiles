@@ -16,7 +16,7 @@ safe_copy --link input.conf "${XDG_CONFIG_HOME:-$HOME/.config}/mpv/input.conf"
 
 print_step "mpv: enable hardware acceleration via VA-API"
 case "$(cpu_vendor)" in
-	"amd") paruS libva-mesa-driver ;;
-	"intel") paruS intel-media-driver ;;
+	"amd") paruS mesa vulkan-radeon ;;
+	"intel") paruS intel-media-driver vulkan-intel ;;
 	*) error "Unsupported CPU vendor" ;;
 esac
