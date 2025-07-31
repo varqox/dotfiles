@@ -96,7 +96,7 @@ user_pref("permissions.default.desktop-notification", 2);
 user_pref("media.autoplay.default", 5);
 
 // Settings -> Privacy & Security -> Firefox Developer Edition Data Collection and Use -> Allow Firefox Developer Edition to send technical and interaction data to Mozilla = false
-user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("datareporting.healthreport.uploadEnabled", true); // Required for allowing running studies.
 
 // Settings -> Privacy & Security -> Security -> HTTPS-Only Mode: Enable HTTPS-Only Mode in all windows
 user_pref("dom.security.https_only_mode", true);
@@ -1341,7 +1341,7 @@ user_pref("datareporting.policy.dataSubmissionEnabled", false);
 
 // PREF: Studies
 // [SETTING] Privacy & Security>Firefox Data Collection & Use>Allow Firefox to install and run studies
-user_pref("app.shield.optoutstudies.enabled", false);
+user_pref("app.shield.optoutstudies.enabled", true); // Required for allowing running studies.
 
 // Personalized Extension Recommendations in about:addons and AMO
 // [NOTE] This pref has no effect when Health Reports are disabled.
