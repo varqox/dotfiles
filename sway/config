@@ -169,7 +169,6 @@ for_window [window_role="About"] floating enable
 
 for_window [app_id="firefox" title="Firefox .*— Sharing Indicator"] floating enable, sticky enable, border normal, resize set height 54 px, border none, move absolute position 0 0
 for_window [app_id="firefox"] border none
-for_window [app_id="org.keepassxc.KeePassXC"] floating enable
 for_window [app_id="anki"] floating enable
 for_window [app_id="ssh-askpass-sublime"] floating enable
 
