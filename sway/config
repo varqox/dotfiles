@@ -55,8 +55,8 @@ bindsym --no-repeat --locked Ctrl+Alt+asterisk exec wpctl set-mute @DEFAULT_SINK
 bindsym --no-repeat --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
 bindsym --no-repeat XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
 bindsym --no-repeat Ctrl+Alt+Shift+asterisk exec wpctl set-mute @DEFAULT_SOURCE@ toggle
-bindsym --locked XF86MonBrightnessDown exec light -U 2
-bindsym --locked XF86MonBrightnessUp exec light -A 2
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 2%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 2%+
 bindsym --no-repeat XF86AudioPause exec waybar-mpris --send toggle
 bindsym XF86AudioPlay exec waybar-mpris --send toggle
 bindsym XF86AudioNext exec waybar-mpris --send next

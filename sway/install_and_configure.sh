@@ -8,6 +8,7 @@ paruS swaybg # for background
 paruS ttf-hack ttf-ubuntu-font-family # fonts
 paruS wdisplays # for screen switch shortcuts
 paruS wlogout # for logging out shortcut
+paruS brightnessctl # for brightness control
 paruS tlp # bluetooth command
 paruS bluez-utils # for bluetooth control shortcuts (bluetoothctl)
 paruS wtype inotify-tools # for remapping sequence of keys into other sequences

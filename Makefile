@@ -20,7 +20,6 @@ all: scripts
 all: git
 all: pipewire
 all: systemd
-all: light
 all: fonts
 all: thunar
 all: sway
@@ -108,9 +107,6 @@ systemd: FORCE
 	systemd/disable_handling_of_power_button.sh
 	systemd/disable_handling_of_suspend_on_lid_close.sh
 
-light: FORCE
-	light/install_and_configure.sh
-
 fonts: FORCE
 	fonts/install_and_configure.sh
 
@@ -130,7 +126,7 @@ mako: FORCE install-mako fonts
 
 keepassxc: FORCE install-keepassxc install-qt5-wayland fonts
 
-sway: FORCE networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako light keepassxc thunar
+sway: FORCE networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar
 	sway/install_and_configure.sh
 
 swaylock: FORCE

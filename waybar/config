@@ -101,7 +101,7 @@
     },
     "temperature": {
         "interval": 2,
-        "thermal-zone": 0,
+        "thermal-zone": 3,
         "critical-threshold": 93,
         "format": "{temperatureC}°C",
         // "format-icons": ["", "", ""],
@@ -112,8 +112,8 @@
     },
     "backlight": {
         "format": "{percent}%",
-        "on-scroll-up": "light -T 1.06",
-        "on-scroll-down": "light -T 0.943",
+        "on-scroll-up": "brightnessctl set 1%+",
+        "on-scroll-down": "brightnessctl set 1%-",
         "smooth-scrolling-threshold": 2,
     },
     /*"battery": {
