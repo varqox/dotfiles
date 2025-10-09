@@ -17,6 +17,7 @@ all: tlp
 all: tdp
 all: zsh
 all: scripts
+all: nvim
 all: git
 all: pipewire
 all: systemd
@@ -91,13 +92,16 @@ tlp: FORCE
 tdp: FORCE
 	tdp/install_and_configure.sh
 
-zsh: FORCE install-zsh
+zsh: FORCE install-zsh nvim
 	zsh/configure.sh
 
 scripts: FORCE
 	scripts/install.sh
 
-git: FORCE install-git
+nvim: FORCE
+	nvim/install_and_configure.sh
+
+git: FORCE install-git nvim
 	git/configure.sh
 
 pipewire: FORCE
