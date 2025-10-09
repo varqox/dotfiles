@@ -1,60 +1,66 @@
 [alias]
-	lg = log --color --graph --decorate --oneline
-	lga = log --color --graph --decorate --oneline --all
-	lg2 = log --color --graph --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
-	st = status
-	co = checkout
-	di = diff
-	panic = !tar cvzf ../git_panic.tgz `ls -A`
-	pushf = push --force-with-lease
-	pf = push --force-with-lease
-	subi = submodule update --init
-	ds = diff --staged
-	cp = cherry-pick
-	cpa = cherry-pick --abort
-	cpc = cherry-pick --continue
-	ca = commit --amend
-	cf = commit --fixup
-	caf = commit --amend --fixup
-	rb = rebase
-	rbc = rebase --continue
-	rba = rebase --abort
-	rbi = rebase -i
-	rbia = rebase -i --autostash
-	prba = pull --rebase --autostash
-	pra = pull --rebase --autostash
-	ls = log --compact-summary
-	spi = stash pop --index
+    lg = log --color --graph --decorate --oneline
+    lga = log --color --graph --decorate --oneline --all
+    lg2 = log --color --graph --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    st = status
+    co = checkout
+    di = diff
+    panic = !tar cvzf ../git_panic.tgz `ls -A`
+    pushf = push --force-with-lease
+    pf = push --force-with-lease
+    subi = submodule update --init
+    ds = diff --staged
+    cp = cherry-pick
+    cpa = cherry-pick --abort
+    cpc = cherry-pick --continue
+    ca = commit --amend
+    cf = commit --fixup
+    caf = commit --amend --fixup
+    rb = rebase
+    rbc = rebase --continue
+    rba = rebase --abort
+    rbi = rebase -i
+    rbia = rebase -i --autostash
+    prba = pull --rebase --autostash
+    pra = pull --rebase --autostash
+    ls = log --compact-summary
+    spi = stash pop --index
 [user]
-	email = varqox@gmail.com
-	name = Krzysztof Małysa
+    email = varqox@gmail.com
+    name = Krzysztof Małysa
 [push]
-	default = simple
+    default = simple
 [credential]
-	helper = cache --timeout=2592000
+    helper = cache --timeout=2592000
 [core]
-	editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+    editor = nvim
+    pager = diffr --line-numbers aligned | less -R
 [diff]
-	renames = copies
-	algorithm = histogram
+    renames = copies
+    algorithm = minimal
+    context = 4
 [pull]
-	rebase = true
+    rebase = true
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [advice]
-	detachedHead = false
+    detachedHead = false
 [oh-my-zsh]
-	hide-info = 1
+    hide-info = 1
 [color]
-	ui = true
+    ui = true
 [color "diff"]
-	meta = 11
-	frag = magenta bold
-	func = 146
-	commit = yellow bold
-	old = red
-	new = green
-	whitespace = red reverse
+    meta = 11
+    frag = magenta bold
+    func = 146
+    commit = yellow bold
+    old = red
+    new = green
+    whitespace = red reverse
 [interactive]
-	diffFilter = diff-so-fancy --patch
+    difffilter = diffr --line-numbers aligned
+[gui]
+    editor = subl
+[merge]
+    conflictstyle = diff3
+
