@@ -1,0 +1,67 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "bindings": {
+      "shift-escape": null,
+      "down": "menu::SelectNext",
+      "up": "menu::SelectPrevious"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-t": "terminal_panel::ToggleFocus",
+      "ctrl-i": "project_symbols::Toggle",
+      "shift-escape": "workspace::Unfollow",
+      "ctrl-alt-shift-r": "projects::OpenRemote"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "shift-escape": "editor::Cancel",
+      "alt-a": "editor::MoveToEndOfLine",
+      "alt-i": "editor::MoveToBeginningOfLine"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "ctrl-r": "outline::Toggle",
+      "ctrl-enter": "editor::NewlineBelow",
+      "ctrl-shift-enter": "editor::NewlineAbove",
+      "ctrl-shift-up": "editor::MoveLineUp",
+      "ctrl-shift-down": "editor::MoveLineDown",
+      "alt-h": "editor::Hover",
+      "alt-d": "editor::GoToDefinition",
+      "alt-r": "editor::Rename",
+      "alt-shift-r": "editor::FindAllReferences",
+      "f9": "editor::SortLinesCaseSensitive",
+      "ctrl-shift-d": "editor::DuplicateLineDown"
+    }
+  },
+  {
+    "context": "OutlinePanel && not_editing",
+    "bindings": {
+      "shift-escape": "menu::Cancel"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "shift-escape": "menu::Cancel"
+    }
+  },
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "shift-escape": "buffer_search::Dismiss"
+    }
+  }
+]

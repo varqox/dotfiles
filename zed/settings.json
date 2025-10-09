@@ -1,0 +1,63 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette
+{
+    "ui_font_size": 16,
+    "buffer_font_size": 16.0,
+    "theme": {
+        "mode": "system",
+        "light": "VSCode Dark Modern",
+        "dark": "One Dark"
+    },
+    "ui_font_family": "Ubuntu Mono",
+    "buffer_font_family": "Ubuntu Mono",
+    "terminal": {
+        "font_family": "Ubuntu Mono",
+        "line_height": "standard",
+        "font_size": 16
+    },
+    // "base_keymap": "SublimeText",
+    "buffer_line_height": {
+        "custom": 1.2
+    },
+    "wrap_guides": [100],
+    "multi_cursor_modifier": "cmd_or_ctrl",
+    "show_whitespaces": "selection",
+    "soft_wrap": "editor_width",
+    "search": {
+        "regex": true
+    },
+    "diagnostics": {
+        "include_warnings": true,
+        "inline": {
+            "enabled": true,
+            "update_debounce_ms": 150,
+            "padding": 4,
+            "min_column": 0,
+            "max_severity": null
+        }
+    },
+    "lsp": {
+        "clangd": {
+            "binary": {
+                "arguments": [
+                    "--clang-tidy",
+                    "--background-index=true",
+                    "--background-index-priority=low",
+                    "--header-insertion=iwyu",
+                    "--include-cleaner-stdlib",
+                    "--enable-config",
+                    "--header-insertion-decorators",
+                    "--function-arg-placeholders",
+                    "--malloc-trim",
+                    "--pch-storage=disk"
+                ]
+            }
+        }
+    }
+}

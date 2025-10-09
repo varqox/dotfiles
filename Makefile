@@ -26,6 +26,7 @@ all: thunar
 all: sway
 all: sublime-text
 all: sublime-merge
+all: zed
 all: meson
 all: firefox
 all: audacious
@@ -146,6 +147,9 @@ sublime-text: FORCE install-sublime-text-4 fonts
 
 sublime-merge: FORCE install-sublime-merge fonts
 	sublime-merge/configure.sh
+
+zed: FORCE fonts
+	zed/install_and_configure.sh
 
 meson: FORCE
 	meson/install_and_configure.sh
