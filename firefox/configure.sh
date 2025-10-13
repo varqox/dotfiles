@@ -83,7 +83,6 @@ ff_extensions=(
     'https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/'
     'https://addons.mozilla.org/en-US/firefox/addon/mutelinks/'
     'https://addons.mozilla.org/en-US/firefox/addon/simple-translate/'
-    'https://addons.mozilla.org/en-US/firefox/addon/ctrl-shift-c-should-copy/'
 )
 downloaded_extensions_dir="${tmp_dir}/firefox_extensions/"
 mkdir -p "${downloaded_extensions_dir}"
