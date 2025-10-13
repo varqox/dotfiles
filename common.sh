@@ -155,10 +155,10 @@ function tmp_paruS {
 function remove_tmp_packages() {
     # If TMP_PACKAGES is not empty
     if [[ -v TMP_PACKAGES ]] && [ "${#TMP_PACKAGES[@]}" -ne 0 ]; then
-        # Filter packages to ones only installed as dependecies (non-explicit)
-        (paru -Q --deps --quiet "${TMP_PACKAGES[@]}" || true) |
+        # Filter packages to the unrequired ones only installed as dependecies (non-explicit)
+        (paru -Q --unrequired --deps --quiet "${TMP_PACKAGES[@]}" || true) |
             # Remove only unrequired packages with their dependencies
-            xargs --no-run-if-empty paru --noconfirm -R --recursive --nosave --unneeded
+            xargs --no-run-if-empty paru --noconfirm -R --recursive --nosave
     fi
 }
 
