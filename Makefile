@@ -15,6 +15,7 @@ all: ntp
 all: earlyoom
 all: tlp
 all: tdp
+all: prevent-touchpad-resuming-framework-16-from-sleep
 all: zsh
 all: scripts
 all: nvim
@@ -92,6 +93,9 @@ tlp: FORCE
 
 tdp: FORCE
 	tdp/install_and_configure.sh
+
+prevent-touchpad-resuming-framework-16-from-sleep: FORCE
+	prevent-touchpad-resuming-framework-16-from-sleep/configure.sh
 
 zsh: FORCE install-zsh nvim
 	zsh/configure.sh
