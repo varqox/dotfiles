@@ -17,6 +17,7 @@ all: tlp
 all: tdp
 all: prevent-touchpad-resuming-framework-16-from-sleep
 all: zsh
+all: tmux
 all: scripts
 all: nvim
 all: git
@@ -99,6 +100,9 @@ prevent-touchpad-resuming-framework-16-from-sleep: FORCE
 
 zsh: FORCE install-zsh nvim
 	zsh/configure.sh
+
+tmux: FORCE
+	tmux/install_and_configure.sh
 
 scripts: FORCE
 	scripts/install.sh
