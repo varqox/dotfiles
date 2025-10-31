@@ -222,3 +222,98 @@ alias fp='fzf --preview "bat --color=always --style numbers {}"'
 function aria {
     aria2c --continue --max-connection-per-server=16 --max-concurrent-downloads=128 --split=1000000 --min-split-size=1M --lowest-speed-limit=1K --stream-piece-selector=random --http-accept-gzip true --enable-http-pipelining true --allow-piece-length-change true --auto-save-interval=16 --download-result=full --file-allocation=falloc --summary-interval=8 --input-file <(printf "%s\n" "$@")
 }
+
+function format-drive() (
+    if (($# < 2 || $# > 3)); then
+        echo 'Usage: format-drive <DEVICE> <FS_TYPE> [NEW_NAME_FOR_THE_SOLE_PARTITION_AND_FILE_SYSTEM]' >&2
+        echo 'E.g. format-drive /dev/sdd exfat' >&2
+        exit 1
+    fi
+
+    device="$1"
+    fs_type="$2"
+
+
+
+    if [[ -v 3 ]]; then
+        name="$3"
+    else
+        size="$(sudo lsblk "${device}" --output SIZE --nodeps --noheadings)" || exit
+        serial="$(sudo udevadm info "${device}" --query=property --property=ID_USB_SERIAL --value)" || exit
+        serial_short="$(sudo udevadm info "${device}" --query=property --property=ID_USB_SERIAL_SHORT --value)" || exit
+        name="${serial/${serial_short}}"
+        name="${name//[^a-zA-Z]/ }"
+        name="$(tr --squeeze-repeats ' ' <<< "${name# } ")" || exit
+        if [[ "${name}" == " " ]]; then
+            echo "warning: could not deduce a sensible name for the device - using an empty one"
+            name=''
+        else
+            name+="${size}"
+        fi
+    fi
+
+    label_args=()
+    extra_args=()
+
+    # Now let's try to decide on label of the file system
+    max_fs_label_len=0
+    case "${fs_type}" in
+        ext2|ext3|ext4)
+            max_fs_label_len=16
+            label_args=('-L')
+            ;;
+        exfat)
+            max_fs_label_len=11
+            label_args=('-L')
+            ;;
+        vfat)
+            max_fs_label_len=11
+            label_args=('-n')
+            ;;
+        ntfs)
+            max_fs_label_len=128
+            label_args=('-L')
+            extra_args+=('--fast')
+            ;;
+        *)
+            if [[ -v 3 ]]; then
+                echo "Error: no support yet (TODO) for labeling fs of type: ${fs_type}" >&2
+                exit 1
+            else
+                echo "warning: no support yet (TODO) for labeling fs of type: ${fs_type}, skipping labeling" >&2
+                label_args=()
+            fi
+            ;;
+    esac
+
+    if [[ -v 3 ]]; then
+        if (( ${#name} > max_fs_label_len )); then
+            echo "error: '${name}' is too long for a label (max ${max_fs_label_len} bytes)" >&2
+            exit 1
+        fi
+        label_args+=("${name}")
+    else
+        fs_label="${name}"
+        while (( ${#fs_label} > 0 && ${#fs_label} > ${max_fs_label_len} )); do
+            echo "warning: '${fs_label}' is too long for a file system label, will try to trim it..." >&2
+            fs_label=" ${fs_label}"
+            fs_label="${fs_label% *}"
+            fs_label="${fs_label# }"
+            echo "warning: Trying '${fs_label}'" >&2
+        done
+        if (( ${#fs_label} > 0 )); then
+            label_args+=("${fs_label}")
+        else
+            echo "warning: all attempts were too long... won't set the label" >&2
+            label_args=()
+        fi
+    fi
+
+    sudo parted "${device}" 'mktable gpt' || exit
+    sudo parted "${device}" "mkpart '${name}' 0% 100%" || exit
+    partition_device="$(echo "${device}"?*)"
+
+    sudo mkfs --verbose --type "${fs_type}" "${label_args[@]}" "${extra_args[@]}" "${partition_device}" || exit
+    sync
+    echo "Done." >&2
+)
