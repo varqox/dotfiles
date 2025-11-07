@@ -317,3 +317,48 @@ function format-drive() (
     sync
     echo "Done." >&2
 )
+
+function share-files() (
+    key_file="$(mktemp)" || exit
+    cert_file="$(mktemp)" || exit
+    trap 'exit $?' SIGINT SIGTERM SIGQUIT SIGHUP || exit
+    trap 'rm -f "${key_file}" "${cert_file}"; rm -d "${dir}" 2> /dev/null' EXIT || exit
+    dir="${1-${HOME}/tmp/share-files $(date '+%Y-%m-%d %H:%M:%S')}" || exit
+    openssl req -x509 -utf8 -days 32 -keyout "${key_file}" -outform PEM -out "${cert_file}" -batch -noenc || exit
+    mkdir -p "${dir}" || exit
+    random_token="$(openssl rand --hex 16)" || exit
+    swaymsg exec xdg-open "'${dir}'" || exit
+    addresses=($(ip route list | sed --silent '/^default /s/.* src \([0-9.]*\) .*/\1/p')) || exit
+    declare -i port=0
+    while (( port == 0 )); do
+        port="$(("0x$(openssl rand --hex 2)" % 10000 + 10000))" || exit
+        for addr in "${addresses[@]}"; do
+            nc --zero "${addr}" "${port}" && {
+                port=0
+                break
+            }
+        done
+    done
+
+    interfaces=()
+    for addr in "${addresses[@]}"; do
+        interfaces+=(
+            '--interfaces'
+            "${addr}"
+        )
+    done
+
+    miniserve \
+        --port "${port}" \
+        --route-prefix "${random_token}" \
+        --no-symlinks \
+        --hidden \
+        --qrcode \
+        --upload-files \
+        --web-upload-files-concurrency 16 \
+        --dirs-first \
+        --tls-key "${key_file}" \
+        --tls-cert "${cert_file}" \
+        "${interfaces[@]}" \
+        "${dir}"
+)
