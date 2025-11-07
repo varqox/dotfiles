@@ -3,7 +3,7 @@ set -euo pipefail
 source "$(dirname -- "$0")/../common.sh"
 
 print_step "zsh: install used utilities"
-paruS ccache clang gcc exo procps-ng gdb git meson ffmpeg speedtest-cli fzf bat
+paruS ccache clang gcc exo procps-ng gdb git meson ffmpeg speedtest-cli fzf bat xdg-utils miniserve
 
 print_step "zsh: copy configs"
 safe_copy --link zshrc "$HOME/.zshrc"
