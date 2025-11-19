@@ -13,6 +13,7 @@ all: networkmanager
 all: ssd
 all: ntp
 all: earlyoom
+all: amdgpu
 all: tlp
 all: tdp
 all: prevent-touchpad-resuming-framework-16-from-sleep
@@ -93,6 +94,9 @@ earlyoom: FORCE
 tlp: FORCE
 	tlp/install_and_configure.sh
 
+amdgpu: FORCE
+	amdgpu/configure.sh
+
 tdp: FORCE
 	tdp/install_and_configure.sh
 
@@ -140,7 +144,7 @@ mako: FORCE install-mako fonts
 
 keepassxc: FORCE install-keepassxc install-qt5-wayland fonts
 
-sway: FORCE networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar
+sway: FORCE networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar amdgpu
 	sway/install_and_configure.sh
 
 swaylock: FORCE
@@ -163,7 +167,7 @@ zed: FORCE fonts
 meson: FORCE
 	meson/install_and_configure.sh
 
-firefox: FORCE fonts thunar
+firefox: FORCE fonts thunar amdgpu
 	firefox/install.sh
 	firefox/configure.sh
 
@@ -173,7 +177,7 @@ audacious: FORCE install-audacious fonts
 age: FORCE
 	age/install_and_configure.sh
 
-mpv: FORCE
+mpv: FORCE amdgpu
 	mpv/install.sh
 	mpv/configure.sh
 	mpv/install-plugin-auto-save-state.sh

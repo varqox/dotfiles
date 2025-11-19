@@ -1,0 +1,30 @@
+
+Oct 24 16:43:15 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Dumping IP State
+Oct 24 16:43:15 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:15 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:15 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:15 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:16 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:16 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:16 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:16 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:16 arch systemd[1]: NetworkManager-dispatcher.service: Deactivated successfully.
+Oct 24 16:43:16 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:17 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:17 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:17 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:17 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:18 arch kernel: usb 7-1: USB disconnect, device number 12
+Oct 24 16:43:18 arch kernel: usb 7-1.1: USB disconnect, device number 14
+Oct 24 16:43:18 arch kernel: usb 7-1.2: USB disconnect, device number 18
+Oct 24 16:43:18 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:18 arch kernel: usb 7-1.3: USB disconnect, device number 16
+Oct 24 16:43:18 arch kernel: usb 7-1.4: USB disconnect, device number 13
+Oct 24 16:43:18 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:18 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:18 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:19 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:19 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 24 16:43:19 arch kernel: amdgpu 0000:c1:00.0: amdgpu: SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x0000001A SMN_C2PMSG_82:0x00000000
+Oct 24 16:43:19 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Failed to disable gfxoff!
+-- Boot 77f86948cf5446d4b64fb03c4d41423e --

@@ -1,0 +1,701 @@
+Nov 17 18:15:50 arch kernel: PM: suspend entry (s2idle)
+Nov 17 18:15:50 arch kernel: Filesystems sync: 0.003 seconds
+Nov 18 10:15:29 arch kernel: Freezing user space processes
+Nov 18 10:15:29 arch kernel: Freezing user space processes completed (elapsed 0.002 seconds)
+Nov 18 10:15:29 arch kernel: OOM killer disabled.
+Nov 18 10:15:29 arch kernel: Freezing remaining freezable tasks
+Nov 18 10:15:29 arch kernel: Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+Nov 18 10:15:29 arch kernel: printk: Suspending console(s) (use no_console_suspend to debug)
+Nov 18 10:15:29 arch kernel: GFP mask restricted
+Nov 18 10:15:29 arch kernel: queueing ieee80211 work while going to suspend
+Nov 18 10:15:29 arch kernel: PM: suspend of devices complete after 147.635 msecs
+Nov 18 10:15:29 arch kernel: PM: start suspend of devices complete after 151.149 msecs
+Nov 18 10:15:29 arch kernel: Clearing debounce for GPIO #0 during suspend.
+Nov 18 10:15:29 arch kernel: Disabling GPIO #8 interrupt for suspend.
+Nov 18 10:15:29 arch kernel: Disabling GPIO #84 interrupt for suspend.
+Nov 18 10:15:29 arch kernel: PM: late suspend of devices complete after 1.235 msecs
+Nov 18 10:15:29 arch kernel: ACPI: EC: interrupt blocked
+Nov 18 10:15:29 arch kernel: PM: noirq suspend of devices complete after 146.283 msecs
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PCI0.GP11.SWUS: LPI: Constraint not met; min power state:D3hot current power state:D0
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PCI0.GP12.SWUS: LPI: Constraint not met; min power state:D3hot current power state:D0
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PCI0.GP19.XHC2: LPI: Constraint not met; min power state:D3hot current power state:D0
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state screen off
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state lps0 ms entry
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state lps0 entry
+Nov 18 10:15:29 arch kernel: PM: suspend-to-idle
+Nov 18 10:15:29 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffbbeb5
+Nov 18 10:15:29 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 18 10:15:29 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 18 10:15:29 arch kernel: ACPI: EC: ACPI EC GPE dispatched
+Nov 18 10:15:29 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [LID0] (Device) Value 0x80 (Status Change) Node 000000008cd0f189
+Nov 18 10:15:29 arch kernel: ACPI: EC: ACPI EC work flushed
+Nov 18 10:15:29 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 18 10:15:29 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 18 10:15:29 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffbbeb5
+Nov 18 10:15:29 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 18 10:15:29 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 18 10:15:29 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffbbeb5
+Nov 18 10:15:29 arch kernel: Timekeeping suspended for 57577.714 seconds
+Nov 18 10:15:29 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 18 10:15:29 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 18 10:15:29 arch kernel: ACPI: EC: ACPI EC GPE dispatched
+Nov 18 10:15:29 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [LID0] (Device) Value 0x80 (Status Change) Node 000000008cd0f189
+Nov 18 10:15:29 arch kernel: ACPI: EC: ACPI EC work flushed
+Nov 18 10:15:29 arch kernel: ACPI: PM: Wakeup after ACPI Notify sync
+Nov 18 10:15:29 arch kernel: PM: resume from suspend-to-idle
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state lps0 exit
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state lps0 ms exit
+Nov 18 10:15:29 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state screen on
+Nov 18 10:15:29 arch kernel: ACPI: EC: interrupt unblocked
+Nov 18 10:15:29 arch kernel: PM: noirq resume of devices complete after 331.715 msecs
+Nov 18 10:15:29 arch kernel: PM: early resume of devices complete after 2.174 msecs
+Nov 18 10:15:29 arch kernel: [drm] PCIE GART of 512M enabled (table at 0x00000080FFD00000).
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: SMU is resuming...
+Nov 18 10:15:29 arch kernel: nvme nvme0: 16/0/0 default/read/poll queues
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: SMU is resumed successfully!
+Nov 18 10:15:29 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 18 10:15:29 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 18 10:15:29 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 18 10:15:29 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 6 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 7 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 11 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring sdma0 uses VM inv eng 12 on hub 0
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring vcn_unified_0 uses VM inv eng 0 on hub 8
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring jpeg_dec uses VM inv eng 1 on hub 8
+Nov 18 10:15:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring mes_kiq_3.1.0 uses VM inv eng 13 on hub 0
+Nov 18 10:15:29 arch kernel: PM: resume of devices complete after 238.446 msecs
+Nov 18 10:15:29 arch kernel: GFP mask restored
+Nov 18 10:15:29 arch kernel: OOM killer enabled.
+Nov 18 10:15:29 arch kernel: Restarting tasks: Starting
+Nov 18 10:15:29 arch kernel: Restarting tasks: Done
+Nov 18 10:15:29 arch kernel: random: crng reseeded on system resumption
+Nov 18 10:15:29 arch kernel: PM: suspend exit
+Nov 18 10:15:31 arch kernel: wlan0: authenticate with 66:22:32:60:c0:1f (local address=fc:b0:de:17:f6:8f)
+Nov 18 10:15:31 arch kernel: wlan0: send auth to 66:22:32:60:c0:1f (try 1/3)
+Nov 18 10:15:31 arch kernel: wlan0: authenticated
+Nov 18 10:15:31 arch kernel: wlan0: associate with 66:22:32:60:c0:1f (try 1/3)
+Nov 18 10:15:31 arch kernel: wlan0: RX AssocResp from 66:22:32:60:c0:1f (capab=0x1111 status=0 aid=1)
+Nov 18 10:15:31 arch kernel: wlan0: associated
+Nov 18 10:15:31 arch kernel: wlan0: Limiting TX power to 23 (23 - 0) dBm as advertised by 66:22:32:60:c0:1f
+Nov 18 10:28:24 arch kernel: wlan0: deauthenticating from 66:22:32:60:c0:1f by local choice (Reason: 3=DEAUTH_LEAVING)
+Nov 18 10:28:25 arch kernel: PM: suspend entry (s2idle)
+Nov 18 10:28:25 arch kernel: Filesystems sync: 0.006 seconds
+Nov 19 11:41:10 arch kernel: Freezing user space processes
+Nov 19 11:41:10 arch kernel: Freezing user space processes completed (elapsed 0.002 seconds)
+Nov 19 11:41:10 arch kernel: OOM killer disabled.
+Nov 19 11:41:10 arch kernel: Freezing remaining freezable tasks
+Nov 19 11:41:10 arch kernel: Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+Nov 19 11:41:10 arch kernel: printk: Suspending console(s) (use no_console_suspend to debug)
+Nov 19 11:41:10 arch kernel: GFP mask restricted
+Nov 19 11:41:10 arch kernel: queueing ieee80211 work while going to suspend
+Nov 19 11:41:10 arch kernel: PM: suspend of devices complete after 917.563 msecs
+Nov 19 11:41:10 arch kernel: PM: start suspend of devices complete after 921.371 msecs
+Nov 19 11:41:10 arch kernel: Clearing debounce for GPIO #0 during suspend.
+Nov 19 11:41:10 arch kernel: Disabling GPIO #8 interrupt for suspend.
+Nov 19 11:41:10 arch kernel: Disabling GPIO #84 interrupt for suspend.
+Nov 19 11:41:10 arch kernel: PM: late suspend of devices complete after 1.874 msecs
+Nov 19 11:41:10 arch kernel: ACPI: EC: interrupt blocked
+Nov 19 11:41:10 arch kernel: PM: noirq suspend of devices complete after 149.135 msecs
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PCI0.GP11.SWUS: LPI: Constraint not met; min power state:D3hot current power state:D0
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PCI0.GP12.SWUS: LPI: Constraint not met; min power state:D3hot current power state:D0
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PCI0.GP19.XHC2: LPI: Constraint not met; min power state:D3hot current power state:D0
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state screen off
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state lps0 ms entry
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state lps0 entry
+Nov 19 11:41:10 arch kernel: PM: suspend-to-idle
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffbbeb5
+Nov 19 11:41:10 arch kernel: Timekeeping suspended for 0.443 seconds
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE dispatched
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [LID0] (Device) Value 0x80 (Status Change) Node 000000008cd0f189
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC work flushed
+Nov 19 11:41:10 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffbbeb5
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffbbeb5
+Nov 19 11:41:10 arch kernel: Timekeeping suspended for 49280.992 seconds
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE dispatched
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [ACAD] (Device) Value 0x80 (Status Change) Node 000000007aa12586
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [VGA_] (Device) Value 0x81 (Information Change) Node 00000000f227e0c4
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [BAT1] (Device) Value 0x80 (Status Change) Node 0000000028a785d5
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC work flushed
+Nov 19 11:41:10 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffb3eb5
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffb3eb5
+Nov 19 11:41:10 arch kernel: Timekeeping suspended for 9908.982 seconds
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE dispatched
+Nov 19 11:41:10 arch kernel: sched: DL replenish lagged too much
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [BAT1] (Device) Value 0x81 (Information Change) Node 0000000028a785d5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [BAT1] (Device) Value 0x80 (Status Change) Node 0000000028a785d5
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC work flushed
+Nov 19 11:41:10 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffb3eb5
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffb3eb5
+Nov 19 11:41:10 arch kernel: Timekeeping suspended for 544.971 seconds
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE dispatched
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [BAT1] (Device) Value 0x81 (Information Change) Node 0000000028a785d5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [BAT1] (Device) Value 0x80 (Status Change) Node 0000000028a785d5
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC work flushed
+Nov 19 11:41:10 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffb3eb5
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: PM: Rearming ACPI SCI for wakeup
+Nov 19 11:41:10 arch kernel: amd_pmc: SMU idlemask s0i3: 0x3ffb3eb5
+Nov 19 11:41:10 arch kernel: Timekeeping suspended for 31018.971 seconds
+Nov 19 11:41:10 arch kernel: PM: Triggering wakeup from IRQ 9
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE status set
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC GPE dispatched
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [LID0] (Device) Value 0x80 (Status Change) Node 000000008cd0f189
+Nov 19 11:41:10 arch kernel: ACPI: EC: ACPI EC work flushed
+Nov 19 11:41:10 arch kernel: ACPI: PM: Wakeup after ACPI Notify sync
+Nov 19 11:41:10 arch kernel: PM: resume from suspend-to-idle
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state lps0 exit
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state lps0 ms exit
+Nov 19 11:41:10 arch kernel: ACPI: \_SB_.PEP_: Successfully transitioned to state screen on
+Nov 19 11:41:10 arch kernel: ACPI: EC: interrupt unblocked
+Nov 19 11:41:10 arch kernel: PM: noirq resume of devices complete after 332.894 msecs
+Nov 19 11:41:10 arch kernel: PM: early resume of devices complete after 2.086 msecs
+Nov 19 11:41:10 arch kernel: [drm] PCIE GART of 512M enabled (table at 0x00000080FFD00000).
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: SMU is resuming...
+Nov 19 11:41:10 arch kernel: nvme nvme0: 16/0/0 default/read/poll queues
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: SMU is resumed successfully!
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 6 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 7 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 11 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring sdma0 uses VM inv eng 12 on hub 0
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring vcn_unified_0 uses VM inv eng 0 on hub 8
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring jpeg_dec uses VM inv eng 1 on hub 8
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring mes_kiq_3.1.0 uses VM inv eng 13 on hub 0
+Nov 19 11:41:10 arch kernel: PM: resume of devices complete after 295.677 msecs
+Nov 19 11:41:10 arch kernel: GFP mask restored
+Nov 19 11:41:10 arch kernel: thunderbolt 1-2: new device found, vendor=0xd4 device=0xb070
+Nov 19 11:41:10 arch kernel: thunderbolt 1-2: Dell WD19TB Thunderbolt Dock
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel: thunderbolt 1-0:2.1: new retimer found, vendor=0x7fea device=0x1032
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel: GPIO 8 is active: 0x18341b00
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel: ucsi_acpi USBC000:00: unknown error 256
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 000000005739f9c5
+Nov 19 11:41:10 arch kernel: amdgpu 0000:c1:00.0: amdgpu: [drm] DMUB HPD IRQ callback: link_index=7
+Nov 19 11:41:10 arch kernel: OOM killer enabled.
+Nov 19 11:41:10 arch kernel: Restarting tasks: Starting
+Nov 19 11:41:10 arch kernel: Restarting tasks: Done
+Nov 19 11:41:10 arch kernel: random: crng reseeded on system resumption
+Nov 19 11:41:10 arch kernel: PM: suspend exit
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [GP12] (Device) Value 0x02 (Device Wake) Node 000000005e0cfbd9
+Nov 19 11:41:10 arch kernel: pcieport 0000:00:04.1: pciehp: Slot(0-1): Card present
+Nov 19 11:41:10 arch kernel: pcieport 0000:00:04.1: pciehp: Slot(0-1): Link Up
+Nov 19 11:41:10 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [GP12] (Device) Value 0x02 (Device Wake) Node 000000005e0cfbd9
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: [8086:15ef] type 01 class 0x060400 PCIe Switch Upstream Port
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: PCI bridge to [bus 00]
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0:   bridge window [io  0x0000-0x0fff]
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0:   bridge window [mem 0x00000000-0x000fffff]
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0:   bridge window [mem 0x00000000-0x000fffff 64bit pref]
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: enabling Extended Tags
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: supports D1 D2
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: PME# supported from D0 D1 D2 D3hot D3cold
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: 2.000 Gb/s available PCIe bandwidth, limited by 2.5 GT/s PCIe x1 link at 0000:00:04.1 (capable of 31.504 Gb/s with 8.0 GT/s PCIe x4 link)
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: Adding to iommu group 5
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: [8086:15ef] type 01 class 0x060400 PCIe Switch Downstream Port
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: PCI bridge to [bus 00]
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0:   bridge window [io  0x0000-0x0fff]
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0:   bridge window [mem 0x00000000-0x000fffff]
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0:   bridge window [mem 0x00000000-0x000fffff 64bit pref]
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: enabling Extended Tags
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: supports D1 D2
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: PME# supported from D0 D1 D2 D3hot D3cold
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: Adding to iommu group 5
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: [8086:15ef] type 01 class 0x060400 PCIe Switch Downstream Port
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: PCI bridge to [bus 00]
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0:   bridge window [io  0x0000-0x0fff]
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0:   bridge window [mem 0x00000000-0x000fffff]
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0:   bridge window [mem 0x00000000-0x000fffff 64bit pref]
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: enabling Extended Tags
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: supports D1 D2
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: PME# supported from D0 D1 D2 D3hot D3cold
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: Adding to iommu group 5
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: PCI bridge to [bus 63-c0]
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: [8086:15f0] type 00 class 0x0c0330 PCIe Endpoint
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: BAR 0 [mem 0x00000000-0x0000ffff]
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: enabling Extended Tags
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: supports D1 D2
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: PME# supported from D0 D1 D2 D3hot D3cold
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: 2.000 Gb/s available PCIe bandwidth, limited by 2.5 GT/s PCIe x1 link at 0000:00:04.1 (capable of 8.000 Gb/s with 2.5 GT/s PCIe x4 link)
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: Adding to iommu group 5
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: PCI bridge to [bus 64-c0]
+Nov 19 11:41:10 arch kernel: pci_bus 0000:64: busn_res: [bus 64-c0] end is updated to 64
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: PCI bridge to [bus 65-c0]
+Nov 19 11:41:10 arch kernel: pci_bus 0000:65: busn_res: [bus 65-c0] end is updated to c0
+Nov 19 11:41:10 arch kernel: pci_bus 0000:63: busn_res: [bus 63-c0] end is updated to c0
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: bridge window [mem 0x00100000-0x001fffff 64bit pref] to [bus 65-c0] add_size 100000 add_align 100000
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: bridge window [mem 0x00100000-0x001fffff] to [bus 65-c0] add_size 100000 add_align 100000
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: bridge window [mem 0x00100000-0x002fffff 64bit pref] to [bus 63-c0] add_size 100000 add_align 100000
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: bridge window [mem 0x00100000-0x002fffff] to [bus 63-c0] add_size 100000 add_align 100000
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: bridge window [mem 0x60000000-0x77ffffff]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: bridge window [mem 0x6000000000-0x6fffffffff 64bit pref]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: bridge window [io  0x2000-0x5fff]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: bridge window [mem 0x60000000-0x600fffff]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: bridge window [mem 0x6000000000-0x60000fffff 64bit pref]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: bridge window [mem 0x60100000-0x77ffffff]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: bridge window [mem 0x6000100000-0x6fffffffff 64bit pref]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: bridge window [io  0x2000-0x2fff]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: bridge window [io  0x3000-0x5fff]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: BAR 0 [mem 0x60000000-0x6000ffff]: assigned
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0: PCI bridge to [bus 64]
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0:   bridge window [io  0x2000-0x2fff]
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0:   bridge window [mem 0x60000000-0x600fffff]
+Nov 19 11:41:10 arch kernel: pci 0000:63:02.0:   bridge window [mem 0x6000000000-0x60000fffff 64bit pref]
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0: PCI bridge to [bus 65-c0]
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0:   bridge window [io  0x3000-0x5fff]
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0:   bridge window [mem 0x60100000-0x77ffffff]
+Nov 19 11:41:10 arch kernel: pci 0000:63:04.0:   bridge window [mem 0x6000100000-0x6fffffffff 64bit pref]
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0: PCI bridge to [bus 63-c0]
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0:   bridge window [io  0x2000-0x5fff]
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0:   bridge window [mem 0x60000000-0x77ffffff]
+Nov 19 11:41:10 arch kernel: pci 0000:62:00.0:   bridge window [mem 0x6000000000-0x6fffffffff 64bit pref]
+Nov 19 11:41:10 arch kernel: pcieport 0000:00:04.1: PCI bridge to [bus 62-c0]
+Nov 19 11:41:10 arch kernel: pcieport 0000:00:04.1:   bridge window [io  0x2000-0x5fff]
+Nov 19 11:41:10 arch kernel: pcieport 0000:00:04.1:   bridge window [mem 0x60000000-0x77ffffff]
+Nov 19 11:41:10 arch kernel: pcieport 0000:00:04.1:   bridge window [mem 0x6000000000-0x6fffffffff 64bit pref]
+Nov 19 11:41:10 arch kernel: pcieport 0000:62:00.0: enabling device (0000 -> 0003)
+Nov 19 11:41:10 arch kernel: pcieport 0000:63:02.0: enabling device (0000 -> 0003)
+Nov 19 11:41:10 arch kernel: pcieport 0000:63:04.0: enabling device (0000 -> 0003)
+Nov 19 11:41:10 arch kernel: pcieport 0000:63:04.0: pciehp: Slot #4 AttnBtn- PwrCtrl- MRL- AttnInd- PwrInd- HotPlug+ Surprise+ Interlock- NoCompl+ IbPresDis- LLActRep+
+Nov 19 11:41:10 arch kernel: pci 0000:64:00.0: enabling device (0000 -> 0002)
+Nov 19 11:41:10 arch kernel: xhci_hcd 0000:64:00.0: xHCI Host Controller
+Nov 19 11:41:10 arch kernel: xhci_hcd 0000:64:00.0: new USB bus registered, assigned bus number 9
+Nov 19 11:41:10 arch kernel: xhci_hcd 0000:64:00.0: hcc params 0x200077c1 hci version 0x110 quirks 0x0000000200009810
+Nov 19 11:41:10 arch kernel: xhci_hcd 0000:64:00.0: xHCI Host Controller
+Nov 19 11:41:10 arch kernel: xhci_hcd 0000:64:00.0: new USB bus registered, assigned bus number 10
+Nov 19 11:41:10 arch kernel: xhci_hcd 0000:64:00.0: Host supports USB 3.1 Enhanced SuperSpeed
+Nov 19 11:41:10 arch kernel: usb usb9: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.17
+Nov 19 11:41:10 arch kernel: usb usb9: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+Nov 19 11:41:10 arch kernel: usb usb9: Product: xHCI Host Controller
+Nov 19 11:41:10 arch kernel: usb usb9: Manufacturer: Linux 6.17.8-arch1-1 xhci-hcd
+Nov 19 11:41:10 arch kernel: usb usb9: SerialNumber: 0000:64:00.0
+Nov 19 11:41:10 arch kernel: hub 9-0:1.0: USB hub found
+Nov 19 11:41:10 arch kernel: hub 9-0:1.0: 2 ports detected
+Nov 19 11:41:10 arch kernel: usb usb10: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.17
+Nov 19 11:41:10 arch kernel: usb usb10: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+Nov 19 11:41:10 arch kernel: usb usb10: Product: xHCI Host Controller
+Nov 19 11:41:10 arch kernel: usb usb10: Manufacturer: Linux 6.17.8-arch1-1 xhci-hcd
+Nov 19 11:41:10 arch kernel: usb usb10: SerialNumber: 0000:64:00.0
+Nov 19 11:41:10 arch kernel: hub 10-0:1.0: USB hub found
+Nov 19 11:41:10 arch kernel: hub 10-0:1.0: 2 ports detected
+Nov 19 11:41:10 arch kernel: usb 9-1: new high-speed USB device number 2 using xhci_hcd
+Nov 19 11:41:10 arch kernel: usb 9-1: New USB device found, idVendor=1a40, idProduct=0101, bcdDevice= 1.11
+Nov 19 11:41:10 arch kernel: usb 9-1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+Nov 19 11:41:10 arch kernel: usb 9-1: Product: USB 2.0 Hub
+Nov 19 11:41:10 arch kernel: hub 9-1:1.0: USB hub found
+Nov 19 11:41:10 arch kernel: hub 9-1:1.0: 4 ports detected
+Nov 19 11:41:10 arch kernel: usb 10-2: new SuperSpeed Plus Gen 2x1 USB device number 2 using xhci_hcd
+Nov 19 11:41:10 arch kernel: usb 10-2: New USB device found, idVendor=0bda, idProduct=0487, bcdDevice= 1.62
+Nov 19 11:41:10 arch kernel: usb 10-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+Nov 19 11:41:10 arch kernel: usb 10-2: Product: Dell dock
+Nov 19 11:41:10 arch kernel: usb 10-2: Manufacturer: Dell Inc.
+Nov 19 11:41:10 arch kernel: hub 10-2:1.0: USB hub found
+Nov 19 11:41:10 arch kernel: hub 10-2:1.0: 4 ports detected
+Nov 19 11:41:10 arch kernel: usb 9-2: new high-speed USB device number 3 using xhci_hcd
+Nov 19 11:41:10 arch kernel: usb 9-2: New USB device found, idVendor=0bda, idProduct=5487, bcdDevice= 1.62
+Nov 19 11:41:10 arch kernel: usb 9-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+Nov 19 11:41:10 arch kernel: usb 9-2: Product: Dell dock
+Nov 19 11:41:10 arch kernel: usb 9-2: Manufacturer: Dell Inc.
+Nov 19 11:41:10 arch kernel: hub 9-2:1.0: USB hub found
+Nov 19 11:41:10 arch kernel: hub 9-2:1.0: 5 ports detected
+Nov 19 11:41:11 arch kernel: usb 9-1.3: new full-speed USB device number 4 using xhci_hcd
+Nov 19 11:41:11 arch kernel: usb 9-1.3: New USB device found, idVendor=1462, idProduct=3fa4, bcdDevice= 0.00
+Nov 19 11:41:11 arch kernel: usb 9-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+Nov 19 11:41:11 arch kernel: usb 9-1.3: Product: MSI Gaming Controller
+Nov 19 11:41:11 arch kernel: usb 9-1.3: Manufacturer: MS
+Nov 19 11:41:11 arch kernel: usb 9-1.3: SerialNumber: A02019010700
+Nov 19 11:41:11 arch kernel: input: MS MSI Gaming Controller as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-1/9-1.3/9-1.3:1.0/0003:1462:3FA4.0009/input/input17
+Nov 19 11:41:11 arch kernel: hid-generic 0003:1462:3FA4.0009: input,hidraw7: USB HID v1.10 Device [MS MSI Gaming Controller] on usb-0000:64:00.0-1.3/input0
+Nov 19 11:41:11 arch kernel: usb 10-2.1: new SuperSpeed USB device number 3 using xhci_hcd
+Nov 19 11:41:11 arch kernel: usb 10-2.1: New USB device found, idVendor=2109, idProduct=0817, bcdDevice= 6.33
+Nov 19 11:41:11 arch kernel: usb 10-2.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+Nov 19 11:41:11 arch kernel: usb 10-2.1: Product: USB3.0 Hub
+Nov 19 11:41:11 arch kernel: usb 10-2.1: Manufacturer: VIA Labs, Inc.
+Nov 19 11:41:11 arch kernel: usb 10-2.1: SerialNumber: 000000000
+Nov 19 11:41:11 arch kernel: hub 10-2.1:1.0: USB hub found
+Nov 19 11:41:11 arch kernel: hub 10-2.1:1.0: 4 ports detected
+Nov 19 11:41:11 arch kernel: usb 9-2.1: new high-speed USB device number 5 using xhci_hcd
+Nov 19 11:41:11 arch kernel: amdxdna 0000:c2:00.1: [drm] *ERROR* aie2_smu_exec: smu cmd 3 timed out
+Nov 19 11:41:11 arch kernel: amdxdna 0000:c2:00.1: [drm] *ERROR* aie2_smu_init: Power on failed, ret -110
+Nov 19 11:41:11 arch kernel: amdxdna 0000:c2:00.1: [drm] *ERROR* aie2_hw_start: failed to init smu, ret -110
+Nov 19 11:41:11 arch kernel: amdxdna 0000:c2:00.1: [drm] *ERROR* aie2_hw_resume: Start hardware failed, -110
+Nov 19 11:41:11 arch kernel: usb 9-2.1: New USB device found, idVendor=2109, idProduct=2817, bcdDevice= 6.33
+Nov 19 11:41:11 arch kernel: usb 9-2.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+Nov 19 11:41:11 arch kernel: usb 9-2.1: Product: USB2.0 Hub
+Nov 19 11:41:11 arch kernel: usb 9-2.1: Manufacturer: VIA Labs, Inc.
+Nov 19 11:41:11 arch kernel: usb 9-2.1: SerialNumber: 000000000
+Nov 19 11:41:11 arch kernel: hub 9-2.1:1.0: USB hub found
+Nov 19 11:41:11 arch kernel: hub 9-2.1:1.0: 5 ports detected
+Nov 19 11:41:11 arch kernel: usb 9-1.4: new full-speed USB device number 6 using xhci_hcd
+Nov 19 11:41:11 arch kernel: usb 9-1.4: New USB device found, idVendor=1d5c, idProduct=7112, bcdDevice= 1.00
+Nov 19 11:41:11 arch kernel: usb 9-1.4: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+Nov 19 11:41:11 arch kernel: usb-storage 9-1.3:1.1: USB Mass Storage device detected
+Nov 19 11:41:11 arch kernel: scsi host0: usb-storage 9-1.3:1.1
+Nov 19 11:41:11 arch kernel: usbcore: registered new interface driver usb-storage
+Nov 19 11:41:11 arch kernel: usbcore: registered new interface driver uas
+Nov 19 11:41:12 arch kernel: usb 10-2.3: new SuperSpeed USB device number 4 using xhci_hcd
+Nov 19 11:41:12 arch kernel: usb 10-2.3: New USB device found, idVendor=0bda, idProduct=0413, bcdDevice= 1.23
+Nov 19 11:41:12 arch kernel: usb 10-2.3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+Nov 19 11:41:12 arch kernel: usb 10-2.3: Product: Dell dock
+Nov 19 11:41:12 arch kernel: usb 10-2.3: Manufacturer: Dell Inc.
+Nov 19 11:41:12 arch kernel: hub 10-2.3:1.0: USB hub found
+Nov 19 11:41:12 arch kernel: hub 10-2.3:1.0: 4 ports detected
+Nov 19 11:41:12 arch kernel: usb 9-2.3: new high-speed USB device number 7 using xhci_hcd
+Nov 19 11:41:12 arch kernel: usb 9-2.3: New USB device found, idVendor=0bda, idProduct=5413, bcdDevice= 1.23
+Nov 19 11:41:12 arch kernel: usb 9-2.3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+Nov 19 11:41:12 arch kernel: usb 9-2.3: Product: Dell dock
+Nov 19 11:41:12 arch kernel: usb 9-2.3: Manufacturer: Dell Inc.
+Nov 19 11:41:12 arch kernel: hub 9-2.3:1.0: USB hub found
+Nov 19 11:41:12 arch kernel: hub 9-2.3:1.0: 6 ports detected
+Nov 19 11:41:12 arch kernel: usb 10-2.1.4: new SuperSpeed USB device number 5 using xhci_hcd
+Nov 19 11:41:12 arch kernel: usb 10-2.1.4: New USB device found, idVendor=05e3, idProduct=0749, bcdDevice=15.39
+Nov 19 11:41:12 arch kernel: usb 10-2.1.4: New USB device strings: Mfr=3, Product=4, SerialNumber=2
+Nov 19 11:41:12 arch kernel: usb 10-2.1.4: Product: USB3.0 Card Reader
+Nov 19 11:41:12 arch kernel: usb 10-2.1.4: Manufacturer: Generic
+Nov 19 11:41:12 arch kernel: usb 10-2.1.4: SerialNumber: 000000001539
+Nov 19 11:41:12 arch kernel: usb-storage 10-2.1.4:1.0: USB Mass Storage device detected
+Nov 19 11:41:12 arch kernel: scsi host1: usb-storage 10-2.1.4:1.0
+Nov 19 11:41:12 arch kernel: usb 10-2.4: new SuperSpeed USB device number 6 using xhci_hcd
+Nov 19 11:41:12 arch kernel: usb 10-2.4: New USB device found, idVendor=0bda, idProduct=8153, bcdDevice=31.11
+Nov 19 11:41:12 arch kernel: usb 10-2.4: New USB device strings: Mfr=1, Product=2, SerialNumber=6
+Nov 19 11:41:12 arch kernel: usb 10-2.4: Product: USB 10/100/1000 LAN
+Nov 19 11:41:12 arch kernel: usb 10-2.4: Manufacturer: Realtek
+Nov 19 11:41:12 arch kernel: usb 10-2.4: SerialNumber: 111000001
+Nov 19 11:41:12 arch kernel: usbcore: registered new device driver r8152-cfgselector
+Nov 19 11:41:12 arch kernel: usb 9-2.1.1: new full-speed USB device number 8 using xhci_hcd
+Nov 19 11:41:12 arch kernel: ------------[ cut here ]------------
+Nov 19 11:41:12 arch kernel: WARNING: CPU: 7 PID: 1897 at drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn314/dcn314_smu.c:159 dcn314_smu_send_msg_with_param+0x109/0x190 [amdgpu]
+Nov 19 11:41:12 arch kernel: Modules linked in: r8152(+) mii libphy mdio_bus uas usb_storage uinput uvcvideo videobuf2_vmalloc uvc videobuf2_memops videobuf2_v4l2 videobuf2_common videodev mc snd_seq_dummy rfcomm snd_hrtimer snd_seq snd_seq_device ccm algif_aead des3_ede_x86_64 des_generic libdes md4 cmac algif_hash algif_skcipher af_alg bnep vfat fat snd_sof_amd_acp70 snd_sof_amd_acp63 snd_sof_amd_vangogh snd_sof_amd_rembrandt snd_sof_amd_renoir snd_sof_amd_acp snd_sof_pci snd_sof_xtensa_dsp snd_sof snd_sof_utils snd_pci_ps snd_soc_acpi_amd_match snd_amd_sdw_acpi soundwire_amd snd_hda_codec_alc269 soundwire_generic_allocation soundwire_bus snd_hda_scodec_component mt7921e snd_hda_codec_realtek_lib snd_soc_sdca mt7921_common snd_hda_codec_generic snd_hda_codec_atihdmi mt792x_lib snd_soc_core snd_hda_codec_hdmi mt76_connac_lib snd_compress mt76 snd_hda_intel amd_atl intel_rapl_msr hid_sensor_als ac97_bus intel_rapl_common snd_hda_codec snd_pcm_dmaengine mousedev hid_sensor_trigger snd_rpl_pci_acp6x mac80211 snd_hda_core snd_acp_pci
+Nov 19 11:41:12 arch kernel:  industrialio_triggered_buffer snd_amd_acpi_mach snd_intel_dspcfg ucsi_acpi spd5118 snd_acp_legacy_common snd_intel_sdw_acpi kfifo_buf libarc4 typec_ucsi snd_pci_acp6x btusb snd_hwdep hid_sensor_iio_common leds_cros_ec industrialio cros_charge_control cros_ec_chardev cros_ec_debugfs sp5100_tco cros_ec_sysfs led_class_multicolor cros_ec_hwmon gpio_cros_ec snd_pcm btrtl typec snd_pci_acp5x cfg80211 kvm_amd roles btintel snd_rn_pci_acp3x snd_timer snd_acp_config btbcm snd cros_ec_dev snd_soc_acpi btmtk amd_pmf i2c_piix4 hid_multitouch hid_sensor_hub kvm bluetooth joydev irqbypass rapl cros_ec_lpcs wmi_bmof pcspkr amdtee amdxdna k10temp rfkill soundcore snd_pci_acp3x i2c_smbus thunderbolt cros_ec amd_sfh i2c_hid_acpi platform_profile i2c_hid cros_ec_proto amd_pmc mac_hid pkcs8_key_parser i2c_dev crypto_user ntsync loop nfnetlink ip_tables x_tables dm_crypt encrypted_keys trusted asn1_encoder tee amdgpu dm_mod amdxcp i2c_algo_bit drm_ttm_helper ttm drm_exec gpu_sched drm_suballoc_helper nvme
+Nov 19 11:41:12 arch kernel:  drm_panel_backlight_quirks polyval_clmulni drm_buddy ghash_clmulni_intel nvme_core aesni_intel drm_display_helper nvme_keyring cec ccp video nvme_auth wmi
+Nov 19 11:41:12 arch kernel: CPU: 7 UID: 1000 PID: 1897 Comm: sway Not tainted 6.17.8-arch1-1 #1 PREEMPT(full)  b229cb54977b6624cce826e2cbd0d8e703fe3921
+Nov 19 11:41:12 arch kernel: Hardware name: Framework Laptop 16 (AMD Ryzen 7040 Series)/FRANMZCP07, BIOS 04.02 11/13/2025
+Nov 19 11:41:12 arch kernel: RIP: 0010:dcn314_smu_send_msg_with_param+0x109/0x190 [amdgpu]
+Nov 19 11:41:12 arch kernel: Code: c7 c2 f0 ff 47 c1 5d 41 5c 41 5d e9 01 19 ef ff 89 da 48 c7 c6 a8 7a 5e c1 48 c7 c7 e8 14 09 c1 e8 7c 64 1c f0 e9 46 ff ff ff <0f> 0b 48 8b 7d 00 b9 80 84 1e 00 44 89 ea 44 89 e6 e8 61 d1 ef ff
+Nov 19 11:41:12 arch kernel: RSP: 0018:ffffd47c437f3490 EFLAGS: 00010246
+Nov 19 11:41:12 arch kernel: RAX: 0002177ee5d6aeb6 RBX: 0000000000000000 RCX: 0000000000000007
+Nov 19 11:41:12 arch kernel: RDX: 0000000000009da4 RSI: 000000000000942a RDI: 0002177ee5d61112
+Nov 19 11:41:12 arch kernel: RBP: ffff8d6393254400 R08: 0000000000000000 R09: 0000000080000000
+Nov 19 11:41:12 arch kernel: R10: ffff8d6391a34280 R11: 0000000000000001 R12: 000000000000000d
+Nov 19 11:41:12 arch kernel: R13: 0000000000000000 R14: ffffffffc14a3ec0 R15: ffff8d6393254400
+Nov 19 11:41:12 arch kernel: FS:  00007f4696780a00(0000) GS:ffff8d6a4ecc9000(0000) knlGS:0000000000000000
+Nov 19 11:41:12 arch kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+Nov 19 11:41:12 arch kernel: CR2: 0000562b3db69f48 CR3: 0000000109edb000 CR4: 0000000000f50ef0
+Nov 19 11:41:12 arch kernel: PKRU: 55555554
+Nov 19 11:41:12 arch kernel: Call Trace:
+Nov 19 11:41:12 arch kernel:  <TASK>
+Nov 19 11:41:12 arch kernel:  dce110_enable_audio_stream+0xb4/0xf0 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  link_set_dpms_on+0x561/0xe10 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  dce110_apply_single_controller_ctx_to_hw+0x306/0x4e0 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  dce110_apply_ctx_to_hw+0x40d/0x5a0 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? split_large_buddy+0xa0/0x110
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? free_one_page+0x6b/0x170
+Nov 19 11:41:12 arch kernel:  dc_commit_state_no_check+0x68e/0xf50 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  dc_commit_streams+0x31b/0x520 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? dma_resv_list_alloc+0x25/0x40
+Nov 19 11:41:12 arch kernel:  amdgpu_dm_atomic_commit_tail+0x6c3/0x3790 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? generic_reg_get+0x21/0x40 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? optc1_get_crtc_scanoutpos+0x75/0xb0 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? dc_stream_send_dp_sdp+0x91/0xe0 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? dm_crtc_get_scanoutpos+0xa4/0x120 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? ktime_get+0x38/0xd0
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? amdgpu_display_get_crtc_scanoutpos+0xa8/0x1d0 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? amdgpu_crtc_get_scanout_position+0x28/0x40 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x145/0x380
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? wait_for_completion_timeout+0x14e/0x1a0
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? drm_crtc_get_last_vbltimestamp+0x52/0x90
+Nov 19 11:41:12 arch kernel:  commit_tail+0xae/0x140
+Nov 19 11:41:12 arch kernel:  drm_atomic_helper_commit+0x13c/0x180
+Nov 19 11:41:12 arch kernel:  drm_atomic_commit+0xae/0xe0
+Nov 19 11:41:12 arch kernel:  ? __pfx___drm_printfn_info+0x10/0x10
+Nov 19 11:41:12 arch kernel:  drm_mode_atomic_ioctl+0xa82/0xcf0
+Nov 19 11:41:12 arch kernel:  ? __check_object_size+0x44/0x1f0
+Nov 19 11:41:12 arch kernel:  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
+Nov 19 11:41:12 arch kernel:  drm_ioctl_kernel+0xab/0x100
+Nov 19 11:41:12 arch kernel:  drm_ioctl+0x29b/0x550
+Nov 19 11:41:12 arch kernel:  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
+Nov 19 11:41:12 arch kernel:  amdgpu_drm_ioctl+0x4a/0x90 [amdgpu c0d9358bdf9f6a31f5617f8976404be2a368f003]
+Nov 19 11:41:12 arch kernel:  __x64_sys_ioctl+0x94/0xe0
+Nov 19 11:41:12 arch kernel:  do_syscall_64+0x81/0x970
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? count_memcg_events+0xc2/0x190
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? handle_mm_fault+0x1d7/0x2d0
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? do_user_addr_fault+0x21a/0x690
+Nov 19 11:41:12 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 19 11:41:12 arch kernel:  ? exc_page_fault+0x7e/0x1a0
+Nov 19 11:41:12 arch kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+Nov 19 11:41:12 arch kernel: RIP: 0033:0x7f469731670d
+Nov 19 11:41:12 arch kernel: Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+Nov 19 11:41:12 arch kernel: RSP: 002b:00007fff32345740 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+Nov 19 11:41:12 arch kernel: RAX: ffffffffffffffda RBX: 00005562177eabc0 RCX: 00007f469731670d
+Nov 19 11:41:12 arch kernel: RDX: 00007fff323457e0 RSI: 00000000c03864bc RDI: 000000000000000c
+Nov 19 11:41:12 arch kernel: RBP: 00007fff32345790 R08: 0000000000000007 R09: 0000556217864c20
+Nov 19 11:41:12 arch kernel: R10: 00000000000004c0 R11: 0000000000000246 R12: 00007fff323457e0
+Nov 19 11:41:12 arch kernel: R13: 00000000c03864bc R14: 000000000000000c R15: 0000556217864c20
+Nov 19 11:41:12 arch kernel:  </TASK>
+Nov 19 11:41:12 arch kernel: ---[ end trace 0000000000000000 ]---
+Nov 19 11:41:12 arch kernel: usb 9-2.1.1: New USB device found, idVendor=1050, idProduct=0406, bcdDevice= 5.43
+Nov 19 11:41:12 arch kernel: usb 9-2.1.1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+Nov 19 11:41:12 arch kernel: usb 9-2.1.1: Product: YubiKey FIDO+CCID
+Nov 19 11:41:12 arch kernel: usb 9-2.1.1: Manufacturer: Yubico
+Nov 19 11:41:12 arch kernel: hid-generic 0003:1050:0406.000A: hiddev99,hidraw8: USB HID v1.10 Device [Yubico YubiKey FIDO+CCID] on usb-0000:64:00.0-2.1.1/input0
+Nov 19 11:41:12 arch kernel: usb 9-2.5: new high-speed USB device number 9 using xhci_hcd
+Nov 19 11:41:12 arch kernel: usb 9-2.5: New USB device found, idVendor=413c, idProduct=b06e, bcdDevice= 2.01
+Nov 19 11:41:12 arch kernel: usb 9-2.5: New USB device strings: Mfr=0, Product=1, SerialNumber=2
+Nov 19 11:41:12 arch kernel: usb 9-2.5: Product: Dell Thunderbolt Dock WD19TB
+Nov 19 11:41:12 arch kernel: usb 9-2.5: SerialNumber: 2100
+Nov 19 11:41:12 arch kernel: hid-generic 0003:413C:B06E.000B: hiddev100,hidraw9: USB HID v1.11 Device [Dell Thunderbolt Dock WD19TB] on usb-0000:64:00.0-2.5/input0
+Nov 19 11:41:12 arch kernel: r8152-cfgselector 10-2.4: reset SuperSpeed USB device number 6 using xhci_hcd
+Nov 19 11:41:12 arch kernel: hid-generic 0003:413C:B06E.000C: hiddev100,hidraw9: USB HID v1.11 Device [Dell Thunderbolt Dock WD19TB] on usb-0000:64:00.0-2.5/input0
+Nov 19 11:41:12 arch kernel: usb 9-2.3.2: new full-speed USB device number 10 using xhci_hcd
+Nov 19 11:41:12 arch kernel: hid-generic 0003:413C:B06E.000D: hiddev100,hidraw9: USB HID v1.11 Device [Dell Thunderbolt Dock WD19TB] on usb-0000:64:00.0-2.5/input0
+Nov 19 11:41:12 arch kernel: usb 9-2.3.2: New USB device found, idVendor=29ea, idProduct=0102, bcdDevice= 1.00
+Nov 19 11:41:12 arch kernel: usb 9-2.3.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+Nov 19 11:41:12 arch kernel: usb 9-2.3.2: Product: Advantage2 Keyboard
+Nov 19 11:41:12 arch kernel: usb 9-2.3.2: Manufacturer: Kinesis
+Nov 19 11:41:12 arch kernel: usb 9-2.3.2: SerialNumber: 314159265359
+Nov 19 11:41:13 arch kernel: input: Kinesis Advantage2 Keyboard as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.2/9-2.3.2:1.0/0003:29EA:0102.000E/input/input18
+Nov 19 11:41:13 arch kernel: hid-generic 0003:29EA:0102.000E: input,hidraw10: USB HID v1.11 Mouse [Kinesis Advantage2 Keyboard] on usb-0000:64:00.0-2.3.2/input0
+Nov 19 11:41:13 arch kernel: input: Kinesis Advantage2 Keyboard as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.2/9-2.3.2:1.1/0003:29EA:0102.000F/input/input19
+Nov 19 11:41:13 arch kernel: scsi 0:0:0:0: Direct-Access     MSI      Optix Driver     1.00 PQ: 0 ANSI: 0
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] 44 512-byte logical blocks: (22.5 kB/22.0 KiB)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Write Protect is on
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Mode Sense: 20 01 80 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] No Caching mode page found
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Assuming drive cache: write through
+Nov 19 11:41:13 arch kernel: usb 9-2.1.5: new high-speed USB device number 11 using xhci_hcd
+Nov 19 11:41:13 arch kernel: hid-generic 0003:29EA:0102.000F: input,hidraw11: USB HID v1.11 Keyboard [Kinesis Advantage2 Keyboard] on usb-0000:64:00.0-2.3.2/input1
+Nov 19 11:41:13 arch kernel: input: Kinesis Advantage2 Keyboard Consumer Control as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.2/9-2.3.2:1.2/0003:29EA:0102.0010/input/input20
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 0 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 0, async page read
+Nov 19 11:41:13 arch kernel: usb 9-2.1.5: New USB device found, idVendor=2109, idProduct=8817, bcdDevice= 0.01
+Nov 19 11:41:13 arch kernel: usb 9-2.1.5: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+Nov 19 11:41:13 arch kernel: usb 9-2.1.5: Product: USB Billboard Device
+Nov 19 11:41:13 arch kernel: usb 9-2.1.5: Manufacturer: VIA Labs, Inc.
+Nov 19 11:41:13 arch kernel: usb 9-2.1.5: SerialNumber: 0000000000000001
+Nov 19 11:41:13 arch kernel: input: Kinesis Advantage2 Keyboard System Control as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.2/9-2.3.2:1.2/0003:29EA:0102.0010/input/input21
+Nov 19 11:41:13 arch kernel: hid-generic 0003:29EA:0102.0010: input,hidraw12: USB HID v1.11 Device [Kinesis Advantage2 Keyboard] on usb-0000:64:00.0-2.3.2/input2
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 4 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 1, async page read
+Nov 19 11:41:13 arch kernel: usb 9-2.3.3: new full-speed USB device number 12 using xhci_hcd
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 0 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 0, async page read
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 4 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 1, async page read
+Nov 19 11:41:13 arch kernel: ldm_validate_partition_table(): Disk read failed.
+Nov 19 11:41:13 arch kernel: scsi 1:0:0:0: Direct-Access     Generic  MassStorageClass 1539 PQ: 0 ANSI: 6
+Nov 19 11:41:13 arch kernel: scsi 1:0:0:1: Direct-Access     Generic  MassStorageClass 1539 PQ: 0 ANSI: 6
+Nov 19 11:41:13 arch kernel: usb 9-2.3.3: New USB device found, idVendor=046d, idProduct=c52b, bcdDevice=24.11
+Nov 19 11:41:13 arch kernel: usb 9-2.3.3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+Nov 19 11:41:13 arch kernel: usb 9-2.3.3: Product: USB Receiver
+Nov 19 11:41:13 arch kernel: usb 9-2.3.3: Manufacturer: Logitech
+Nov 19 11:41:13 arch kernel: input: Logitech USB Receiver as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.3/9-2.3.3:1.0/0003:046D:C52B.0011/input/input22
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 0 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 0, async page read
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 4 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 1, async page read
+Nov 19 11:41:13 arch kernel: hid-generic 0003:046D:C52B.0011: input,hidraw13: USB HID v1.11 Keyboard [Logitech USB Receiver] on usb-0000:64:00.0-2.3.3/input0
+Nov 19 11:41:13 arch kernel: input: Logitech USB Receiver Mouse as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.3/9-2.3.3:1.1/0003:046D:C52B.0012/input/input23
+Nov 19 11:41:13 arch kernel: input: Logitech USB Receiver Consumer Control as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.3/9-2.3.3:1.1/0003:046D:C52B.0012/input/input24
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 0 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 0, async page read
+Nov 19 11:41:13 arch kernel: input: Logitech USB Receiver System Control as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.3/9-2.3.3:1.1/0003:046D:C52B.0012/input/input25
+Nov 19 11:41:13 arch kernel: hid-generic 0003:046D:C52B.0012: input,hiddev101,hidraw14: USB HID v1.11 Mouse [Logitech USB Receiver] on usb-0000:64:00.0-2.3.3/input1
+Nov 19 11:41:13 arch kernel: hid-generic 0003:046D:C52B.0013: hiddev102,hidraw15: USB HID v1.11 Device [Logitech USB Receiver] on usb-0000:64:00.0-2.3.3/input2
+Nov 19 11:41:13 arch kernel: sd 1:0:0:0: [sdb] Media removed, stopped polling
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 4 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 1, async page read
+Nov 19 11:41:13 arch kernel: sd 1:0:0:0: [sdb] Attached SCSI removable disk
+Nov 19 11:41:13 arch kernel: usb 9-2.3.4: new high-speed USB device number 13 using xhci_hcd
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 0 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 0, async page read
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK cmd_age=0s
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: I/O error, dev sda, sector 4 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+Nov 19 11:41:13 arch kernel: Buffer I/O error on dev sda, logical block 1, async page read
+Nov 19 11:41:13 arch kernel:  sda: unable to read partition table
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Attached SCSI removable disk
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 1:0:0:1: [sdc] Media removed, stopped polling
+Nov 19 11:41:13 arch kernel: sd 1:0:0:1: [sdc] Attached SCSI removable disk
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: usb 9-2.3.4: New USB device found, idVendor=0bda, idProduct=402e, bcdDevice= 0.01
+Nov 19 11:41:13 arch kernel: usb 9-2.3.4: New USB device strings: Mfr=3, Product=1, SerialNumber=2
+Nov 19 11:41:13 arch kernel: usb 9-2.3.4: Product: USB Audio
+Nov 19 11:41:13 arch kernel: usb 9-2.3.4: Manufacturer: Generic
+Nov 19 11:41:13 arch kernel: usb 9-2.3.4: SerialNumber: 200901010001
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: usb 9-2.3.5: new high-speed USB device number 14 using xhci_hcd
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:13 arch kernel: usb 9-2.3.5: New USB device found, idVendor=413c, idProduct=b06f, bcdDevice= 1.01
+Nov 19 11:41:13 arch kernel: usb 9-2.3.5: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+Nov 19 11:41:13 arch kernel: usb 9-2.3.5: Product: Dell dock
+Nov 19 11:41:13 arch kernel: hid-generic 0003:413C:B06F.0014: hiddev103,hidraw16: USB HID v1.11 Device [Dell dock] on usb-0000:64:00.0-2.3.5/input0
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:13 arch kernel: hid-generic 0003:413C:B06F.0015: hiddev103,hidraw16: USB HID v1.11 Device [Dell dock] on usb-0000:64:00.0-2.3.5/input0
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:13 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:14 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:14 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:14 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:14 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 00 00 00 04 00
+Nov 19 11:41:14 arch kernel: logitech-djreceiver 0003:046D:C52B.0013: hiddev101,hidraw13: USB HID v1.11 Device [Logitech USB Receiver] on usb-0000:64:00.0-2.3.3/input2
+Nov 19 11:41:14 arch kernel: sd 0:0:0:0: [sda] Unaligned partial completion (resid=2012, sector_sz=512)
+Nov 19 11:41:14 arch kernel: sd 0:0:0:0: [sda] tag#0 CDB: Read(10) 28 00 00 00 00 04 00 00 04 00
+Nov 19 11:41:14 arch kernel: input: Logitech Wireless Device PID:4069 Keyboard as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.3/9-2.3.3:1.2/0003:046D:C52B.0013/0003:046D:4069.0016/input/input27
+Nov 19 11:41:14 arch kernel: input: Logitech Wireless Device PID:4069 Mouse as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.3/9-2.3.3:1.2/0003:046D:C52B.0013/0003:046D:4069.0016/input/input28
+Nov 19 11:41:14 arch kernel: hid-generic 0003:046D:4069.0016: input,hidraw14: USB HID v1.11 Keyboard [Logitech Wireless Device PID:4069] on usb-0000:64:00.0-2.3.3/input2:1
+Nov 19 11:41:14 arch kernel: input: Logitech MX Master 2S as /devices/pci0000:00/0000:00:04.1/0000:62:00.0/0000:63:02.0/0000:64:00.0/usb9/9-2/9-2.3/9-2.3.3/9-2.3.3:1.2/0003:046D:C52B.0013/0003:046D:4069.0016/input/input32
+Nov 19 11:41:14 arch kernel: logitech-hidpp-device 0003:046D:4069.0016: input,hidraw14: USB HID v1.11 Keyboard [Logitech MX Master 2S] on usb-0000:64:00.0-2.3.3/input2:1
+Nov 19 11:41:14 arch kernel: usbcore: registered new interface driver snd-usb-audio
+Nov 19 11:41:20 arch kernel: thunderbolt 1-0:2.1: retimer disconnected
+Nov 19 11:41:20 arch kernel: pcieport 0000:00:04.1: pciehp: Slot(0-1): Link Down
+Nov 19 11:41:20 arch kernel: pcieport 0000:00:04.1: pciehp: Slot(0-1): Card not present
+Nov 19 11:41:20 arch kernel: pcieport 0000:00:04.1: PME: Spurious native interrupt!
+Nov 19 11:41:20 arch kernel: pcieport 0000:00:04.1: PME: Spurious native interrupt!
+Nov 19 11:41:20 arch kernel: amdgpu 0000:c1:00.0: amdgpu: [drm] DMUB HPD IRQ callback: link_index=7
+Nov 19 11:41:20 arch kernel: thunderbolt 1-2: device disconn

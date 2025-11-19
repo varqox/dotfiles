@@ -1,0 +1,60 @@
+Oct 21 10:35:28 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Dumping IP State
+Oct 21 10:35:28 arch kernel: amdgpu 0000:c1:00.0: amdgpu: [drm] *ERROR* [CRTC:80:crtc-0] hw_done or flip_done timed out
+Oct 21 10:35:29 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:29 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:29 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:30 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:30 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:30 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:30 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:31 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:31 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:31 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:31 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:32 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:32 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:32 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:33 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:33 arch kernel: amdgpu 0000:c1:00.0: amdgpu: SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x0000000F SMN_C2PMSG_82:0x00000007
+Oct 21 10:35:33 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Failed to export SMU metrics table!
+Oct 21 10:35:33 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:33 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:33 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:34 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:34 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:34 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:35 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:35 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:35 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:36 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:36 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:36 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:36 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:37 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:37 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:37 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:38 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:38 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:38 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:38 arch kernel: amdgpu 0000:c1:00.0: amdgpu: SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x0000000F SMN_C2PMSG_82:0x00000007
+Oct 21 10:35:38 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Failed to disable gfxoff!
+Oct 21 10:35:38 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:39 arch kernel: amdgpu 0000:c1:00.0: amdgpu: [drm] *ERROR* [CRTC:80:crtc-0] hw_done or flip_done timed out
+Oct 21 10:35:39 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:39 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:39 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:40 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:40 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:40 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:41 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:41 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:41 arch kernel: amdgpu 0000:c1:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+Oct 21 10:35:41 arch kernel: ACPI Error: Aborting method \_SB.A018 due to previous error (AE_AML_LOOP_TIMEOUT) (20250404/psparse-529)
+Oct 21 10:35:41 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [ACAD] (Device) Value 0x80 (Status Change) Node 00000000c54afb05
+Oct 21 10:35:41 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [UBTC] (Device) Value 0x80 (Status Change) Node 00000000dbd4a38d
+Oct 21 10:35:41 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [ACAD] (Device) Value 0x80 (Status Change) Node 00000000c54afb05
+Oct 21 10:35:41 arch systemd-logind[1138]: Power key pressed short.
+Oct 21 10:35:41 arch kernel:    evmisc-0132 ev_queue_notify_reques: Dispatching Notify on [PWRB] (Device) Value 0x80 (Status Change) Node 0000000041fe6faf
+Oct 21 10:35:41 arch kernel: ACPI Error: Aborting method \_SB.A032 due to previous error (AE_AML_LOOP_TIMEOUT) (20250404/psparse-529)
+Oct 21 10:35:41 arch (udev-worker)[138011]: BAT1: Process '/usr/bin/sh -c '[ "$(cat /sys/class/power_supply/ACAD/online)" == 1 ] && /usr/bin/ryzenadj --fast-limit=60000 --slow-limit=50000'' failed with exit code 255.
+-- Boot 4a3134fd2d4945618fad9939b1605400 --

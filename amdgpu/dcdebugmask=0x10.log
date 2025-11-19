@@ -1,0 +1,72 @@
+Oct 28 20:11:27 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Dumping IP State Completed
+Oct 28 20:11:27 arch kernel: amdgpu 0000:c1:00.0: amdgpu: [drm] AMDGPU device coredump file has been created
+Oct 28 20:11:27 arch kernel: amdgpu 0000:c1:00.0: amdgpu: [drm] Check your /sys/class/drm/card1/device/devcoredump/data
+Oct 28 20:11:27 arch kernel: amdgpu 0000:c1:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled seq=6523, emitted seq=6525
+Oct 28 20:11:27 arch kernel: amdgpu 0000:c1:00.0: amdgpu:  Process sway pid 3009 thread sway:cs0 pid 3013
+Oct 28 20:11:27 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Starting gfx_0.0.0 ring reset
+Oct 28 20:11:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: MES failed to respond to msg=RESET
+Oct 28 20:11:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: failed to reset legacy queue
+Oct 28 20:11:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: reset via MES failed and try pipe reset -110
+Oct 28 20:11:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: The CPFW hasn't support pipe reset yet.
+Oct 28 20:11:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Ring gfx_0.0.0 reset failed
+Oct 28 20:11:29 arch kernel: amdgpu 0000:c1:00.0: amdgpu: GPU reset begin!
+Oct 28 20:11:30 arch systemd-logind[1701]: Power key pressed short.
+Oct 28 20:11:34 arch kernel: amdgpu 0000:c1:00.0: amdgpu: SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x0000001A SMN_C2PMSG_82:0x00000000
+Oct 28 20:11:34 arch kernel: amdgpu 0000:c1:00.0: amdgpu: Failed to disable gfxoff!
+Oct 28 20:11:36 arch kernel: ------------[ cut here ]------------
+Oct 28 20:11:36 arch kernel: WARNING: CPU: 7 PID: 187 at drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn314/dcn314_smu.c:159 dcn314_smu_send_msg_with_param+0x109/0x190 [amdgpu]
+Oct 28 20:11:36 arch kernel: Modules linked in: snd_seq_dummy rfcomm snd_hrtimer snd_seq ccm algif_aead des3_ede_x86_64 des_generic libdes md4 cmac algif_hash algif_skcipher af_alg bnep vfat fat snd_sof_amd_acp70 snd_sof_amd_acp63 snd_sof_amd_vangogh snd_sof_amd_rembrandt snd_sof_amd_renoir snd_sof_amd_acp snd_sof_pci intel_rapl_msr amd_atl snd_sof_xtensa_dsp intel_rapl_common snd_sof snd_sof_utils snd_pci_ps snd_soc_acpi_amd_match snd_amd_sdw_acpi soundwire_amd snd_hda_codec_alc269 mt7921e hid_sensor_als soundwire_generic_allocation btusb mt7921_common hid_sensor_trigger snd_hda_scodec_component soundwire_bus btrtl industrialio_triggered_buffer kvm_amd mt792x_lib snd_soc_sdca btintel snd_hda_codec_realtek_lib r8153_ecm kfifo_buf snd_hda_codec_atihdmi snd_hda_codec_generic snd_soc_core snd_hda_codec_hdmi cdc_ether hid_sensor_iio_common btbcm leds_cros_ec usbnet snd_compress btmtk cros_ec_sysfs industrialio gpio_cros_ec cros_ec_chardev cros_ec_debugfs cros_charge_control cros_ec_hwmon led_class_multicolor spd5118 mt76_connac_lib
+Oct 28 20:11:36 arch kernel:  ac97_bus bluetooth snd_hda_intel snd_pcm_dmaengine kvm snd_usb_audio snd_rpl_pci_acp6x mt76 snd_hda_codec ucsi_acpi snd_usbmidi_lib snd_acp_pci hid_sensor_hub hid_multitouch typec_ucsi irqbypass cros_ec_dev snd_amd_acpi_mach snd_hda_core mousedev snd_ump snd_acp_legacy_common rapl typec snd_intel_dspcfg mac80211 snd_rawmidi snd_intel_sdw_acpi roles snd_pci_acp6x snd_seq_device snd_hwdep libarc4 sp5100_tco snd_pcm snd_pci_acp5x snd_rn_pci_acp3x snd_timer snd_acp_config r8152 cfg80211 snd i2c_piix4 snd_soc_acpi mii mc joydev libphy mdio_bus wmi_bmof pcspkr cros_ec_lpcs amd_pmf amdxdna k10temp rfkill soundcore snd_pci_acp3x thunderbolt i2c_smbus amdtee cros_ec i2c_hid_acpi amd_sfh platform_profile i2c_hid cros_ec_proto amd_pmc mac_hid pkcs8_key_parser i2c_dev crypto_user ntsync loop nfnetlink ip_tables x_tables dm_crypt encrypted_keys trusted asn1_encoder tee hid_logitech_hidpp hid_logitech_dj uas usb_storage amdgpu dm_mod amdxcp i2c_algo_bit drm_ttm_helper ttm drm_exec gpu_sched drm_suballoc_helper nvme
+Oct 28 20:11:36 arch kernel:  polyval_clmulni drm_panel_backlight_quirks drm_buddy ghash_clmulni_intel nvme_core aesni_intel drm_display_helper nvme_keyring ccp cec video nvme_auth wmi
+Oct 28 20:11:36 arch kernel: CPU: 7 UID: 0 PID: 187 Comm: kworker/u64:3 Not tainted 6.17.5-arch1-1 #1 PREEMPT(full)  01c39fc421df2af799dd5e9180b572af860b40c1
+Oct 28 20:11:36 arch kernel: Hardware name: Framework Laptop 16 (AMD Ryzen 7040 Series)/FRANMZCP07, BIOS 04.01 10/17/2025
+Oct 28 20:11:36 arch kernel: Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
+Oct 28 20:11:36 arch kernel: RIP: 0010:dcn314_smu_send_msg_with_param+0x109/0x190 [amdgpu]
+Oct 28 20:11:36 arch kernel: Code: c7 c2 70 eb 47 c1 5d 41 5c 41 5d e9 01 1e ef ff 89 da 48 c7 c6 90 61 5e c1 48 c7 c7 90 13 09 c1 e8 fc bc 7c ef e9 46 ff ff ff <0f> 0b 48 8b 7d 00 b9 80 84 1e 00 44 89 ea 44 89 e6 e8 e1 d3 ef ff
+Oct 28 20:11:36 arch kernel: RSP: 0018:ffffcc8e008df7e8 EFLAGS: 00010246
+Oct 28 20:11:36 arch kernel: RAX: 000000bfa24eaf44 RBX: 0000000000000000 RCX: 0000000000000007
+Oct 28 20:11:36 arch kernel: RDX: 0000000000009c4e RSI: 000000000000942a RDI: 000000bfa24e12f6
+Oct 28 20:11:36 arch kernel: RBP: ffff8ad0538d4800 R08: ffff8ad040e00d80 R09: 0000000000000000
+Oct 28 20:11:36 arch kernel: R10: 0000000000000000 R11: 0000000000000001 R12: 000000000000000d
+Oct 28 20:11:36 arch kernel: R13: 0000000000000000 R14: ffff8ad040dc1fd0 R15: ffff8ad110101060
+Oct 28 20:11:36 arch kernel: FS:  0000000000000000(0000) GS:ffff8ad70f4c6000(0000) knlGS:0000000000000000
+Oct 28 20:11:36 arch kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+Oct 28 20:11:36 arch kernel: CR2: 00000344861c2000 CR3: 0000000117e24000 CR4: 0000000000f50ef0
+Oct 28 20:11:36 arch kernel: PKRU: 55555554
+Oct 28 20:11:36 arch kernel: Call Trace:
+Oct 28 20:11:36 arch kernel:  <TASK>
+Oct 28 20:11:36 arch kernel:  link_set_dpms_off+0x112/0x7b0 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Oct 28 20:11:36 arch kernel:  ? optc31_set_drr+0x12b/0x1e0 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Oct 28 20:11:36 arch kernel:  dcn31_reset_hw_ctx_wrap+0x289/0x570 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  dce110_apply_ctx_to_hw+0x71/0x5a0 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  ? __free_one_page+0x720/0x730
+Oct 28 20:11:36 arch kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Oct 28 20:11:36 arch kernel:  ? free_one_page+0x6b/0x170
+Oct 28 20:11:36 arch kernel:  dc_commit_state_no_check+0x68e/0xf50 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  dc_commit_streams+0x2c9/0x470 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  dm_suspend+0x231/0x290 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  amdgpu_ip_block_suspend+0x24/0x50 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  amdgpu_device_ip_suspend_phase1+0xaa/0xc0 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  amdgpu_device_ip_suspend+0x2c/0x80 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  ? amdgpu_device_ip_need_full_reset+0x16/0x80 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  amdgpu_device_pre_asic_reset+0xe9/0x2c0 [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  amdgpu_device_asic_reset+0x56/0x46f [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  amdgpu_device_gpu_recover.cold+0x209/0x25e [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  amdgpu_job_timedout.cold+0x1e1/0x3be [amdgpu 02022ce4aee5e37157721ed7588d157409a3623e]
+Oct 28 20:11:36 arch kernel:  drm_sched_job_timedout+0x85/0x180 [gpu_sched d51820d0b9769ccf62c882f30fdf2ab4cc3ccc4f]
+Oct 28 20:11:36 arch kernel:  process_one_work+0x190/0x350
+Oct 28 20:11:36 arch kernel:  worker_thread+0x2d7/0x410
+Oct 28 20:11:36 arch kernel:  ? __pfx_worker_thread+0x10/0x10
+Oct 28 20:11:36 arch kernel:  kthread+0xf9/0x240
+Oct 28 20:11:36 arch kernel:  ? __pfx_kthread+0x10/0x10
+Oct 28 20:11:36 arch kernel:  ? __pfx_kthread+0x10/0x10
+Oct 28 20:11:36 arch kernel:  ret_from_fork+0x1c1/0x1f0
+Oct 28 20:11:36 arch kernel:  ? __pfx_kthread+0x10/0x10
+Oct 28 20:11:36 arch kernel:  ret_from_fork_asm+0x1a/0x30
+Oct 28 20:11:36 arch kernel:  </TASK>
+Oct 28 20:11:36 arch kernel: ---[ end trace 0000000000000000 ]---
+Oct 28 20:11:38 arch systemd-logind[1701]: Power key pressed short.
+Oct 28 20:11:41 arch systemd-logind[1701]: Power key pressed short.
+-- Boot fea446568648491eb6153b5431d9a82e --
