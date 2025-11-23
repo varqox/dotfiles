@@ -233,8 +233,6 @@ function format-drive() (
     device="$1"
     fs_type="$2"
 
-
-
     if [[ -v 3 ]]; then
         name="$3"
     else
@@ -362,3 +360,79 @@ function share-files() (
         "${interfaces[@]}" \
         "${dir}"
 )
+
+function add-default-subtitles {
+    if (( $# != 3 )); then
+        echo "usage: add-default-subtitles <input_movie> <subtitles> <output_movie>" >&2
+        return 1
+    fi
+
+    if grep --quiet '\bpl\b' <<< "$2"; then
+        local subs_lang='pol'
+    else
+        local subs_lang='eng'
+    fi
+
+    local number_of_subs_in_the_input="$(ffprobe -loglevel error -select_streams s -show_entries stream=index -of csv=p=0 "$1")" || return 1
+    number_of_subs_in_the_input="$(wc -l <<< "${number_of_subs_in_the_input}")" || return 1
+
+    case "${3##*.}" in
+        mkv)
+            local subs_codec=srt
+            ;;
+        mp4)
+            local subs_codec=mov_text
+            ;;
+        *)
+            echo "Unknown output movie format" >&2
+            return 1
+            ;;
+    esac
+
+    local options=(
+        -i "$1"
+        -i "$2"
+        -map 0 # use first input
+        -map 1 # use second input
+        -c:v copy # copy video
+        -c:a copy # copy audio
+        -c:s "${subs_codec}" # copy subtitles
+        -metadata:s:s:"${number_of_subs_in_the_input}" language="${subs_lang}"
+        -metadata:s:s:"${number_of_subs_in_the_input}" title="${2%.*}"
+        -metadata:s:s:"${number_of_subs_in_the_input}" default=yes
+        "$3"
+    )
+
+    ffmpeg "${options[@]}"
+}
+
+function burn-subtitles {
+    if (( $# != 3 )); then
+        echo "usage: burn-subtitles <input_movie> <subtitles> <output_movie>" >&2
+        return 1
+    fi
+
+    local options=(
+        -i "$1"
+        -c:v libx264 # x264 CPU encoder
+        -crf 20 # very good quality
+        -preset veryslow # very high compression
+        -tune grain # retain small details
+        -deblock -1:-1 # less removing of block artifacts for retaining details
+        -vf subtitles="$2" # burn subtitles into the video
+        -c:a copy # copy audio
+        -sn # remove all subtitles
+        "$3"
+    )
+
+    ffmpeg "${options[@]}"
+}
+
+function change-movie-format {
+    if (( $# != 2 )); then
+        printf "usage: change-movie-format <input_movie> <output_movie>\nE.g. change-movie-format input.mkv output.mp4\n" >&2
+        return 1
+    fi
+
+    ffmpeg "$1" -codec copy "$2"
+}
