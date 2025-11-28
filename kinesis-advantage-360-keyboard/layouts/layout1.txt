@@ -1,0 +1,57 @@
+# Macros with modifier keys work as follows:
+# 1. Macro is triggered (left side)
+# 2. All modifier keys are released
+# 3. The macro action (right side) is executed.
+# So after executing macro {x}{lctr}{lshf}>{a} the OS won't see the modifier keys pressed down.
+# To fix this, every macro with modifier keys has to ensure that it leaves the modifier keys pressed:
+# E.g. {x}{lctr}{lshf}>{a}{-lctr}{-lshf}
+<base>
+# ============= left top row =============
+[eql]>[1]
+[1]>[2]
+[2]>[3]
+[4]>[5]
+[3]>[4]
+[5]>[6]
+# ============= left second row =============
+# ============= left third row =============
+# ============= left fourth row =============
+# ============= left bottom row =============
+[caps]>[lalt]
+# ============= left thumb island =============
+[bspc]>[spc]
+[del]>[bspc]
+[home]>[del]
+{end}>{x1}{s9}{-rctr}{spc}{+rctr}
+# ============= right top row =============
+[6]>[7]
+[7]>[8]
+[8]>[9]
+[9]>[0]
+[0]>[hyph]
+[hyph]>[eql]
+# ============= right second row =============
+[bsls]>[obrk]
+# ============= right third row =============
+# ============= right fourth row =============
+# ============= right bottom row =============
+[obrk]>[cbrk]
+[cbrk]>[bsls]
+# ============= right thumb island =============
+[spc]>[ent]
+[ent]>[ralt]
+[pgdn]>[lalt]
+[pgup]>[rwin]
+# ============= other macros =============
+{down}{lalt}>{s9}{pgdn}{-lalt}
+{up}{lalt}>{s9}{pgup}{-lalt}
+{s}{rwin}{lctr}>{x1}{s9}{-lctr}{prnt}{-rwin}
+{s}{rwin}{rctr}>{x1}{s9}{-rctr}{prnt}{-rwin}
+
+<keypad>
+
+<function1>
+
+<function2>
+
+<function3>
