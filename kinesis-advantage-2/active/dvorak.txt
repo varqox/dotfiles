@@ -1,0 +1,92 @@
+# Macros with modifier keys work as follows:
+# 1. Macro is triggered (left side)
+# 2. All modifier keys are released
+# 3. The macro action (right side) is executed.
+# So after executing macro {x}{lctrl}{lshift}>{a} the OS won't see the modifier keys pressed down.
+# To fix this, every macro with modifier keys has to ensure that it leaves the modifier keys pressed:
+# E.g. {x}{lctrl}{lshift}>{a}{-lctrl}{-lshift}
+# ============= left function row =============
+[F1]>[play]
+# ============= left top row =============
+{=}>{speed9}{-lshift}{7}{+lshift}
+{=}{lshift}>{speed9}{-lshift}{5}
+{=}{rshift}>{speed9}{-rshift}{5}
+{1}>{speed9}{obrack}
+{1}{lshift}>{speed9}{7}{-lshift}
+{1}{rshift}>{speed9}{7}{-rshift}
+{2}>{speed9}{-lshift}{obrack}{+lshift}
+{2}{lshift}>{speed9}{5}{-lshift}
+{2}{rshift}>{speed9}{5}{-rshift}
+{3}>{speed9}{-lshift}{cbrack}{+lshift}
+{3}{lshift}>{speed9}{3}{-lshift}
+{3}{rshift}>{speed9}{3}{-rshift}
+{4}>{speed9}{-lshift}{9}{+lshift}
+{4}{lshift}>{speed9}{1}{-lshift}
+{4}{rshift}>{speed9}{1}{-rshift}
+{5}>{speed9}{=}
+{5}{lshift}>{speed9}{9}{-lshift}
+{5}{rshift}>{speed9}{9}{-rshift}
+{5}{lctrl}>{speed9}{-lctrl}{=}
+{5}{rctrl}>{speed9}{-rctrl}{=}
+# ============= left second row =============
+[']>[;]
+# ============= left third row =============
+[caps]>[escape]
+# ============= left fourth row =============
+[;]>[']
+# ============= left bottom row =============
+{`}>{speed9}{-lshift}{4}{+lshift}
+[intl-\]>[lalt]
+# ============= left thumb island =============
+[bspace]>[space]
+[delete]>[bspace]
+[home]>[delete]
+{end}>{speed9}{-rctrl}{space}{+rctrl}
+# ============= right function row =============
+[prtscr]>[mute]
+[scroll]>[vol-]
+[pause]>[vol+]
+# ============= right top row =============
+{6}>{speed9}{-lshift}{8}{+lshift}
+{6}{lshift}>{speed9}{0}{-lshift}
+{6}{rshift}>{speed9}{0}{-rshift}
+{7}>{speed9}{-lshift}{0}{+lshift}
+{7}{lshift}>{speed9}{2}{-lshift}
+{7}{rshift}>{speed9}{2}{-rshift}
+{8}>{speed9}{-lshift}{=}{+lshift}
+{8}{lshift}>{speed9}{4}{-lshift}
+{8}{rshift}>{speed9}{4}{-rshift}
+{8}{lctrl}>{-lctrl}{=}
+{8}{rctrl}>{-rctrl}{=}
+{9}>{speed9}{cbrack}
+{9}{lshift}>{speed9}{6}{-lshift}
+{9}{rshift}>{speed9}{6}{-rshift}
+{0}>{speed9}{-lshift}{1}{+lshift}
+{0}{lshift}>{speed9}{8}{-lshift}
+{0}{rshift}>{speed9}{8}{-rshift}
+{hyphen}>{speed9}{-lshift}{3}{+lshift}
+{hyphen}{lshift}>{speed9}{`}{-lshift}
+{hyphen}{rshift}>{speed9}{`}{-rshift}
+# ============= right second row =============
+# ============= right third row =============
+[\]>[hyphen]
+# ============= right fourth row =============
+{v}{ralt}>{speed9}{-ralt}{x}
+{v}{ralt}{lshift}>{speed9}{-ralt}{-lshift}{x}
+{v}{ralt}{rshift}>{speed9}{-ralt}{-rshift}{x}
+# ============= right bottom row =============
+{obrack}>{speed9}{-lshift}{2}{+lshift}
+{obrack}{lshift}>{speed9}{-lshift}{6}
+{obrack}{rshift}>{speed9}{-rshift}{6}
+[cbrack]>[\]
+# ============= right thumb island =============
+[rwin]>[lalt]
+[pup]>[rwin]
+[pdown]>[lalt]
+[enter]>[ralt]
+[space]>[enter]
+# ============= other macros =============
+# {down}{lalt}>{speed9}{pdown}{-lalt}
+# {up}{lalt}>{speed9}{pup}{-lalt}
+{s}{rwin}{lctrl}>{speed9}{-lctrl}{prtscr}{-rwin}
+{s}{rwin}{rctrl}>{speed9}{-rctrl}{prtscr}{-rwin}

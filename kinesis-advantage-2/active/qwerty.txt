@@ -1,0 +1,55 @@
+# Macros with modifier keys work as follows:
+# 1. Macro is triggered (left side)
+# 2. All modifier keys are released
+# 3. The macro action (right side) is executed.
+# So after executing macro {x}{lctrl}{lshift}>{a} the OS won't see the modifier keys pressed down.
+# To fix this, every macro with modifier keys has to ensure that it leaves the modifier keys pressed:
+# E.g. {x}{lctrl}{lshift}>{a}{-lctrl}{-lshift}
+# ============= left function row =============
+[F1]>[play]
+# ============= left top row =============
+[=]>[1]
+[1]>[2]
+[2]>[3]
+[3]>[4]
+[4]>[5]
+[5]>[6]
+# ============= left second row =============
+# ============= left third row =============
+[caps]>[escape]
+# ============= left bottom row =============
+[intl-\]>[lalt]
+# ============= left thumb island =============
+[bspace]>[space]
+[delete]>[bspace]
+[home]>[delete]
+{end}>{speed9}{-rctrl}{space}{+rctrl}
+# ============= right function row =============
+[prtscr]>[mute]
+[scroll]>[vol-]
+[pause]>[vol+]
+# ============= right top row =============
+[6]>[7]
+[7]>[8]
+[8]>[9]
+[hyphen]>[=]
+[9]>[0]
+[0]>[hyphen]
+# ============= right second row =============
+[\]>[obrack]
+# ============= right third row =============
+# ============= right fourth row =============
+# ============= right bottom row =============
+[obrack]>[cbrack]
+[cbrack]>[\]
+# ============= right thumb island =============
+[rwin]>[lalt]
+[pup]>[rwin]
+[pdown]>[lalt]
+[enter]>[ralt]
+[space]>[enter]
+# ============= other macros =============
+# {down}{lalt}>{speed9}{pdown}{-lalt}
+# {up}{lalt}>{speed9}{pup}{-lalt}
+{s}{rwin}{lctrl}>{speed9}{-lctrl}{prtscr}{-rwin}
+{s}{rwin}{rctrl}>{speed9}{-rctrl}{prtscr}{-rwin}
