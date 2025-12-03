@@ -21,6 +21,7 @@
 [intl-\]>[lalt]
 # ============= left thumb island =============
 [bspace]>[space]
+{bspace}{ralt}>{space}{-ralt}
 [delete]>[bspace]
 [home]>[delete]
 {end}>{speed9}{-rctrl}{space}{+rctrl}

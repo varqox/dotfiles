@@ -49,6 +49,7 @@
 [caps]>[lalt]
 # ============= left thumb island =============
 [bspc]>[spc]
+{spc}{ralt}>{spc}{-ralt}
 [del]>[bspc]
 [home]>[del]
 {end}>{s9}{-rctr}{spc}{+rctr}
