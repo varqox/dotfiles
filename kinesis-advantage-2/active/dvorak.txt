@@ -59,6 +59,9 @@
 {8}{rshift}>{speed9}{4}{-rshift}
 {8}{lctrl}>{-lctrl}{=}
 {8}{rctrl}>{-rctrl}{=}
+{8}{lalt}>{-lalt}{=}
+{8}{lalt}{lshift}>{-lalt}{-lshift}{=}
+{8}{lalt}{rshift}>{-lalt}{-rshift}{=}
 {9}>{speed9}{cbrack}
 {9}{lshift}>{speed9}{6}{-lshift}
 {9}{rshift}>{speed9}{6}{-rshift}

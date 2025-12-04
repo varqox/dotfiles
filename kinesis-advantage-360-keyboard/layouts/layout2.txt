@@ -65,6 +65,9 @@
 {8}{rshf}>{s9}{4}{-rshf}
 {8}{lctr}>{-lctr}{eql}
 {8}{rctr}>{-rctr}{eql}
+{8}{lalt}>{-lalt}{eql}
+{8}{lalt}{lshf}>{-lalt}{-lshf}{eql}
+{8}{lalt}{rshf}>{-lalt}{-rshf}{eql}
 {9}>{s9}{cbrk}
 {9}{lshf}>{s9}{6}{-lshf}
 {9}{rshf}>{s9}{6}{-rshf}
