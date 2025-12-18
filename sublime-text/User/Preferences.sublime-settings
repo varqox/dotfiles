@@ -1,13 +1,9 @@
 {
-	"ignored_packages":
-	[
-		"PlainTasks",
-	],
 	"show_encoding": true,
 	"theme": "Default Dark.sublime-theme",
 	"color_scheme": "Mariana.sublime-color-scheme",
 	"font_face": "Ubuntu Mono",
-	"font_size": 11,
+	"font_size": 12,
 	"rulers": [100, 120],
 	"ruler_style": "stippled",
 	"spell_check": true,
@@ -43,8 +39,9 @@
 		"namespace",
 		"deserialized",
 		"optionals",
+		"coroutine",
 	],
-	"dark_color_scheme": "Breakers.sublime-color-scheme",
+	"dark_color_scheme": "Mariana.sublime-color-scheme",
 	"light_color_scheme": "Breakers.sublime-color-scheme",
 	"ignored_words":
 	[
@@ -61,4 +58,75 @@
 		"Dictionaries/pl_PL.dic",
 	],
 	"index_files": false,
+	"ignored_packages":
+	[
+	],
+	"extra_file_exclude_patterns":
+	[
+		"*.pyc",
+		"*.pyo",
+		"*.exe",
+		"*.dll",
+		"*.obj",
+		"*.o",
+		"*.a",
+		"*.lib",
+		"*.so",
+		"*.dylib",
+		"*.ncb",
+		"*.sdf",
+		"*.suo",
+		"*.pdb",
+		"*.idb",
+		".DS_Store",
+		".directory",
+		"desktop.ini",
+		"*.class",
+		"*.psd",
+		"*.db",
+		"*.sublime-workspace"
+	],
+	"extra_folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		".Trash",
+		".Trash-*"
+	],
+	"file_exclude_patterns":
+	[
+		"*.pyc",
+		"*.pyo",
+		"*.exe",
+		"*.dll",
+		"*.obj",
+		"*.o",
+		"*.a",
+		"*.lib",
+		"*.so",
+		"*.dylib",
+		"*.ncb",
+		"*.sdf",
+		"*.suo",
+		"*.pdb",
+		"*.idb",
+		".DS_Store",
+		".directory",
+		"desktop.ini",
+		"*.class",
+		"*.psd",
+		"*.db",
+		"*.sublime-workspace",
+	],
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		".Trash",
+		".Trash-*",
+	],
 }
