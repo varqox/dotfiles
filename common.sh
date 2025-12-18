@@ -11,7 +11,7 @@ trap 'kill $(jobs -p) 2> /dev/null || true; remove_tmp_packages; rm -rf ${tmp_di
 function sudo() {
     if [ ! -x /usr/bin/sudo ]; then
         printf 'Enter the root '
-        su root --login --command "pacman --noconfirm -S sudo && usermod --append --groups wheel '$USER' && echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel"
+        su root --login --command "pacman -S --noconfirm sudo && usermod --append --groups wheel '$USER' && echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel"
     fi
     if [[ -v COMMON_SUDO_SPAWNED ]]; then
         # Sudo loop so that sudo won't timeout
@@ -115,18 +115,28 @@ function error() {
 function install_paru_if_absent {
     if ! command -v paru > /dev/null; then
         print_step 'Installing paru'
-        # First check for the cached version of the built paru package
-        if [ -f "/var/cache/pacman/pkg/paru.pkg.tar.zst" ]; then
-            sudo pacman --noconfirm -U --asdeps "/var/cache/pacman/pkg/paru.pkg.tar.zst"
-            paru --noconfirm -S --needed --asdeps paru # upgrade paru if necessary
+        # First clone or pull the repository
+        TMP_PACKAGES+=(
+            git
+            devtools # optional runtime dependency of paru for building and downloading inside chroot
+        )
+        sudo pacman -S --noconfirm --asdeps --needed git devtools
+        if [[ ! -d "${HOME}/.cache/paru/clone/paru/.git/" ]]; then
+            mkdir -p "${HOME}/.cache/paru/clone/"
+            git clone https://aur.archlinux.org/paru.git "${HOME}/.cache/paru/clone/paru/"
         else
-            sudo pacman --noconfirm -S --needed --asdeps git rust
-            TMP_PACKAGES+=( git rust )
-            git clone https://aur.archlinux.org/paru.git "${tmp_dir}/paru"
-            (cd "${tmp_dir}/paru" && makepkg --syncdeps --install --asdeps --noconfirm && cp paru-*.zst /var/cache/pacman/pkg/paru.pkg.tar.zst)
+            git -C "${HOME}/.cache/paru/clone/paru/" pull
         fi
-        paru --gendb
+        # Remove packages built previously
+        rm -f "${HOME}/.cache/paru/clone/paru/"paru-*.pkg.*
+        # Build packages
+        makepkg --dir "${HOME}/.cache/paru/clone/paru/" --syncdeps --rmdeps --asdeps --needed --noconfirm
+        # Remove paru-debug, as it is empty and unused
+        rm -f "${HOME}/.cache/paru/clone/paru/"paru-debug-*.pkg.*
+        # Install paru and update database
+        sudo pacman -U --asdeps --needed --noconfirm "${HOME}/.cache/paru/clone/paru/"paru-*.pkg.*
         TMP_PACKAGES+=( paru )
+        paru --gendb
     fi
 }
 
@@ -139,7 +149,7 @@ function paruS {
     install_paru_if_absent
     # Filter arguments to only uninstalled packages (it is faster in case all packages are already installed)
     printf "%s\n" "$(filter_out_installed_packages "$@")" | \
-        xargs --no-run-if-empty paru --noconfirm -S --needed
+        xargs --no-run-if-empty paru -S --noconfirm --needed
     # Mark specified packages as installed explicitly if they were previously installed as dependencies
     paru -D --asexplicit "$@"
 }
@@ -148,7 +158,7 @@ function tmp_paruS {
     # Install packages as dependencies if they are not installed
     # Packages installed explicitly will still be marked as installed explicitly
     printf "%s\n" "$(filter_out_installed_packages "$@")" | \
-        xargs --no-run-if-empty paru --noconfirm -S --needed --asdeps
+        xargs --no-run-if-empty paru -S --noconfirm --asdeps --needed
     TMP_PACKAGES+=( "$@" )
 }
 
@@ -158,7 +168,7 @@ function remove_tmp_packages() {
         # Filter packages to the unrequired ones only installed as dependecies (non-explicit)
         (paru -Q --unrequired --deps --quiet "${TMP_PACKAGES[@]}" || true) |
             # Remove only unrequired packages with their dependencies
-            xargs --no-run-if-empty paru --noconfirm -R --recursive --nosave
+            xargs --no-run-if-empty paru -R --noconfirm --recursive --nosave
     fi
 }
 

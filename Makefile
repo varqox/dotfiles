@@ -54,15 +54,15 @@ endif
 .PHONY: FORCE
 FORCE:
 
-paru: FORCE
+pacman: FORCE
+	pacman/configure.sh
+
+paru: pacman FORCE
 	paru/install.sh
 	paru/configure.sh
 
 install-%: FORCE paru
 	bash -c 'source common.sh; print_step "install: $*"; paruS $*'
-
-pacman: FORCE
-	pacman/configure.sh
 
 sudo: FORCE
 	sudo/install_and_configure.sh
