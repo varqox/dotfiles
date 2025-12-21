@@ -158,6 +158,8 @@ exec mako
 
 hide_edge_borders both
 
+bindsym --no-repeat Ctrl+Alt+F11 fullscreen toggle
+
 bindsym Ctrl+Alt+Shift+f floating toggle
 # window_role is the title of an X11 (Xwayland) window (name field reported by swaymsg -t get_tree)
 for_window [window_role="pop-up"] floating enable
