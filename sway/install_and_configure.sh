@@ -15,7 +15,7 @@ paruS wtype inotify-tools # for remapping sequence of keys into other sequences
 paruS swayidle # screen lock after idle period
 paruS network-manager-applet # network manager applet
 paruS blueman # bluetooth applet
-paruS dropbox python-gpgme gnome-shell-extension-appindicator # dropbox with dependencies
+paruS maestral-qt gnome-shell-extension-appindicator # open-source Dropbox client with optional dependencies
 paruS grim slurp wl-clipboard # making screenshots
 paruS xdg-desktop-portal-wlr # screen sharing
 paruS hyprpicker # screen color picker

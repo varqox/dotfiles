@@ -119,7 +119,8 @@ exec 'until bluetoothctl power on; do sleep 0.1; done'
 exec nm-applet --indicator
 # Blueman-applet silently fails for some time after sway startup
 exec 'sleep 0.5; exec blueman-applet'
-exec dropbox
+# Maestral (open-source Dropbox client)
+exec maestral gui
 
 # Arrange and navigate workspaces as layered 2D grids
 exec "$HOME/.config/sway/sway-workspace-switcher 2>&1 > $HOME/.config/sway/sway-workspace-switcher.log"
