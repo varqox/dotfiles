@@ -182,3 +182,33 @@ function cpu_vendor() {
         *) error "Unsupported CPU with cpuid: ${vendor_str}" ;;
     esac
 }
+
+# Usage: edit_inplace <file> <command> [args]...
+function edit_inplace() {
+    local file="$1"
+    shift
+    local new="$("$@" < "${file}")" || return
+    printf "%s" "${new}" > "${file}"
+}
+
+# Usage kill_and_await_death <process_name_or_pid>...
+function kill_and_await_death() {
+    # After 2s send SIGKILL
+    # Second timeout makes kill await the process death after the first kill (a nice hack)
+    { env kill --verbose --timeout 2000 KILL --timeout 1000 KILL "$@" 2>&1 || true; } |
+        sed --silent '
+            /^kill: cannot find process /{
+                b end_check
+            }
+            w /dev/stderr
+            /^sending signal /b end_check
+            s/^.*/x/
+            h
+            : end_check
+            ${
+                g
+                # There was an error
+                /./q 1
+            }
+        '
+}
