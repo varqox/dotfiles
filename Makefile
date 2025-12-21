@@ -36,6 +36,7 @@ all: age
 all: mpv
 all: sublimehq
 all: ticktick
+all: beeper
 all: install-procps-ng # pkill
 all: install-htop
 all: install-ripgrep # rg
@@ -185,3 +186,6 @@ sublimehq: FORCE sublime-text sublime-merge age
 
 ticktick: FORCE
 	ticktick/install_and_configure.sh
+
+beeper: FORCE
+	beeper/install_and_configure.sh
