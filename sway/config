@@ -143,13 +143,6 @@ bindsym Ctrl+Alt+Shift+c exec echo "carry to new layer" > $workspace_switcher_pi
 bindsym Ctrl+Alt+h exec "$HOME/.config/sway/sway-focus-switcher" next
 bindsym Ctrl+Shift+Alt+h exec "$HOME/.config/sway/sway-focus-switcher" prev
 
-# Make Alt+Tab work everywhere except VDI_W11, where it will be passed through. Be warned! This is tricky due to escaping in sway config and swaymsg.
-set $alt_tab_binding [con_id=__focused__ title=^VDI_W11$] unbindsym Alt+Tab, exec wtype -M alt -k tab; [con_id=__focused__ title=^(?!VDI_W11$)] exec "$HOME/.config/sway/sway-focus-switcher" next
-bindsym --no-repeat Alt+Tab $alt_tab_binding
-bindsym --release Alt+Tab exec swaymsg "bindsym --no-repeat Alt+Tab '$alt_tab_binding'"
-
-#bindsym Alt+Tab [title=^[^V]] exec "$HOME/.config/sway/sway-focus-switcher" next
-
 # Screenshots
 bindsym --no-repeat Print exec mkdir -p -m 700 /tmp/screenshots/ && grim - | tee "$(date '+/tmp/screenshots/%F %T.png')" | wl-copy
 bindsym --no-repeat Ctrl+Print exec mkdir -p -m 700 /tmp/screenshots/ && grim -g "$(slurp -d)" - | tee "$(date '+/tmp/screenshots/%F %T.png')" | wl-copy
@@ -194,7 +187,20 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. 
 # Warn about dotfiles change
 exec "$HOME/.config/sway/warn_about_dotfiles_change.sh"
 
-# Make Ctrl+Shift+c Ctrl+c in Firefox only. Be warned! This is tricky due to escaping in sway config and swaymsg.
+# Make Ctrl+Shift+c Ctrl+c in Firefox only.
+# Be warned not to use ' and "! This is tricky due to escaping as it passes through sway config, shell, swaymsg, sway config and shell.
 set $ctrl_shift_c_binding [con_id=__focused__ app_id=^firefox$] exec wtype -M ctrl -k c; [con_id=__focused__ app_id=^(?!firefox$)] unbindsym Ctrl+Shift+c, exec wtype -M ctrl -M shift -k c
 bindsym --no-repeat Ctrl+Shift+c $ctrl_shift_c_binding
 bindsym --release Ctrl+Shift+c exec swaymsg "bindsym --no-repeat Ctrl+Shift+c '$ctrl_shift_c_binding'"
+
+# Make Alt+Tab work everywhere except VDI_W11, where it will be passed through.
+# Be warned not to use ' and "! This is tricky due to escaping as it passes through sway config, shell, swaymsg, sway config and shell.
+set $alt_tab_binding [con_id=__focused__ title=^VDI_W11$] unbindsym Alt+Tab, exec wtype -M alt -k tab; [con_id=__focused__ title=^(?!VDI_W11$)] exec "$HOME/.config/sway/sway-focus-switcher" next
+bindsym --no-repeat Alt+Tab $alt_tab_binding
+bindsym --release Alt+Tab exec swaymsg "bindsym --no-repeat Alt+Tab '$alt_tab_binding'"
+
+# Make Ctrl+Q kill Beeper manually and pass through for everyone else.
+# Be warned not to use ' and "! This is tricky due to escaping as it passes through sway config, shell, swaymsg, sway config and shell.
+set $ctrl_q_binding [con_id=__focused__ app_id=^BeeperTexts$] exec pkill -x beepertexts && sleep 1 && pkill -KILL -x beepertexts; [con_id=__focused__ app_id=^(?!BeeperTexts$)] unbindsym Ctrl+q, exec wtype -M ctrl -k q
+bindsym --no-repeat Ctrl+q $ctrl_q_binding
+bindsym --release Ctrl+q exec swaymsg "bindsym --no-repeat Ctrl+q '$ctrl_q_binding'"
