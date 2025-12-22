@@ -195,20 +195,5 @@ function edit_inplace() {
 function kill_and_await_death() {
     # After 2s send SIGKILL
     # Second timeout makes kill await the process death after the first kill (a nice hack)
-    { env kill --verbose --timeout 2000 KILL --timeout 1000 KILL "$@" 2>&1 || true; } |
-        sed --silent '
-            /^kill: cannot find process /{
-                b end_check
-            }
-            w /dev/stderr
-            /^sending signal /b end_check
-            s/^.*/x/
-            h
-            : end_check
-            ${
-                g
-                # There was an error
-                /./q 1
-            }
-        '
+    env kill --verbose --timeout 2000 KILL --timeout 1000 KILL "$@" || true
 }
