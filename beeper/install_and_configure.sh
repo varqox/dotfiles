@@ -6,7 +6,7 @@ paruS beeper-v4-bin hunspell hunspell-en_us hunspell-en_gb hunspell-pl ttf-apple
 tmp_paruS jq
 
 print_step "beeper: ensuring beeper is not running"
-kill_and_await_death beeper
+kill_and_await_death beepertexts
 
 print_step "beeper: configure"
 mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/BeeperTexts"
