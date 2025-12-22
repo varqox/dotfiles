@@ -1,0 +1,15 @@
+/*
+# Custom Beeper.app style
+This file will be injected as a <style> tag
+After making your changes, type "Reload custom CSS" in the command bar
+To open dev tools, open the command bar and type "open console"
+*/
+
+:root {
+  --font-family: Ubuntu, "Apple Color Emoji" !important;
+  --font-family-mono: "Ubuntu Mono", "Apple Color Emoji" !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {}
+}
