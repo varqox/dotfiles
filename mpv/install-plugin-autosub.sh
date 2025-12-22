@@ -21,6 +21,10 @@ function enable_polish_language() {
 	sed "s@^--\(          { 'Polish', 'pl', 'pol' },\)@  \1@"
 }
 
+function force_subtitle_format_srt() {
+	sed "s@\(\s*\)\(a\[#a + 1\] = filename\)@\1a[#a + 1] = '--language-format'\n\1a[#a + 1] = 'srt'\n\1\2@"
+}
+
 function change_shortcut_for_download_subs2() {
 	sed "s@^\(mp.add_key_binding(\)'n'\(, 'download_subs2', download_subs2)\)@\1'B'\2@"
 }
@@ -32,6 +36,7 @@ safe_copy <(
 		disable_automatic_subtitle_download |
 		disable_dutch_language |
 		enable_polish_language |
+		force_subtitle_format_srt |
 		change_shortcut_for_download_subs2
 	) "${XDG_CONFIG_HOME:-$HOME/.config}/mpv/scripts/autosub/autosub.lua"
 safe_copy <(echo "require('autosub')") "${XDG_CONFIG_HOME:-$HOME/.config}/mpv/scripts/autosub/main.lua"
