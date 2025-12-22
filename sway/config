@@ -176,8 +176,8 @@ for_window [app_id="firefox"] border none
 for_window [app_id="anki"] floating enable
 for_window [app_id="ssh-askpass-sublime"] floating enable
 
-for_window [shell="xwayland" class="Horizon-client" title="VDI_W11"] shortcuts_inhibitor enable
-
+bindsym Ctrl+Alt+Shift+w exec LC_ALL=en_US.UTF-8 horizon-client --tokenUserName=malysakr
+for_window [shell="xwayland" class="Horizon-client" title=^VDI_W11$] floating enable, exec sleep 4 && swaymsg '[shell="xwayland" class="Horizon-client" title=^VDI_W11$] floating disable' && swaymsg '[shell="xwayland" class="Horizon-client" title="^Omnissa Horizon Client$"] kill'
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
