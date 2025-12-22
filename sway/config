@@ -178,11 +178,9 @@ for_window [app_id="ssh-askpass-sublime"] floating enable
 
 bindsym Ctrl+Alt+Shift+w exec LC_ALL=en_US.UTF-8 horizon-client --tokenUserName=malysakr
 for_window [shell="xwayland" class="Horizon-client" title=^VDI_W11$] floating enable, exec sleep 4 && swaymsg '[shell="xwayland" class="Horizon-client" title=^VDI_W11$] floating disable' && swaymsg '[shell="xwayland" class="Horizon-client" title="^Omnissa Horizon Client$"] kill'
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
 
 # Exit sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym Ctrl+Alt+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 # Warn about dotfiles change
 exec "$HOME/.config/sway/warn_about_dotfiles_change.sh"
