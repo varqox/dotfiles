@@ -58,7 +58,7 @@ bindsym --no-repeat Ctrl+Alt+Shift+asterisk exec wpctl set-mute @DEFAULT_SOURCE@
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 2%-
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set 2%+
 bindsym --no-repeat XF86AudioPause exec waybar-mpris --send toggle
-bindsym XF86AudioPlay exec waybar-mpris --send toggle
+bindsym --no-repeat XF86AudioPlay exec waybar-mpris --send toggle
 bindsym XF86AudioNext exec waybar-mpris --send next
 bindsym XF86AudioPrev exec waybar-mpris --send prev
 bindsym --no-repeat XF86Display exec wdisplays
@@ -90,11 +90,11 @@ exec swaymsg bindswitch lid:on exec '$lock_screen_if_no_external_display'
 bindsym --no-repeat Ctrl+Alt+l exec '$lock_screen'
 bindsym --no-repeat --release --locked Ctrl+Alt+s exec systemctl suspend
 
-bindsym Ctrl+Alt+Delete exec wlogout
-bindsym Ctrl+Alt+t exec alacritty msg create-window --working-directory "$HOME" || alacritty --working-directory "$HOME"
-bindsym Ctrl+Alt+f exec firefox
-bindsym Mod4+s exec subl --launch-or-new-window
-bindsym Mod4+k exec keepassxc
+bindsym --no-repeat Ctrl+Alt+Delete exec wlogout
+bindsym --no-repeat Ctrl+Alt+t exec alacritty msg create-window --working-directory "$HOME" || alacritty --working-directory "$HOME"
+bindsym --no-repeat Ctrl+Alt+f exec firefox
+bindsym --no-repeat Mod4+s exec subl --launch-or-new-window
+bindsym --no-repeat Mod4+k exec keepassxc
 # Kill focused window
 bindsym Ctrl+Alt+k kill
 bindsym Ctrl+Shift+w kill
@@ -176,7 +176,7 @@ for_window [app_id="firefox"] border none
 for_window [app_id="anki"] floating enable
 for_window [app_id="ssh-askpass-sublime"] floating enable
 
-bindsym Ctrl+Alt+Shift+w exec LC_ALL=en_US.UTF-8 horizon-client --tokenUserName=malysakr
+bindsym --no-repeat Ctrl+Alt+Shift+w exec LC_ALL=en_US.UTF-8 horizon-client --tokenUserName=malysakr
 for_window [shell="xwayland" class="Horizon-client" title=^VDI_W11$] floating enable, exec sleep 4 && swaymsg '[shell="xwayland" class="Horizon-client" title=^VDI_W11$] floating disable' && swaymsg '[shell="xwayland" class="Horizon-client" title="^Omnissa Horizon Client$"] kill'
 
 # Exit sway (logs you out of your Wayland session)
