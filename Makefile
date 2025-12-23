@@ -3,6 +3,7 @@ SHELL = /bin/sh
 .SHELLFLAGS = -c 'cd $(dir $(abspath $(lastword $(MAKEFILE_LIST)))); exec $$SHELL -c "$$0"'
 
 .PHONY: all
+all: keyd
 all: paru
 all: pacman
 all: sudo
@@ -54,6 +55,9 @@ endif
 
 .PHONY: FORCE
 FORCE:
+
+keyd: FORCE
+	keyd/install_and_configure.sh
 
 pacman: FORCE
 	pacman/configure.sh
@@ -141,7 +145,7 @@ mako: FORCE install-mako fonts
 
 keepassxc: FORCE install-keepassxc install-qt5-wayland fonts
 
-sway: FORCE networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar
+sway: FORCE keyd networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar
 	sway/install_and_configure.sh
 
 swaylock: FORCE

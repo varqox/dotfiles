@@ -5,17 +5,9 @@ exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY
 
 input type:keyboard {
     xkb_layout "pl"
-    xkb_variant "dvp"
-    xkb_options "caps:escape"
     repeat_delay 250
     repeat_rate 40
 }
-# Change xkb_variant between "dvp" and ""
-bindsym --no-repeat --locked Ctrl+Shift+Alt+Escape exec grep --quiet '^[[:blank:]]*xkb_variant "dvp"' $HOME/.config/sway/config && \
-    sed 's/^\([[:blank:]]*xkb_variant\) "dvp"/\1 ""/' $HOME/.config/sway/config -i || \
-    sed 's/^\([[:blank:]]*xkb_variant\) ""/\1 "dvp"/' $HOME/.config/sway/config -i && \
-    false || swaymsg reload
-
 input type:pointer {
     scroll_factor 2
 }
@@ -47,9 +39,9 @@ bindsym Ctrl+XF86AudioRaiseVolume exec wpctl set-volume --limit 1 @DEFAULT_SINK@
 bindsym Ctrl+XF86AudioLowerVolume exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%-
 bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%+
 bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%-
-bindsym Ctrl+Alt+plus exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_5%+
+bindsym Ctrl+Alt+equal exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_5%+
 bindsym Ctrl+Alt+minus exec wpctl set-volume --limit 1 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_5%-
-bindsym Ctrl+Alt+Shift+plus exec wpctl set-volume --limit 2 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%+
+bindsym Ctrl+Alt+Shift+equal exec wpctl set-volume --limit 2 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%+
 bindsym Ctrl+Alt+Shift+minus exec wpctl set-volume --limit 2 @DEFAULT_SINK@ $if_bose_headphones_then_4_else_1%-
 bindsym --no-repeat --locked Ctrl+Alt+asterisk exec wpctl set-mute @DEFAULT_SINK@ toggle
 bindsym --no-repeat --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
@@ -64,15 +56,7 @@ bindsym XF86AudioPrev exec waybar-mpris --send prev
 bindsym --no-repeat XF86Display exec wdisplays
 bindsym XF86PowerOff exec wlogout
 bindsym --no-repeat XF86Bluetooth exec "$HOME/.config/sway/toggle_bluetooth.sh"
-bindsym --no-repeat F1 exec waybar-mpris --send toggle
 bindsym --no-repeat XF86Favorites exec waybar-mpris --send toggle
-
-# to PageUp mapping
-bindsym --no-repeat Alt+Up exec 'touch "$HOME/.config/sway/page_up_in_progress"; inotifywait -e delete_self -qq "$HOME/.config/sway/page_up_in_progress" | wtype -P Prior -'
-bindsym --release Alt+Up exec rm "$HOME/.config/sway/page_up_in_progress"
-# to PageDown mapping
-bindsym --no-repeat Alt+Down exec 'touch "$HOME/.config/sway/page_down_in_progress"; inotifywait -e delete_self -qq "$HOME/.config/sway/page_down_in_progress" | wtype -P Next -'
-bindsym --release Alt+Down exec rm "$HOME/.config/sway/page_down_in_progress"
 
 set $lock_screen "$HOME/.config/sway/lock_screen.sh"
 set $lock_screen_if_no_external_display "$HOME/.config/sway/lock_screen_if_no_external_display.sh"
@@ -185,20 +169,7 @@ bindsym Ctrl+Alt+Shift+e exec swaynag -t warning -m 'You pressed the exit shortc
 # Warn about dotfiles change
 exec "$HOME/.config/sway/warn_about_dotfiles_change.sh"
 
-# Make Ctrl+Shift+c Ctrl+c in Firefox only.
-# Be warned not to use ' and "! This is tricky due to escaping as it passes through sway config, shell, swaymsg, sway config and shell.
-set $ctrl_shift_c_binding [con_id=__focused__ app_id=^firefox$] exec wtype -M ctrl -k c; [con_id=__focused__ app_id=^(?!firefox$)] unbindsym Ctrl+Shift+c, exec wtype -M ctrl -M shift -k c
-bindsym --no-repeat Ctrl+Shift+c $ctrl_shift_c_binding
-bindsym --release Ctrl+Shift+c exec swaymsg "bindsym --no-repeat Ctrl+Shift+c '$ctrl_shift_c_binding'"
+# Enable custom per-application key remaps
+exec keyd-application-mapper --daemonize
 
-# Make Alt+Tab work everywhere except VDI_W11, where it will be passed through.
-# Be warned not to use ' and "! This is tricky due to escaping as it passes through sway config, shell, swaymsg, sway config and shell.
-set $alt_tab_binding [con_id=__focused__ title=^VDI_W11$] unbindsym Alt+Tab, exec wtype -M alt -k tab; [con_id=__focused__ title=^(?!VDI_W11$)] exec "$HOME/.config/sway/sway-focus-switcher" next
-bindsym --no-repeat Alt+Tab $alt_tab_binding
-bindsym --release Alt+Tab exec swaymsg "bindsym --no-repeat Alt+Tab '$alt_tab_binding'"
-
-# Make Ctrl+Q kill Beeper manually and pass through for everyone else.
-# Be warned not to use ' and "! This is tricky due to escaping as it passes through sway config, shell, swaymsg, sway config and shell.
-set $ctrl_q_binding [con_id=__focused__ app_id=^BeeperTexts$] exec pkill -x beepertexts && sleep 1 && pkill -KILL -x beepertexts; [con_id=__focused__ app_id=^(?!BeeperTexts$)] unbindsym Ctrl+q, exec wtype -M ctrl -k q
-bindsym --no-repeat Ctrl+q $ctrl_q_binding
-bindsym --release Ctrl+q exec swaymsg "bindsym --no-repeat Ctrl+q '$ctrl_q_binding'"
+bindsym --no-repeat Ctrl+Alt+q [con_id=__focused__ app_id=^BeeperTexts$] kill, exec pkill -x beepertexts && sleep 1 && pkill -KILL -x beepertexts
