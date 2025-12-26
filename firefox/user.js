@@ -147,9 +147,6 @@ user_pref("spellchecker.dictionary", "en-US,en-GB,pl-PL");
 // Make typing in urlbar select custom url first. It improves over time
 user_pref("browser.urlbar.autoFill.adaptiveHistory.enabled", true);
 
-// Customize the navigation bar
-user_pref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[],\"unified-extensions-area\":[\"jid1-mnnxcxisbpnsxq_jetpack-browser-action\",\"_contain-facebook-browser-action\",\"fbpelectrowebext_fbpurity_com-browser-action\",\"gdpr_cavi_au_dk-browser-action\",\"jid1-bofifl9vbdl2zq_jetpack-browser-action\",\"jid1-kkzogwgsw3ao4q_jetpack-browser-action\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"_testpilot-containers-browser-action\",\"urlbar-container\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"unified-extensions-button\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"firefox-view-button\",\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"import-button\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"developer-button\",\"_contain-facebook-browser-action\",\"_testpilot-containers-browser-action\",\"fbpelectrowebext_fbpurity_com-browser-action\",\"gdpr_cavi_au_dk-browser-action\",\"jid1-bofifl9vbdl2zq_jetpack-browser-action\",\"jid1-kkzogwgsw3ao4q_jetpack-browser-action\",\"jid1-mnnxcxisbpnsxq_jetpack-browser-action\",\"ublock0_raymondhill_net-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"PersonalToolbar\",\"toolbar-menubar\",\"TabsToolbar\",\"unified-extensions-area\"],\"currentVersion\":19,\"newElementCount\":4}");
-
 // Make the "Show in Folder" for downloaded files be opened in Thunar (still does not select the file, but at least something happens)
 user_pref("widget.use-xdg-desktop-portal.open-uri", 1);
 
@@ -1390,3 +1387,14 @@ user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
 
 // PREF: disable check for proxies
 user_pref("network.notify.checkForProxies", false);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+user_pref("browser.newtabpage.activity-stream.telemetry.privatePing.enabled", false);
+user_pref("browser.newtabpage.activity-stream.telemetry.privatePing.redactNewtabPing.enabled", false);
+user_pref("network.ttr.uri", "https://doh.libredns.gr/noads");
+user_pref("network.ttr.custom_uri", "https://doh.libredns.gr/noads");
+user_pref("sidebar.visibility", "hide-sidebar");
+
+// Customize the navigation bar
+user_pref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[],\"unified-extensions-area\":[\"jid1-mnnxcxisbpnsxq_jetpack-browser-action\",\"_contain-facebook-browser-action\",\"fbpelectrowebext_fbpurity_com-browser-action\",\"gdpr_cavi_au_dk-browser-action\",\"jid1-bofifl9vbdl2zq_jetpack-browser-action\",\"jid1-kkzogwgsw3ao4q_jetpack-browser-action\",\"_458160b9-32eb-4f4c-87d1-89ad3bdeb9dc_-browser-action\",\"firefox_tampermonkey_net-browser-action\",\"idcac-pub_guus_ninja-browser-action\",\"_6fa42eda-38ca-4126-96d5-3163f0de6900_-browser-action\",\"simple-translate_sienori-browser-action\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"vertical-spacer\",\"_testpilot-containers-browser-action\",\"urlbar-container\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"keepassxc-browser_keepassxc_org-browser-action\",\"unified-extensions-button\",\"reset-pbm-toolbar-button\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"firefox-view-button\",\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"vertical-tabs\":[],\"PersonalToolbar\":[\"import-button\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"developer-button\",\"_contain-facebook-browser-action\",\"_testpilot-containers-browser-action\",\"fbpelectrowebext_fbpurity_com-browser-action\",\"gdpr_cavi_au_dk-browser-action\",\"jid1-bofifl9vbdl2zq_jetpack-browser-action\",\"jid1-kkzogwgsw3ao4q_jetpack-browser-action\",\"jid1-mnnxcxisbpnsxq_jetpack-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"_458160b9-32eb-4f4c-87d1-89ad3bdeb9dc_-browser-action\",\"firefox_tampermonkey_net-browser-action\",\"idcac-pub_guus_ninja-browser-action\",\"keepassxc-browser_keepassxc_org-browser-action\",\"_6fa42eda-38ca-4126-96d5-3163f0de6900_-browser-action\",\"screenshot-button\",\"simple-translate_sienori-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"PersonalToolbar\",\"toolbar-menubar\",\"TabsToolbar\",\"unified-extensions-area\",\"vertical-tabs\"],\"currentVersion\":23,\"newElementCount\":6}");
