@@ -83,37 +83,51 @@ ff_extensions=(
     'https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/'
     'https://addons.mozilla.org/en-US/firefox/addon/mutelinks/'
     'https://addons.mozilla.org/en-US/firefox/addon/simple-translate/'
+    'https://addons.mozilla.org/en-US/firefox/addon/brandon1024-find/'
+    'https://addons.mozilla.org/en-US/firefox/addon/youtube-anti-translate/'
+    'https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/'
 )
 downloaded_extensions_dir="${tmp_dir}/firefox_extensions/"
 mkdir -p "${downloaded_extensions_dir}"
 xpi_files=()
+xpi_guids=()
 for extension_url in "${ff_extensions[@]}"; do
     print_step "firefox: downloading extension: ${extension_url}"
-    # Extract the xpi URL, but ensure there is only one
-    xpi_url="$(curl "${extension_url}" | grep --only-matching 'href="https://[^"]*\.xpi">Download file<' | sed -n 's/href="//; s/">Download file<$//; x; /./q1; ${x; p}')"
+    # Extract the xpi URL, but ensure there is exactly one such URL
+    extension_page="$(curl "${extension_url}")"
+    xpi_url="$(echo "${extension_page}" | grep --only-matching 'href="https://[^"]*\.xpi">Download file<' | sed 's/href="//; s/">Download file<$//; 2q1')"
     xpi_file="${downloaded_extensions_dir}/${xpi_url##*/}"
     curl "${xpi_url}" --output "${xpi_file}"
     xpi_files+=("${xpi_file}")
+    # Extract xpi GUID, but ensure there is exactly one that is non-empty
+    xpi_guid="$(echo "${extension_page}" | grep --only-matching '[^\\]"guid"\s*:\s*"\(\\.\|[^"]\)*' | sed 's/^."guid"\s*:\s*"//; 2q1')"
+    xpi_guids+=("${xpi_guid}")
 done
-# F.B. Purity needs special treatment
+
+# F.B. Purity needs special treatment as it is outside official store
 print_step "firefox: downloading extension: F.B. Purity"
 user_agent_header_for_fb_purity='User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0'
 fb_purity_xpi="$(curl 'https://www.fbpurity.com/install.htm' -H "${user_agent_header_for_fb_purity}" | grep --only-matching 'href="[^"]*\.xpi"' | sed -n 's/href="//; s/"$//; 1p')"
 fb_purity_xpi_file="${downloaded_extensions_dir}/${fb_purity_xpi##*/}"
 curl "https://www.fbpurity.com/${fb_purity_xpi}" -H "${user_agent_header_for_fb_purity}" --output "${fb_purity_xpi_file}"
 xpi_files+=("${fb_purity_xpi_file}")
+# Extract guid
+fb_purity_xpi_guid="$(unzip -qc "${fb_purity_xpi_file}" manifest.json |
+    python -c 'import sys, json; o=json.load(sys.stdin); print(o.get("browser_specific_settings", o.get("applications"))["gecko"]["id"])'
+)"
+xpi_guids+=("${fb_purity_xpi_guid}")
 
 print_step "firefox: installing extensions"
 for prefs_js in "${HOME}/.mozilla/firefox/"*/prefs.js; do
     ff_dir="${prefs_js%/*}"
     profile_name="${ff_dir}"
     print_step "firefox: installing extensions for profile ${profile_name}"
+    mkdir -p "${ff_dir}/extensions"
 
-    for xpi_file in "${xpi_files[@]}"; do
-        extension_id="$(unzip -qc "${xpi_file}" manifest.json |
-            python -c 'import sys, json; o=json.load(sys.stdin); print(o.get("browser_specific_settings", o.get("applications"))["gecko"]["id"])'
-        )"
-        echo "installing: ${extension_id}"
-        cp "${xpi_file}" "${ff_dir}/extensions/${extension_id}.xpi"
+    for idx in "${!xpi_files[@]}"; do
+        xpi_file="${xpi_files[${idx}]}"
+        guid="${xpi_guids[${idx}]}"
+        echo "installing: ${xpi_file##*/} as ${guid}.xpi"
+        cp "${xpi_file}" "${ff_dir}/extensions/${guid}.xpi"
     done
 done
