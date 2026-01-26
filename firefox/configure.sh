@@ -7,7 +7,7 @@ ff=firefox
 tmp_paruS git rust jq curl unzip
 
 print_step "firefox: run ${ff} briefly to create the default profile"
-"${ff}" --first-startup --new-instance --headless --screenshot /dev/null
+"${ff}" --first-startup --new-instance --headless -P default-release --screenshot /dev/null
 
 print_step "firefox: change the deafult search engine"
 engine_name='Ecosia'
