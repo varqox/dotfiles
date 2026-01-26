@@ -6,6 +6,7 @@ SHELL = /bin/sh
 all: keyd
 all: paru
 all: pacman
+all: booting
 all: sudo
 all: pam
 all: locales
@@ -65,6 +66,9 @@ pacman: FORCE
 paru: pacman FORCE
 	paru/install.sh
 	paru/configure.sh
+
+booting: FORCE
+	booting/install_and_configure.sh
 
 install-%: FORCE paru
 	bash -c 'source common.sh; print_step "install: $*"; paruS $*'
