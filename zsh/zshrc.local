@@ -6,16 +6,16 @@ ulimit -c 0 # disable core dumps, but allow enabling them on demand with ulimit 
 
 export GCC_COLORS="auto" # for GCC to color diagnostic messages in conjuntion with ccache
 
-# Color in man pages
-export LESS_TERMCAP_md=$'\e[01;31m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;44;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[01;32m'
+# Make less use colors
+export LESS='--RAW-CONTROL-CHARS --use-color -DS+ky'
 
-# For crontab -e
+# Colored man pages
+export MANPAGER="sh -c 'col -bx | bat -pl man'"
+export MANROFFOPT='-P -c'
+
+# For git, crontab -e, etc.
 export EDITOR=nvim
+
 alias vim='nvim'
 
 alias g='grep -P --line-buffered --color=always'
