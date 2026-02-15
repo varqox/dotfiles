@@ -436,3 +436,11 @@ function change-movie-format {
 
     ffmpeg "$1" -codec copy "$2"
 }
+
+function film() (
+    set -euo pipefail
+    cd "$HOME/films-to-see"
+    find . -name '*.mkv' -print0 -or -name '*.mp4' -print0 |
+        fzf --read0 --query="$*" --reverse --select-1 --print0 |
+        xargs --null mpv
+)
