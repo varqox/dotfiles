@@ -1,0 +1,433 @@
+#!/usr/bin/python3
+from dataclasses import dataclass
+import argparse
+import itertools
+import os
+import re
+import subprocess
+import sys
+
+parser = argparse.ArgumentParser(
+    prog=sys.argv[0],
+    description='Translate or facilitate translation of the .srt subtitles'
+)
+parser.add_argument('-i', required=True, metavar='INPUT_FILE', help='Input subtitles file')
+parser.add_argument('-o', required=True, metavar='OUTPUT_FILE', help='Output subtitles file')
+parser.add_argument('-c', type=int, metavar='NUM', help='Max translation chunk size')
+parser.add_argument('-d', '--debug', action='store_true')
+parser.add_argument('--selenium', choices=['no', 'headless', 'window'], default='headless', help='Whether and how to use Selenium')
+args = parser.parse_args()
+
+def print_info(msg):
+    print(f"\x1b[0;1m{msg}\x1b[0m", file=sys.stderr)
+
+def print_error(msg):
+    print(f"\x1b[0;1;31m{msg}\x1b[0m", file=sys.stderr)
+
+def print_warning(msg):
+    print(f"\x1b[0;1;33m{msg}\x1b[0m", file=sys.stderr)
+
+def exit_error(msg):
+    print_error(msg)
+    sys.exit(1)
+
+if args.selenium != 'no':
+    from selenium import webdriver
+    from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, ElementClickInterceptedException, JavascriptException
+    from selenium.webdriver.common.action_chains import ActionChains
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.common.keys import Keys
+    from selenium.webdriver.firefox.options import Options as FirefoxOptions
+    import time
+
+    driver = None
+    def open_browser():
+        global args
+        global driver
+        if driver is not None:
+            return
+
+        options = FirefoxOptions()
+        if args.selenium == 'headless':
+            options.add_argument('--headless')
+        driver = webdriver.Firefox(options)
+        driver.get('https://www.deepl.com/pl/translator')
+
+        print_info("Changing target language to Polish...")
+        SLEEP_INTERVAL = 0.1
+        TIMEOUT_SEC = 16
+        start_time = time.clock_gettime(time.CLOCK_MONOTONIC)
+        while True:
+            try:
+                # Open target language menu
+                elem = driver.find_element(By.CSS_SELECTOR, 'button[data-testid="translator-target-lang-btn"]')
+                if elem.get_attribute('aria-expanded') == 'false':
+                    # Check if the target language is set to Polish
+                    if args.debug:
+                        print_info("Checking if target language is set to Polish...")
+                    try:
+                        driver.find_element(By.CSS_SELECTOR, '[data-testid="translator-target-lang-btn"] [dl-selected-lang="pl"]')
+                        print_info("Success: target language is set to Polish!")
+                        return
+                    except NoSuchElementException as e:
+                        if args.debug:
+                            print_warning(e)
+                    # Open target language menu
+                    if args.debug:
+                        print_info("Opening target language menu...")
+                    elem.click()
+                else:
+                    if args.debug:
+                        print_info("Selecting target language: Polish...")
+                    driver.execute_script('document.querySelector(\'[data-testid="translator-lang-option-pl"]\').click()')
+            except (NoSuchElementException, StaleElementReferenceException, JavascriptException) as e:
+                if args.debug:
+                    print_warning(e)
+            if time.clock_gettime(time.CLOCK_MONOTONIC) - start_time > TIMEOUT_SEC:
+                raise Exception('DeepL: changing target language to Polish timeout')
+            time.sleep(SLEEP_INTERVAL)
+
+    def deepl_translate(text):
+        global args
+        global driver
+        # Find elements every time, so that if the page changes layout it works.
+        input_elem = driver.find_element(By.CSS_SELECTOR, '[aria-labelledby="translation-source-heading"][aria-placeholder]')
+        output_elem = driver.find_element(By.CSS_SELECTOR, '[aria-labelledby="translation-target-heading"][aria-placeholder]')
+        lang_switch_div_elem = driver.find_element(By.CSS_SELECTOR, '[data-layout-id="languageSwitchButton"] button')
+        target_lang_button = driver.find_element(By.CSS_SELECTOR, 'button[data-testid="translator-target-lang-btn"]')
+
+        print_info("Erasing the previous source text from DeepL...")
+        input_elem.send_keys(Keys.CONTROL + 'a', Keys.BACKSPACE)
+
+        print_info("Waiting for the DeepL to clear the translation...")
+        SLEEP_INTERVAL = 0.1
+        timeout_sec = 8
+        start_time = time.clock_gettime(time.CLOCK_MONOTONIC)
+        while True:
+            output_len = len(output_elem.text)
+            if args.debug:
+                print(f"len(output_elem.text): {output_len}")
+            if output_len == 0:
+                break
+            if time.clock_gettime(time.CLOCK_MONOTONIC) - start_time > timeout_sec:
+                raise Exception('DeepL: clearing translation timeout')
+            time.sleep(SLEEP_INTERVAL)
+
+        print_info("Pasting chunk into DeepL...")
+        input_elem.send_keys(text)
+
+        print_info("Waiting for DeepL to translate the chunk...")
+        timeout_sec = 16
+        start_time = time.clock_gettime(time.CLOCK_MONOTONIC)
+        while True:
+            if target_lang_button.get_attribute('disabled') is not None:
+                raise Exception('DeepL translator broke')
+            if lang_switch_div_elem.get_attribute('disabled') is None:
+                print_info("Translation completed.")
+                translation = output_elem.text
+                if args.debug:
+                    print_info(f"len(translation): {len(translation)}")
+                return translation
+            if time.clock_gettime(time.CLOCK_MONOTONIC) - start_time > timeout_sec:
+                raise Exception('DeepL: awaiting translation timeout')
+            time.sleep(SLEEP_INTERVAL)
+
+    def close_browser():
+        global driver
+        if driver is not None:
+            driver.close()
+            driver = None
+
+@dataclass
+class Subtitle:
+    num: str
+    span: str
+    text: list[str]
+
+@dataclass
+class SrtFile:
+    subtitles: list[Subtitle]
+
+def read_srt_file(file):
+    subtitles = []
+    num = None
+    span = None
+    text = []
+    for line in file:
+        line = line.rstrip('\n')
+        if len(line) == 0:
+            subtitles.append(Subtitle(num, span, text))
+            num = None
+            span = None
+            text = []
+        elif num is None:
+            num = line
+        elif span is None:
+            span = line
+        else:
+            text.append(line)
+    if len(text) > 0:
+        subtitles.append(Subtitle(num, span, text))
+    return SrtFile(subtitles)
+
+class SrtWriter:
+    def __init__(self, file):
+        self.file = file
+        self.next_sub_id = 1
+
+    def write(self, span, text):
+        text = text.rstrip('\n')
+        if len(text) > 0:
+            text += '\n'
+        print(f"{self.next_sub_id}\n{span}\n{text}", file=self.file)
+        self.file.flush()
+        print(f'saved {self.next_sub_id}: {span}')
+        self.next_sub_id += 1
+
+def yield_input_lines():
+    while True:
+        yield input()
+
+class Translator:
+    @dataclass
+    class SubtitleForTranslation:
+        id: int
+        span: str
+        text: str
+        mark: str
+
+    # It is hard to make DeepL not ignore the marks during translation...
+    MARK_REGEX = re.compile(r'\b\d{4,}\b') # 4 not 5 in case DeepL removes the leading 0
+    def mark(sub_id, mark_num):
+        return f"0{sub_id}{mark_num:03}"
+
+    ESCAPE_SEQ_REGEX = re.compile(r'\(\d+\)')
+    def add_escape_seq(self, sub_id, text):
+        if sub_id not in self.escape_sequences:
+            self.escape_sequences[sub_id] = {}
+
+        escape_seq = f'(0{len(self.escape_sequences[sub_id]) + 1}0{sub_id}{self.escape_seq_control_num:02})'
+        self.escape_seq_control_num = self.escape_seq_control_num * 7 % 97
+        self.escape_sequences[sub_id][escape_seq] = text
+        return escape_seq
+
+    def resolve_escape_seq(self, sub_id, escape_seq):
+        return self.escape_sequences[sub_id][escape_seq]
+
+    ESCAPE_PATTERN_REGEX = re.compile(rf'{MARK_REGEX.pattern}|{ESCAPE_SEQ_REGEX.pattern}|<[a-zA-Z]+\b[^>]*>|</[a-zA-Z]+>')
+    def escape_text(self, sub_id, text):
+        pos = 0
+        res = ''
+        while pos < len(text):
+            m = Translator.ESCAPE_PATTERN_REGEX.search(text, pos)
+            if m is None:
+                res += text[pos:]
+                break
+
+            beg, end = m.span()
+            res += text[pos:beg]
+            res += self.add_escape_seq(sub_id, m[0])
+            pos = end
+        return res
+
+    def unescape_text(self, sub_id, text):
+        pos = 0
+        res = ''
+        found_escape_seqs = set()
+        while pos < len(text):
+            m = Translator.ESCAPE_SEQ_REGEX.search(text, pos)
+            if m is None:
+                res += text[pos:]
+                break
+
+            beg, end = m.span()
+            res += text[pos:beg]
+            found_escape_seqs.add(m[0])
+            try:
+                res += self.resolve_escape_seq(sub_id, m[0])
+            except KeyError as e:
+                raise Exception(f'Wrong escape sequence: {m[0]}')
+            pos = end
+        diff = self.escape_sequences.get(sub_id, {}).keys() - found_escape_seqs
+        if len(diff) > 0:
+            raise Exception(f'Escape sequences {diff} not found in the translated text')
+        return res
+
+    def __init__(self, srt_writer, translated_subtitles_num, subtitles_iter):
+        self.srt_writer = srt_writer
+        self.progress = translated_subtitles_num
+        self.subtitles = []
+
+        self.escape_sequences = {}
+        self.escape_seq_control_num = 42
+
+        sub_id = translated_subtitles_num
+        mark_num = 234
+        self.chunk_start_mark = Translator.mark(sub_id, mark_num)
+        for sub in subtitles_iter:
+            text = ''
+            for line in sub.text:
+                text += line
+                text += '\n'
+            sub_id += 1
+            mark_num = mark_num * 17 % 997
+            self.subtitles.append(Translator.SubtitleForTranslation(
+                sub_id,
+                sub.span,
+                self.escape_text(sub_id, text),
+                Translator.mark(sub_id, mark_num)
+            ))
+        self.progress_denom = sub_id
+
+    def translate(self, max_chunk_size = None):
+        global args
+        try:
+            done = 0
+            MAX_CONSECUTIVE_PARSING_ERRORS_WITHOUT_PROGRESS = 3
+            consecutive_parsing_errors_without_progress = 0
+            while done < len(self.subtitles):
+                if consecutive_parsing_errors_without_progress == MAX_CONSECUTIVE_PARSING_ERRORS_WITHOUT_PROGRESS:
+                    print_warning("Chunk for translation:")
+                    print(chunk)
+                    print_warning("Read translation lines:")
+                    print('\n'.join(read_translation_lines))
+                    exit_error("Too many errors, exiting.")
+
+                chunk = self.chunk_start_mark
+                subs_in_chunk = 0
+                for i in range(done, len(self.subtitles)):
+                    sub = self.subtitles[i]
+                    if max_chunk_size is not None and len(chunk) + 1 + len(sub.text) + len(sub.mark) > max_chunk_size:
+                        break
+                    chunk += '\n'
+                    chunk += sub.text
+                    chunk += sub.mark
+                    subs_in_chunk += 1
+
+                if subs_in_chunk == 0:
+                    exit_error("Too small max translation chunk size")
+
+                # Translate
+                progress = f"[{self.progress * 100 // self.progress_denom}..{(self.progress + subs_in_chunk) * 100 // self.progress_denom}%]"
+                if args.debug:
+                    print_info("Current chunk for translation:")
+                    print(chunk)
+                if args.selenium == 'no':
+                    subprocess.run(['wl-copy'], input=chunk.encode('utf-8'), check=True)
+                    print_info(f"{progress} Please translate the clipboard content and paste the translation here:")
+                    translated_lines_iter = yield_input_lines()
+                else:
+                    print_info(f"{progress} Translating chunk via DeepL...")
+                    TRANSLATION_MAX_RETRIES = 3
+                    if consecutive_parsing_errors_without_progress > 0:
+                        print_warning('Restarting browser in case DeepL broke severely...')
+                        close_browser()
+                    for try_num in range(1, TRANSLATION_MAX_RETRIES + 1):
+                        try:
+                            open_browser()
+                            translation = deepl_translate(chunk)
+                            if args.debug:
+                                print_info("Translation:")
+                                print(translation)
+                            translated_lines_iter = iter(translation.splitlines())
+                            break
+                        except Exception as e:
+                            if try_num == TRANSLATION_MAX_RETRIES:
+                                print_error(f"Got error {e}, giving up.")
+                                raise e
+
+                            print_error(f"Got error: {e}, but we will try again...")
+                            close_browser()
+
+                # Process translation
+                read_translation_lines = []
+                line = ''
+                for line in translated_lines_iter:
+                    read_translation_lines.append(line)
+                    line = line.strip()
+                    break
+                if args.debug:
+                    print("got line:", line)
+                if line != self.chunk_start_mark:
+                    print_error(f"Wrong separator line: {line}")
+                    consecutive_parsing_errors_without_progress += 1
+                    continue
+
+                start_idx = done
+                for idx in range(done, done + subs_in_chunk):
+                    sub = self.subtitles[idx]
+                    translated_lines = []
+                    for line in translated_lines_iter:
+                        read_translation_lines.append(line)
+                        line = line.strip()
+                        if args.debug:
+                            print("got line:", line)
+                        if len(line) == 0:
+                            # Ignore empty lines, as they delimit subtitles in .srt file
+                            continue
+                        if Translator.MARK_REGEX.fullmatch(line):
+                            break
+
+                        translated_lines.append(line)
+
+                    if line != sub.mark:
+                        print_error(f"Wrong separator line: {line}")
+                        if idx == start_idx:
+                            consecutive_parsing_errors_without_progress += 1
+                        break
+
+                    # Unescape the translated subtitle
+                    try:
+                        translated_text = '\n'.join(translated_lines)
+                        translated_sub = self.unescape_text(sub.id, translated_text) # This may throw
+                        if args.debug and translated_text != translated_sub:
+                            print(f"translated sub:\n{translated_sub}")
+                    except Exception as e:
+                        print_error(f"Error: {e}")
+                        if idx == start_idx:
+                            consecutive_parsing_errors_without_progress += 1
+                        break
+
+                    self.srt_writer.write(sub.span, translated_sub)
+                    done += 1
+                    self.progress += 1
+                    self.chunk_start_mark = sub.mark
+                    consecutive_parsing_errors_without_progress = 0
+        finally:
+            if args.selenium != 'no':
+                close_browser()
+
+with open(args.i, 'r') as fin:
+    in_srt = read_srt_file(fin)
+
+with open(args.o, 'a+') as fout:
+    fout.seek(0)
+    out_srt = read_srt_file(fout)
+    # Reset output file
+    fout.seek(0)
+    fout.truncate(0)
+
+    srt_writer = SrtWriter(fout)
+
+    in_sub_iter = iter(in_srt.subtitles)
+    translated_subs = 0
+    while translated_subs < len(out_srt.subtitles):
+        for sub in in_sub_iter:
+            out_sub = out_srt.subtitles[translated_subs]
+            if sub.span == out_sub.span:
+                srt_writer.write(sub.span, '\n'.join(out_sub.text))
+                translated_subs += 1
+            else:
+                # After first mismatching subtitle, skip all next
+                out_srt.subtitles = []
+                print_warning(f'Saved subtitle mismatch.')
+                print_warning(f'input span: {sub.span}')
+                print_warning(f'saved span: {out_sub.span}')
+                if args.debug:
+                    print(f'input sub:  {{num: {sub.num}, span: {sub.span}, text: {sub.text}}}')
+                    print(f'output sub: {{num: {out_sub.num}, span: {out_sub.span}, text: {out_sub.text}}}')
+                in_sub_iter = itertools.chain([sub], in_sub_iter)
+            break
+
+    translator = Translator(srt_writer, translated_subs, in_sub_iter)
+    translator.translate(args.c if args.selenium == 'no' else min(args.c if args.c is not None else 1400, 1500))
