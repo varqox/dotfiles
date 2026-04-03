@@ -342,6 +342,7 @@ function add-default-subtitles {
     ffmpeg "${options[@]}"
 }
 
+# TODO: remove this
 function burn-subtitles {
     if (( $# != 3 )); then
         echo "usage: burn-subtitles <input_movie> <subtitles> <output_movie>" >&2
@@ -420,4 +421,26 @@ function iwatch {
             done
         fi |
             xargs --null -I @ -- "$@"
+}
+
+function save-dvd {
+    if (( $# != 2 )); then
+        printf "usage save-dvd <input_dvd_movie_dir> <output_movie_file>\n>E.g. save-dvd /run/media/quasar/FANTASTIC/VIDEO_TS/\n" >&2
+        return 1
+    fi
+
+    if [[ "$2" == '-' ]]; then
+        set - "$1" /dev/stdout
+    fi
+
+    mpv "$1" --stream-dump="$2"
+}
+
+
+function burn-subtitles {
+    video_track=???
+    audio_track=???
+    subtitles=???
+
+    # TODO: remember about level 4.0f
 }

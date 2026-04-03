@@ -25,3 +25,7 @@ safe_copy --link backup "$HOME/.local/bin/backup"
 print_step "scripts: install bypass_dns_for"
 paruS iproute2
 safe_copy --link bypass_dns_for "$HOME/.local/bin/bypass_dns_for"
+
+# print_step "scripts: install burn-subtitles"
+# paruS fzf ffmpeg mpv
+# safe_copy --link burn-subtitles "$HOME/.local/bin/burn-subtitles"

@@ -1,0 +1,544 @@
+#!/bin/bash
+set -euo pipefail
+
+if (( $$ != 1 )); then
+    # Run this script in new PID namespace so that upon death all descendant processes are killed
+    exec unshare --user --pid --mount-proc --map-current-user --kill-child bash "${BASH_SOURCE[0]}" "$@"
+fi
+
+readonly help_msg="\
+Burn subtitles into the movie.
+
+Usage: ${BASH_SOURCE[0]} [OPTIONS] <INPUT_FILE> <SUBTITLES_FILE> -o <OUTPUT_FILE>
+
+Options:
+  -v <NUM>
+          Use video stream NUM as video
+  -a <NUM>
+          Use audio stream NUM as audio
+  -o <OUTPUT_FILE>
+          Output file
+  -h, --help
+          Print help
+"
+
+if [[ -t 2 ]]; then
+    error() {
+        printf "\x1b[1m%s: \x1b[;1;31merror: \x1b[;1m%s\x1b[m\n" "${BASH_SOURCE[0]}" "$*" >&2
+    }
+else
+    error() {
+        printf "%s: merror: %s\n" "${BASH_SOURCE[0]}" "$*" >&2
+    }
+fi
+
+die_with_error() {
+    error "$@"
+    exit 1
+}
+
+while (( $# > 0 )); do
+    case "$1" in
+        -a)
+            shift
+            if [[ ! -v 1 ]]; then
+                die_with_error 'option -a requires NUM argument'
+            fi
+            if [[ -v audio_stream ]]; then
+                die_with_error "at most one audio stream can be specified, but two were given: ${audio_stream} and $1"
+            fi
+            audio_stream="$1"
+            ;;
+        -h|--help)
+            printf "${help_msg}"
+            exit 0
+            ;;
+        -o)
+            shift
+            if [[ ! -v 1 ]]; then
+                die_with_error 'option -o requires OUTPUT_FILE argument'
+            fi
+            if [[ -v output_file ]]; then
+                die_with_error "at most one output_file can be specified, but two were given: ${output_file} and $1"
+            fi
+            output_file="$1"
+            ;;
+        -v)
+            shift
+            if [[ ! -v 1 ]]; then
+                die_with_error 'option -v requires NUM argument'
+            fi
+            if [[ -v video_stream ]]; then
+                die_with_error "at most one video stream can be specified, but two were given: ${video_stream} and $1"
+            fi
+            video_stream="$1"
+            ;;
+        *)
+            if [[ ! -v input_file ]]; then
+                input_file="$1"
+            elif [[ ! -v subtitles_file ]]; then
+                subtitles_file="$1"
+            else
+                die_with_error "unexpected positional argument: $1"
+            fi
+            ;;
+    esac
+    shift
+done
+
+if [[ ! -v input_file ]]; then
+    die_with_error "missing INPUT_FILE positional argument"
+fi
+if [[ ! -v subtitles_file ]]; then
+    die_with_error "missing SUBTITLES_FILE positional argument"
+fi
+if [[ ! -v output_file ]]; then
+    die_with_error "missing OUTPUT_FILE positional argument"
+fi
+
+# Executes python script specified via arguments after removing leading whitespace
+function run_python {
+    # Trim leading whitespace
+    program="${1#$'\n'}"
+    shift
+    leading_ws="$(head -n 1 <<< "${program}" | sed 's/\S.*//')"
+    program="$(sed "s/^${leading_ws}//" <<< "${program}")"
+    # strace -ffttys 444 \
+    python3 -c "${program}" "$@"
+}
+
+if [[ ! -v video_stream ]] || [[ ! -v audio_stream ]]; then
+    mpv_window_dims="resize set height 100 ppt, resize set width 100 ppt"
+    fzf_window_dims="resize set height 30 ppt, resize set width 50 ppt"
+    # Mpv window parameters
+    swaymsg $'for_window [app_id=^mpv$ title=^burn-subtitles-mpv$] \'
+        floating enable,
+        border none,
+        move to scratchpad,
+        exec swaymsg --quiet "[app_id=^Alacritty$ title=^burn-subtitles-fzf$] exec swaymsg --quiet \\"[app_id=^mpv$ title=^burn-subtitles-mpv$] focus, '"${mpv_window_dims}"$'; [app_id=^Alacritty$ title=^burn-subtitles-fzf$] focus, '"${fzf_window_dims}"$'\\""
+    \''
+    # fzf window parameters
+    swaymsg --quiet $'for_window [app_id=^Alacritty$ title=^burn-subtitles-fzf$] \'
+        floating enable,
+        border none,
+        move to scratchpad,
+        exec swaymsg --quiet "[app_id=^mpv$ title=^burn-subtitles-mpv$] exec swaymsg --quiet \\"[app_id=^mpv$ title=^burn-subtitles-mpv$] focus, '"${mpv_window_dims}"$'; [app_id=^Alacritty$ title=^burn-subtitles-fzf$] focus, '"${fzf_window_dims}"$'\\""
+    \''
+
+    trap '
+        [[ -v mpv_pid ]] && kill "${mpv_pid}" || true
+        [[ -v mpv_tmp_dir ]] && rm -rf "${mpv_tmp_dir}" || true
+    ' EXIT SIGINT SIGHUP SIGTERM
+
+    mpv_tmp_dir="$(mktemp -d)"
+    mpv_ipc_socket="${mpv_tmp_dir}/ipc.socket"
+    mpv_ipc_in_fifo="${mpv_tmp_dir}/ipc-in.fifo"
+    mkfifo "${mpv_ipc_in_fifo}"
+    # Run mpv
+    mpv --idle=yes --no-config --terminal=no --resume-playback=no --aid=no --sid=no --pause --title=burn-subtitles-mpv --input-ipc-server="${mpv_ipc_socket}"&
+    mpv_pid=$!
+
+    out="$(run_python $'
+        from collections import OrderedDict
+        import json
+        import os
+        import select
+        import socket
+        import sys
+        import time
+        import subprocess
+
+        mpv_ipc_socket = sys.argv[1]
+        mpv_ipc_in_fifo = sys.argv[2]
+        input_file = sys.argv[3]
+
+        with (
+                socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client,
+                os.fdopen(os.open(mpv_ipc_in_fifo, os.O_RDWR), "r") as in_fifo,
+            ):
+            while True:
+                try:
+                    client.connect(mpv_ipc_socket)
+                    break
+                except FileNotFoundError as e:
+                    time.sleep(0.01)
+
+            def mpv_send_req(obj, req_id):
+                obj["request_id"] = req_id
+                client.sendall(json.dumps(obj).encode("utf-8") + b"\\n")
+
+            client_rd_file = client.makefile(mode="r")
+            def mpv_await_resp(req_id):
+                for line in client_rd_file:
+                    msg = json.loads(line)
+                    if "request_id" in msg and msg["request_id"] == req_id:
+                        assert(msg["error"] == "success");
+                        return msg
+
+            def mpv_await_event(name):
+                for line in client_rd_file:
+                    msg = json.loads(line)
+                    if "event" in msg and msg["event"] == name:
+                        return msg
+
+            def mpv_exec(obj):
+                mpv_exec.req_id += 1
+                mpv_send_req(obj, mpv_exec.req_id)
+                return mpv_await_resp(mpv_exec.req_id)
+            mpv_exec.req_id = 0
+
+            mpv_exec({
+                "command": ["loadfile", input_file]
+            })
+            mpv_await_event("file-loaded")
+
+            video_streams = OrderedDict()
+            audio_streams = OrderedDict()
+
+            for stream in mpv_exec({
+                "command": ["get_property", "track-list"],
+            })["data"]:
+                ff_index = stream.get("ff-index")
+                if ff_index is not None:
+                    type = stream.get("type")
+                    if type == "video":
+                        video_streams[str(ff_index)] = {
+                            "mpv-id": stream["id"],
+                        }
+                    elif type == "audio":
+                        audio_streams[str(ff_index)] = {
+                            "mpv-id": stream["id"],
+                        }
+
+            current_video_stream = None
+            def change_video_stream_to(video_ff_index):
+                global current_video_stream
+                if current_video_stream == video_ff_index:
+                    return
+                mpv_exec({
+                    "command": ["set_property", "vid", video_streams[video_ff_index]["mpv-id"]]
+                })
+                current_video_stream = video_ff_index
+
+            current_audio_stream = None
+            def change_audio_stream_to(audio_ff_index):
+                global current_audio_stream
+                if current_audio_stream == audio_ff_index:
+                    return
+                mpv_exec({
+                    "command": ["set_property", "aid", audio_streams[audio_ff_index]["mpv-id"]]
+                })
+                current_audio_stream = audio_ff_index
+
+            playing = False
+            def change_stream_to(ff_index):
+                global playing
+                if ff_index in video_streams:
+                    change_video_stream_to(ff_index)
+                else:
+                    change_audio_stream_to(ff_index)
+                if not playing:
+                    mpv_exec({
+                        "command": ["seek", 10, "absolute-percent"]
+                    })
+                    # play
+                    mpv_exec({
+                        "command": ["set_property", "pause", False]
+                    })
+                    playing = True
+
+            def run_fzf_chooser(input):
+                global in_fifo
+                fzf_alacritty = subprocess.Popen([
+                    "bash",
+                    "-c",
+                    " ".join([
+                        "alacritty",
+                        "--class=Alacritty",
+                        "--title=burn-subtitles-fzf",
+                        "--option=window.opacity=0.4",
+                        "--option=font.size=20",
+                        "--command",
+                        "bash",
+                        "-c",
+                        \'"exec \\\\"\\\\$@\\\\" < /proc/$$/fd/0 > /proc/$$/fd/1" - "$@"\',
+                    ]),
+                    "-",
+                    "fzf",
+                    # "--select-1",
+                    "--reverse",
+                    "--no-sort",
+                    "--delimiter=:",
+                    "--accept-nth={1}",
+                    f"--bind=focus:execute-silent(echo stream {{1}} > {mpv_ipc_in_fifo})",
+                    f"--bind=left:execute-silent(echo seek -10 > {mpv_ipc_in_fifo})",
+                    f"--bind=right:execute-silent(echo seek 10 > {mpv_ipc_in_fifo})",
+                ], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=None)
+
+                fzf_alacritty.stdin.write(input.encode("utf-8"))
+                fzf_alacritty.stdin.close()
+
+                poll = select.poll()
+                poll.register(fzf_alacritty.stdout.fileno(), select.POLLIN)
+                poll.register(in_fifo.fileno(), select.POLLIN)
+                done = False
+                req_id = 2
+                while not done:
+                    for fd, event in poll.poll():
+                        if fd == fzf_alacritty.stdout.fileno():
+                            change_stream_to(fzf_alacritty.stdout.read().rstrip(b"\\n").decode("utf-8"))
+                            done = True
+                            break
+                        cmd, arg = in_fifo.readline().rstrip("\\n").split(" ", 1)
+                        match cmd:
+                            case "stream":
+                                change_stream_to(arg)
+                            case "seek":
+                                mpv_exec({
+                                    "command": ["seek", arg, "relative"]
+                                })
+
+                fzf_alacritty.wait()
+                if fzf_alacritty.returncode != 0:
+                    raise RuntimeError(f"alacritty exited with exit code {fzf_alacritty.returncode}")
+
+            for stream in json.loads(subprocess.run([
+                "ffprobe",
+                "-v",
+                "warning",
+                "-show_streams",
+                "-of",
+                "json",
+                input_file,
+            ], stdin=None, stdout=subprocess.PIPE, stderr=None, check=True).stdout)["streams"]:
+                index = str(stream["index"])
+                v = video_streams.get(index)
+                if v is not None:
+                    v["codec"] = stream["codec_name"]
+                    v["width"] = stream["width"]
+                    v["height"] = stream["height"]
+                    v["pix_fmt"] = stream["pix_fmt"]
+                    v["frame_rate"] = stream["r_frame_rate"]
+                    duration = stream.get("duration")
+                    tags = stream.get("tags")
+                    if tags is not None:
+                        language = tags.get("language")
+                        if language is not None:
+                            v["language"] = language
+                        if duration is None:
+                            duration = tags.get("duration")
+                    if duration is not None:
+                        v["duration"] = duration
+
+                a = audio_streams.get(index)
+                if a is not None:
+                    a["codec"] = stream["codec_name"]
+                    a["channels"] = stream["channels"]
+                    a["channel_layout"] = stream["channel_layout"]
+                    a["bit_rate"] = stream["bit_rate"]
+                    tags = stream.get("tags")
+                    if tags is not None:
+                        language = tags.get("language")
+                        if language is not None:
+                            a["language"] = language
+
+            if False '"${video_stream+or True}"$':
+                '"${video_stream+change_video_stream_to(${video_stream@Q})}"$'
+                pass
+            elif len(video_streams) == 1:
+                change_video_stream_to(list(video_streams.keys())[0])
+            else:
+                fzf_input = ""
+                for ff_index, v in video_streams.items():
+                    fps_num, fps_denom = map(int, v["frame_rate"].split("/"))
+                    fzf_input += f"{ff_index}: {v["codec"]} codec, {v["pix_fmt"]} format, {v["width"]} x {v["height"]}, {fps_num / fps_denom:.3f} fps"
+                    if "language" in v:
+                        fzf_input += f", lang = {v["language"]}"
+                    fzf_input += "\\n"
+                run_fzf_chooser(fzf_input)
+
+            if False '"${audio_stream+or True}"$':
+                '"${audio_stream+change_audio_stream_to(${audio_stream@Q})}"$'
+                pass
+            elif len(audio_streams) == 1:
+                change_audio_stream_to(list(audio_streams.keys())[0])
+            else:
+                fzf_input = ""
+                for ff_index, v in audio_streams.items():
+                    fzf_input += f"{ff_index}: {v["codec"]} codec, {v["channels"]} channels - {v["channel_layout"]}, {int(v["bit_rate"]) // 1000} kb/s"
+                    if "language" in v:
+                        fzf_input += f", lang = {v["language"]}"
+                    fzf_input += "\\n"
+                run_fzf_chooser(fzf_input)
+
+            mpv_exec({
+                "command": ["quit"]
+            })
+
+            print(current_video_stream)
+            print(current_audio_stream)
+    ' "${mpv_ipc_socket}" "${mpv_ipc_in_fifo}" "${input_file}")"
+
+
+    wait "${mpv_pid}"
+    rm -rf "${mpv_tmp_dir}"
+    trap - EXIT SIGINT SIGHUP SIGTERM
+
+    {
+        read -r video_stream
+        read -r audio_stream
+    } <<< "${out}"
+
+    # Add zsh history entry
+    echo "# ${BASH_SOURCE[0]} ${input_file@Q} ${subtitles_file@Q} -o ${output_file@Q} -v ${video_stream} -a ${audio_stream}" |
+        setsid zsh -si 2>&1 > /dev/null
+fi
+
+echo "${video_stream}"
+echo "${audio_stream}"
+
+hash="$(sha256sum <<< "${input_file@Q}${subtitles_file@Q};${video_stream};${audio_stream}")"
+work_dir=".${hash%% *}"
+mkdir -p "${work_dir}"
+cp "${subtitles_file}" "${work_dir}/subs"
+work_dir_out="${work_dir}/out.${output_file##*.}"
+
+if [[ "${DEVEL+yes}" == "yes" ]]; then
+    partial_dir="${work_dir}/partial"
+    rm -rf "${partial_dir}" # Remove old partial files
+    mkdir -p "${partial_dir}"
+    done_dir="${work_dir}/done"
+    mkdir -p "${done_dir}"
+
+    coproc COPIER {
+        inotifywait --monitor --event close_write --format '%f' "${partial_dir}" 2>&1 | {
+            head -n 2
+            run_python $'
+                import os
+                import sys
+
+                partial_dir = sys.argv[1]
+                done_dir = sys.argv[2]
+
+                partial_dir_fd = os.open(partial_dir, os.O_DIRECTORY | os.O_RDONLY)
+                done_dir_fd = os.open(done_dir, os.O_DIRECTORY | os.O_RDONLY)
+
+                for filename in sys.stdin:
+                    filename = filename.rstrip("\\n")
+                    print("copying filename:", filename)
+                    fd = os.open(filename, os.O_RDONLY, dir_fd=partial_dir_fd)
+                    os.fsync(fd)
+                    os.close(fd)
+                    os.rename(filename, filename, src_dir_fd=partial_dir_fd, dst_dir_fd=done_dir_fd)
+                    os.fdatasync(done_dir_fd)
+            ' "${partial_dir}" "${done_dir}"
+        }
+    }
+    # Wait for the watches to be established
+    head -n 2 <&${COPIER[0]}
+
+    echo TODO
+    exit 42;
+
+    # seek=42.708333
+    seek=0
+    segment_start_num=0
+
+    ffmpeg_options=(
+        -hide_banner
+        -loglevel info
+        # timestamps config
+        -copyts
+        -accurate_seek
+        -ss "${seek}"
+        # input file
+        -i "${input_file}"
+        # no metadata
+        -map_metadata -1
+        # video
+        -map 0:"${video_stream}"
+        # -vf "scale=3840:2160:force_original_aspect_ratio=decrease:flags=lanczos+accurate_rnd+full_chroma_int,pad=3840:2160:(ow-iw)/2:(oh-ih)/2,subtitles=${work_dir}/subs:force_style='FontName=Ubuntu-R,Outline=0.6',scale=1920:1080:flags=lanczos+accurate_rnd+full_chroma_int,fps=fps=source_fps"
+        -vf "scale=3840:2160:force_original_aspect_ratio=decrease:flags=lanczos+accurate_rnd+full_chroma_int,pad=3840:2160:(ow-iw)/2:(oh-ih)/2,subtitles=${work_dir}/subs:force_style='FontName=Ubuntu-R,Outline=0.6',scale=1920:1080:flags=lanczos+accurate_rnd+full_chroma_int"
+        -c:v libx264
+        -crf 18
+        -profile:v high
+        -level 4.1
+        -pix_fmt yuv420p
+        -preset faster
+        -tune film
+        # segment
+        -f segment
+        -segment_time 10
+        -reset_timestamps 1
+        -initial_offset -"${seek}"
+        -segment_start_number "${segment_start_num}"
+        -movflags +faststart
+        "${partial_dir}/%04d.mp4"
+    )
+
+    ffmpeg "${ffmpeg_options[@]}"
+# ffprobe out.ts -hide_banner -select_streams v -show_entries frame=pts_time,pict_type -of csv=p=0 | head -n 100
+else
+        # -vf "scale=3840:2160:force_original_aspect_ratio=decrease:flags=lanczos+accurate_rnd+full_chroma_int,pad=3840:2160:(ow-iw)/2:(oh-ih)/2,subtitles=${work_dir}/subs:force_style='FontName=Ubuntu-R,Outline=0.6',scale=1920:1080:flags=lanczos+accurate_rnd+full_chroma_int,fps=fps=source_fps"
+    ffmpeg_options=(
+        -hide_banner
+        -loglevel info
+        -i "${input_file}"
+        # no metadata
+        -map_metadata -1
+        # video
+        -map 0:"${video_stream}"
+        # setpts=round(PTS*FRAME_RATE*TB)/FRAME_RATE/TB     fixes PTS so that is a multiple of frame_rate as exact as possible
+        # Subtitles are burned in 4K so that they look best after we downscale them with lanczos to 1080p - it is way better visually than rendering them directly in 1080p
+        # :original_size=3840x2160 for subtitles ensures the fonts are rendered in 4K without renderer guessing the video size.s
+        -vf "setpts=round(PTS*FRAME_RATE*TB)/FRAME_RATE/TB,scale=3840:2160:force_original_aspect_ratio=decrease:flags=lanczos+accurate_rnd+full_chroma_int,pad=3840:2160:(ow-iw)/2:(oh-ih)/2,subtitles=${work_dir}/subs:original_size=3840x2160:force_style='FontName=Ubuntu-R,Outline=0.6',scale=1920:1080:flags=lanczos+accurate_rnd+full_chroma_int"
+        -c:v libx264
+        -crf 18
+        -profile:v high
+        -level 4.1
+        -pix_fmt yuv420p
+        -preset faster
+        -tune film
+        # audio
+        -map 0:"${audio_stream}"
+        -c:a aac
+        -ac 2 # channels
+        -b:a 192k
+        -ar 48000
+        -movflags +faststart
+        # -t 600
+        "${work_dir_out}"
+    )
+    ffmpeg "${ffmpeg_options[@]}"
+fi
+mv "${work_dir_out}" "${output_file}"
+# Done
+rm -rf "${work_dir}"
+
+# Show PTS
+# ffprobe out.ts -hide_banner -select_streams v -show_entries frame=pts_time,pict_type -of csv=p=0 | head -n 100
+
+exit
+
+
+
+# TODO: level 4.0
+# TODO: + in pix_fmt
+
+exit 42
+
+bluetoothctl scan on > /dev/null &
+bluetoothctl devices |
+    sed "s/^Device //" |
+    fzf --reverse --no-sort --bind 'load:reload-sync:sleep 0.3; bluetoothctl devices | sed "s/^Device //"' --bind 'down:unbind(load)+down' --bind 'up:unbind(load)+up' |
+    cut --delimiter=' ' --fields=1 | # extract the device address
+    xargs bluetoothctl connect
+
+
+# TODO (basic): ~  ffmpeg -i Three\ Identical\ Strangers\ 2018\ 1080p\ Bluray\ DD5\ 1\ x264-MidgetClan.mkv -vf "scale=3840:2160:force_original_aspect_ratio=decrease:flags=lanczos+accurate_rnd+full_chroma_int,pad=3840:2160:(ow-iw)/2:(oh-ih)/2,subtitles=Three Identical Strangers 2018 1080p Bluray DD5 1 x264-MidgetClan.pl.srt:force_style='FontName=Ubuntu-R,Outline=0.6',scale=1920:1080:flags=lanczos+accurate_rnd+full_chroma_int" -c:v libx264 -crf 20 -profile:v high -level 4.1 -preset faster -tune film -c:a aac -ac 2 -b:a 192k -ar 48000 -sn -map_metadata -1 -movflags +faststart three-identical-strangers.mp4
+# TODO: (fancy):  ~  ffmpeg -i Three\ Identical\ Strangers\ 2018\ 1080p\ Bluray\ DD5\ 1\ x264-MidgetClan.mkv -vf "scale=3840:2160:force_original_aspect_ratio=decrease:flags=lanczos+accurate_rnd+full_chroma_int,pad=3840:2160:(ow-iw)/2:(oh-ih)/2,subtitles=Three Identical Strangers 2018 1080p Bluray DD5 1 x264-MidgetClan.pl.srt:force_style='FontName=Ubuntu-R,Outline=0.6',scale=1920:1080:flags=lanczos+accurate_rnd+full_chroma_int" -c:v libx264 -crf 20 -profile:v high -level 4.1 -preset faster -tune film -x264-params "no-dct-decimate=1:aq-mode=2:aq-strength=0.9:psy-rd=1.0:psy-trellis=0.12:mbtree=0" -c:a aac -ac 2 -b:a 192k -ar 48000 -sn -map_metadata -1 -movflags +faststart three-identical-strangers-fancy.mp4
+
+
+# TODO (with constant frame rate): ~  ffmpeg -i Three\ Identical\ Strangers\ 2018\ 1080p\ Bluray\ DD5\ 1\ x264-MidgetClan.mkv -vf "scale=3840:2160:force_original_aspect_ratio=decrease:flags=lanczos+accurate_rnd+full_chroma_int,pad=3840:2160:(ow-iw)/2:(oh-ih)/2,subtitles=Three Identical Strangers 2018 1080p Bluray DD5 1 x264-MidgetClan.pl.srt:force_style='FontName=Ubuntu-R,Outline=0.6',scale=1920:1080:flags=lanczos+accurate_rnd+full_chroma_int,fps=fps=source_fps" -c:v libx264 -crf 20 -profile:v high -level 4.1 -preset faster -tune film -c:a aac -ac 2 -b:a 192k -ar 48000 -sn -map_metadata -1 -movflags +faststart three-identical-strangers.mp4
+
+# TODO: if required split the file into parts so that it fits on fat32
