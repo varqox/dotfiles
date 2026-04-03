@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+iface="$(ip route show default | cut -d ' ' -f 5)"
+if [ -z "${iface}" ]; then
+    echo "Error: there is no default route, so I don't know which interface to use"
+    exit 1
+fi
+
+# Add 1.1.1.1 and 8.8.8.8 to the current DNSes set on "${iface}"
+{
+    resolvectl --json=pretty dns wlan0 |
+        sed --silent 's/.*"addressString"\s*:\s*"\([^"]*\)".*/\1/p' |
+        grep -v '^1.1.1.1$';
+    echo '1.1.1.1'
+    echo '8.8.8.8'
+} | xargs sudo resolvectl dns "${iface}"
+sudo resolvectl domain "${iface}" '~.'
+
+sudo bash -c 'sleep "${1}"; resolvectl domain "${2}" ""' - "${1-1m}" "${iface}"&
+disown

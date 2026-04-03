@@ -16,3 +16,8 @@ safe_copy --link translate-subs "$HOME/.local/bin/translate-subs"
 
 print_step "scripts: install backup"
 safe_copy --link backup "$HOME/.local/bin/backup"
+
+# This needs systemd-resolved configured
+print_step "scripts: install bypass_dns_for"
+paruS iproute2
+safe_copy --link bypass_dns_for "$HOME/.local/bin/bypass_dns_for"
