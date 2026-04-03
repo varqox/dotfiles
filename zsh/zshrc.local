@@ -1,5 +1,5 @@
 #PATH="/usr/lib/ccache/bin:$PATH:$HOME/.local/bin"
-PATH="$PATH:$HOME/.local/bin"
+PATH="$HOME/.local/bin:$PATH"
 PATH="$PATH:/usr/share/clang/" # Add run-clang-tidy.py and all to PATH
 
 ulimit -c 0 # disable core dumps, but allow enabling them on demand with ulimit -c unlimited
@@ -64,71 +64,7 @@ git-rename() {
 # git -C "$HOME" diff-index --quiet HEAD -- || /bin/echo -e '\033[33mdotfiles changed, for backup purposes review, commit and push the changes\033[m'
 # [ "$(git -C "$HOME" rev-parse origin/main)" = "$(git -C "$HOME" rev-parse HEAD)" ] || /bin/echo -e '\033[33mdotfiles changes are not pushed\033[m'
 
-function backup() (
-    function do_backup() (
-        set -euo pipefail
-        test -e "$1" || { echo "path does not exist: $1" >&2; return 1; }
-        # chdir to the parent folder of the specified path
-        cd -P -- "$(dirname -- "$1")"
-        # Check if specified path is a file or a directory
-        local fname=$(basename -- "$1")
-        if [ -f "${fname}" ]; then
-            local out_file="$HOME/backup/$(echo "${PWD#$HOME/}/${fname}" | sed 's@/@,@g').tar.zst"
-            (
-                function rm_tmp() { rm -rf "${out_file}.tmp" }
-                trap rm_tmp INT TERM;
-                tar --create --zst --file "${out_file}.tmp" "${fname}" &&
-                mv "${out_file}.tmp" "${out_file}"
-            )
-        else
-            # chdir to the directory
-            cd -P -- "${fname}"
-            local out_file="$HOME/backup/$(echo "${PWD#$HOME/}" | sed 's@/@,@g').tar.zst"
-
-            function list_git_files() {
-                git ls-files -z --cached --recurse-submodules
-                git ls-files -z --others --exclude-standard
-                PROJECT_DIR=$PWD git submodule foreach --quiet 'git ls-files -z --others --exclude-standard | while read -d "" x; do echo -n "${PWD#$PROJECT_DIR/}/$x"; echo -ne "\0"; done'
-                echo -ne '.git\0'
-            }
-            function ls_all_files() {
-                ls --zero --almost-all
-            }
-            function filter_existing_files() {
-                while read -d '' x; do
-                    if [ -e "${x}" ]; then
-                        printf '%s\0' "${x}"
-                    fi
-                done
-            }
-
-            if [ -d '.git/' ]; then
-                list_git_files
-            else
-                ls_all_files
-            fi | filter_existing_files |
-                (
-                    function rm_tmp() { rm -rf "${out_file}.tmp" }
-                    trap rm_tmp INT TERM;
-                    xargs --null tar --create --zst --file "${out_file}.tmp" &&
-                    mv "${out_file}.tmp" "${out_file}"
-                )
-        fi
-        du -sh "${out_file}"
-    )
-
-    rc=0
-    if [ -z "$1" ]; then
-        do_backup . || rc=1
-    else
-        for x in "$@"; do
-            do_backup "$x" || rc=1
-        done
-    fi
-    return $rc
-)
-
-alias bp="backup"
+alias bp="$HOME/.local/bin/backup"
 
 function transcode_opus {
     local in_file="$1"

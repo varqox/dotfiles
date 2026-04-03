@@ -13,3 +13,6 @@ safe_copy --link connect-bluetooth.sh "$HOME/.local/bin/connect-bluetooth.sh"
 print_step "scripts: install translate-subs"
 paruS python-selenium
 safe_copy --link translate-subs "$HOME/.local/bin/translate-subs"
+
+print_step "scripts: install backup"
+safe_copy --link backup "$HOME/.local/bin/backup"
