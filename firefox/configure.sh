@@ -104,19 +104,6 @@ for extension_url in "${ff_extensions[@]}"; do
     xpi_guids+=("${xpi_guid}")
 done
 
-# F.B. Purity needs special treatment as it is outside official store
-print_step "firefox: downloading extension: F.B. Purity"
-user_agent_header_for_fb_purity='User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0'
-fb_purity_xpi="$(curl 'https://www.fbpurity.com/install.htm' -H "${user_agent_header_for_fb_purity}" | grep --only-matching 'href="[^"]*\.xpi"' | sed -n 's/href="//; s/"$//; 1p')"
-fb_purity_xpi_file="${downloaded_extensions_dir}/${fb_purity_xpi##*/}"
-curl "https://www.fbpurity.com/${fb_purity_xpi}" -H "${user_agent_header_for_fb_purity}" --output "${fb_purity_xpi_file}"
-xpi_files+=("${fb_purity_xpi_file}")
-# Extract guid
-fb_purity_xpi_guid="$(unzip -qc "${fb_purity_xpi_file}" manifest.json |
-    python -c 'import sys, json; o=json.load(sys.stdin); print(o.get("browser_specific_settings", o.get("applications"))["gecko"]["id"])'
-)"
-xpi_guids+=("${fb_purity_xpi_guid}")
-
 print_step "firefox: installing extensions"
 for prefs_js in "${HOME}/.mozilla/firefox/"*/prefs.js; do
     ff_dir="${prefs_js%/*}"
