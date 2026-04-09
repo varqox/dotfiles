@@ -110,7 +110,8 @@ user_pref("dom.security.https_only_mode_error_page_user_suggestions", true);
 // Settings -> Privacy & Security -> DNS over HTTPS -> Enable secure DNS using: Max protection
 // https://wiki.mozilla.org/Trusted_Recursive_Resolver
 user_pref("doh-rollout.disable-heuristics", true);
-user_pref("network.trr.mode", 3);
+// user_pref("network.trr.mode", 3);
+user_pref("network.trr.mode", 5); // Actually use Off setting to disable Firefox DNS and use system-wide DNS config that uses DOH
 
 // about:config: Disable "Proceed with Caution" warning
 user_pref("browser.aboutConfig.showWarning", false);
@@ -851,7 +852,7 @@ user_pref("network.IDN_show_punycode", true);
 user_pref("dom.security.https_first", true);
 user_pref("dom.security.https_first_pbm", true); // DEFAULT
 
-// Use LibreDNS
+// Use LibreDNS if DNS over HTTPS (DOH) is enabled
 user_pref("network.trr.uri", "https://doh.libredns.gr/noads");
 user_pref("network.trr.custom_uri", "https://doh.libredns.gr/noads");
 

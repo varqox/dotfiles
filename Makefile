@@ -172,7 +172,7 @@ zed: FORCE fonts
 meson: FORCE
 	meson/install_and_configure.sh
 
-firefox: FORCE fonts thunar
+firefox: FORCE fonts thunar dns
 	firefox/install.sh
 	firefox/configure.sh
 
