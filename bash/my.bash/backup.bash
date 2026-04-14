@@ -1,0 +1,86 @@
+#!/usr/bin/bash
+
+# Usage: backup [<path>...]
+function backup (
+    set -uo pipefail
+
+    local backup_dest_dir="${HOME%/}/backup"
+    if (($# == 0)); then
+        set -- '.'
+    fi
+
+    local tar_compression_option=
+    local tar_archive_extension=
+    if tar --create --zst --file /dev/null /dev/null &> /dev/null; then
+        tar_compression_option='--zst'
+        tar_archive_extension='.zst'
+    elif tar --create --gzip --file /dev/null /dev/null &> /dev/null; then
+        tar_compression_option='--gzip'
+        tar_archive_extension='.gz'
+    fi
+
+    local rc=0
+    local file
+    local backup_filename
+    local backup_file
+    local dir
+    for file in "$@"; do
+        if [[ ! -e "${file}" ]]; then
+            if [[ -t 2 ]]; then
+                echo $'\x1b[1;31merror:\x1b[0m '"path does not exist: ${file}" >&2
+            else
+                echo "error: path does not exist: ${file}" >&2
+            fi
+            rc=1
+            continue
+        fi
+
+        file="$(realpath --physical -- "${file}")" || {
+            rc=1
+            continue
+        }
+        backup_filename="${file#"${HOME%/}/"}" # Trim $HOME part if possible
+        backup_filename="${backup_filename//\//,}.tar${tar_archive_extension}"
+        backup_file="${backup_dest_dir}/${backup_filename}"
+        tmp_backup_file="/tmp/backup:${backup_filename}.tmp"
+        trap 'rm -f "${tmp_backup_file}"' EXIT SIGINT SIGTERM SIGHUP
+
+        if [[ -d "${file}" ]]; then
+            if git -C "${file}" rev-parse --git-dir &> /dev/null; then
+                # Dir inside git repo
+                {
+                    find "${file}/.git/" -printf ".git/%P\0" 2> /dev/null || true
+                    git -C "${file}" ls-files -z --exclude-standard --cached --others
+                    git -C "${file}" submodule --quiet foreach --recursive '
+                            if [[ "${displaypath}" != ../* ]]; then
+                                git ls-files -z --exclude-standard --cached --others |
+                                    awk -v p="${displaypath}/" "BEGIN { RS = \"\0\" ; ORS = RS } ; { print p \$0 }"
+                            fi
+                        '
+                } |
+                    xargs --null bash -c 'cd -P -- "$1"; shift; stat --printf "%n\0" "$@" || true' - "${file}" 2> /dev/null |
+                    sort --zero-terminated --version-sort |
+                    flock --exclusive "${tmp_backup_file}" \
+                        tar --create ${tar_compression_option} --file "${tmp_backup_file}" --directory "${file}" --no-recursion --add-file=. --null --files-from=/dev/stdin
+            else
+                # Normal dir
+                flock --exclusive "${tmp_backup_file}" \
+                    tar --create ${tar_compression_option} --file "${tmp_backup_file}" --directory "${file}" --transform='s@^./@@' --add-file=.
+            fi
+        else
+            flock --exclusive "${tmp_backup_file}" \
+                tar --create ${tar_compression_option} --file "${tmp_backup_file}" --directory "${file%/*}/" --add-file="${file##*/}"
+        fi
+        if (($? == 0)); then
+            mv --force "${tmp_backup_file}" "${backup_file}"
+            du -h "${backup_file}"
+        else
+            rc=1
+            rm -f "${tmp_backup_file}"
+        fi
+    done
+    return $((rc))
+)
+
+# Execute function unless sourced
+return 0 2> /dev/null || backup "$@"
