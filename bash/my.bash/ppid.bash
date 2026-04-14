@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-function ppid (
+function ppid() (
     set -uo pipefail
     grep '^PPid:' < "/proc/${1-$$}/status" | cut -f 2
 )

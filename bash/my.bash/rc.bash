@@ -61,7 +61,6 @@ function my {
 
 # Source extra definitions
 while IFS= read -d '' -r path; do
-    echo "Activating ${path}" > /dev/tty # TODO: remove
     source "${path}"
 done < <(find "${__my_bash_dir}" -type f -name '*.bash' -not -name 'rc.bash' -print0)
 
@@ -107,8 +106,6 @@ declare -i __my_bash_prompt_saved_input_consumed_bytes
 function __my_bash_interactive_prompt {
     local prev_command_exit_status=$?
     local -r prompt_start_time="$(date +%s.%N)"
-
-    # TODO: what if input is not a tty
 
     # Disable printing of the input from the terminal
     stty --file=/dev/tty -echo
@@ -721,5 +718,7 @@ function __my_bash_interactive_prompt {
     stty --file=/dev/tty echo
 }
 
-# Enable interactive prompt
-PROMPT_COMMAND='__my_bash_interactive_prompt && if [[ "${__my_bash_prompt_prev_command:+x}" == "x" ]]; then eval "${__my_bash_prompt_prev_command}"; fi; eval "${PROMPT_COMMAND}"'
+if [[ -t 0 ]]; then
+    # Enable interactive prompt
+    PROMPT_COMMAND='__my_bash_interactive_prompt && if [[ "${__my_bash_prompt_prev_command:+x}" == "x" ]]; then eval "${__my_bash_prompt_prev_command}"; fi; eval "${PROMPT_COMMAND}"'
+fi

@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Usage: backup [<path>...]
-function backup (
+function backup() (
     set -uo pipefail
 
     local backup_dest_dir="${HOME%/}/backup"

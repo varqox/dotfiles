@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-function iwatch (
+function iwatch() (
     set -uo pipefail
 
     if (($# == 0)); then
