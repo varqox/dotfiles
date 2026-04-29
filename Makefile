@@ -7,6 +7,7 @@ all: keyd
 all: paru
 all: pacman
 all: booting
+all: hibernation
 all: sudo
 all: pam
 all: locales
@@ -69,6 +70,9 @@ paru: pacman FORCE
 
 booting: FORCE
 	booting/install_and_configure.sh
+
+hibernation: FORCE booting
+	hibernation/install_and_configure.sh
 
 install-%: FORCE paru
 	bash -c 'source common.sh; print_step "install: $*"; paruS $*'
@@ -149,7 +153,7 @@ mako: FORCE install-mako fonts
 
 keepassxc: FORCE install-keepassxc install-qt5-wayland fonts
 
-sway: FORCE keyd networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar
+sway: FORCE keyd networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar hibernation
 	sway/install_and_configure.sh
 
 swaylock: FORCE
