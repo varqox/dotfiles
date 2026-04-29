@@ -128,7 +128,7 @@ pipewire: FORCE
 
 systemd: FORCE
 	systemd/disable_handling_of_power_button.sh
-	systemd/disable_handling_of_suspend_on_lid_close.sh
+	systemd/disable_handling_lid_events_when_plugged_or_docked.sh
 
 fonts: FORCE
 	fonts/install_and_configure.sh
