@@ -14,7 +14,7 @@ paruS bluez-utils # for bluetooth control shortcuts (bluetoothctl)
 paruS swayidle # screen lock after idle period
 paruS network-manager-applet # network manager applet
 paruS blueman # bluetooth applet
-paruS maestral-qt gnome-shell-extension-appindicator # open-source Dropbox client with optional dependencies
+paruS maestral-qt # open-source Dropbox client
 paruS grim slurp wl-clipboard # making screenshots
 paruS xdg-desktop-portal-wlr # screen sharing
 paruS hyprpicker # screen color picker
