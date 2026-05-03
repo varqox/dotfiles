@@ -3,7 +3,7 @@ set -euo pipefail
 source "$(dirname -- "$0")/../common.sh"
 
 print_step "scripts: install connect-to-wifi.sh"
-paruS iwd fzf
+paruS networkmanager fzf
 safe_copy --link connect-to-wifi.sh "$HOME/.local/bin/connect-to-wifi.sh"
 
 print_step "scripts: install connect-bluetooth.sh"
