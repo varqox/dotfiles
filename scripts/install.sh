@@ -6,6 +6,10 @@ print_step "scripts: install connect-to-wifi.sh"
 paruS networkmanager fzf
 safe_copy --link connect-to-wifi.sh "$HOME/.local/bin/connect-to-wifi.sh"
 
+print_step "scripts: install share-wifi.sh"
+paruS networkmanager iwd fzf qrencode
+safe_copy --link share-wifi.sh "$HOME/.local/bin/share-wifi.sh"
+
 print_step "scripts: install connect-bluetooth.sh"
 paruS bluez-utils fzf
 safe_copy --link connect-bluetooth.sh "$HOME/.local/bin/connect-bluetooth.sh"
