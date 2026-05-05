@@ -33,11 +33,32 @@ external_name="Microstep MAG274UPF CC2H454200402"
 external_width=3840
 external_height=2160
 # Calculate positions of where to place the displays
+# Coordinates (directions):
+#           x
+#     o ---->
+#     |
+#     |
+#   y v
 highest_height=$((edp_height > external_height ? edp_height : external_height))
-external_x=0
-external_y=$((highest_height - external_height))
-edp_x=${external_width}
-edp_y=$((highest_height - edp_height))
+readonly external_pos='right'
+case "${external_pos}" in
+    'left')
+        external_x=0
+        external_y=$((highest_height - external_height))
+        edp_x=$((external_width))
+        edp_y=$((highest_height - edp_height))
+        ;;
+    'right')
+        edp_x=0
+        edp_y=$((highest_height - edp_height))
+        external_x=$((edp_width))
+        external_y=0
+        ;;
+    *)
+        error "unrecognized external_pos: ${external_pos}"
+        exit 1
+        ;;
+esac
 # Rewrite and install the sway config
 cp config "${tmp_dir}/sway-config"
 sed -i "s/^# <<output laptop>$/output \"${edp_name}\" mode ${edp_width}x${edp_height} adaptive_sync on pos ${edp_x} ${edp_y}/" "${tmp_dir}/sway-config"
