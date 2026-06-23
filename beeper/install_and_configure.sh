@@ -2,7 +2,7 @@
 set -euo pipefail
 source "$(dirname -- "$0")/../common.sh"
 
-paruS beeper-v4-bin hunspell hunspell-en_us hunspell-en_gb hunspell-pl ttf-apple-emoji
+paruS beeper-v4-bin hunspell hunspell-en_us hunspell-en_gb hunspell-pl noto-fonts-emoji
 tmp_paruS jq
 
 print_step "beeper: ensuring beeper is not running"
