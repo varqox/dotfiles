@@ -4,7 +4,7 @@ source "$(dirname -- "$0")/../common.sh"
 
 readonly swapfile_path="/swapfile"
 readonly swapfile_compressor=lz4 # lzo or lz4 (kernels since 6.19)
-readonly hibernate_during_suspend_after=30min
+readonly hibernate_during_suspend_after=2h # e.g. 30min
 
 if cat /proc/swaps | tail --lines +2 | cut -d ' ' -f 1 | grep --quiet --fixed-strings "${swapfile_path}"; then
     print_step "hibernation: disabling swapfile ${swapfile_path}"
