@@ -22,81 +22,111 @@ function sudo() {
     /usr/bin/sudo "$@"
 }
 
-function safe_copy() {
-    local link= # links instead of copy, but fallbacks to copy
-    if [ "$1" = "--link" ]; then
-        link="--link"
-        shift 1
+function decide_interactively() {
+    local i
+    local what
+    while true; do
+        echo -E $'\x1b[0;1mWhat to do?\x1b[0m' > /dev/tty
+        for i in "$@"; do
+            echo $'\x1b[0;1m  '"${i%%:*}"$'\x1b[0m: '"${i#*:}" > /dev/tty
+        done
+        IFS= read -r -p "> " what || return
+        for i in "$@"; do
+            if [[ "${what}" == "${i%%:*}" ]]; then
+                echo -E "${what}"
+                return
+            fi
+        done
+        echo -E $'\x1b[0;1;31mUnrecognised choice: \x1b[0m'"${what}" > /dev/tty
+    done
+}
+
+function safe_copy_impl() (
+    local wrapper_cmd="${1?:missing wrapper_cmd}"
+    local src="${2:?missing src path}"
+    local dest="${3:?missing dest path}"
+    if (($# != 3)); then
+        echo -E $'\x1b[0;1;33m'"Invalid number of arguments: got $(($# - 1)), expected 2"$'\x1b[0m' > /dev/tty
     fi
 
-    if [ "$1" = "--recursive" ]; then
-        shift 1
-        local other_args=("${@:1:${#@}-2}") # all args preceding the last two
-        local src="${@: -2:1}"; src="${src%/}" # the penultimate argument
-        local dest="${@: -1}"; dest="${dest%/}" # the last argument
-        # type l to support usage: safe_copy --recursive <(...) dest
-        find "${src}" -type f,l -print0 | while read -d '' x; do
-            safe_copy ${link} "${other_args[@]}" "${x}" "${dest}${x#$src}" # works for both src == x (src is not a directory) and src being a directory
+    # To support piping:
+    local real_src
+    local tmp_file=''
+    if [[ "${src}" == '-' ]]; then
+        src='/dev/stdin'
+    fi
+    if [[ "${src}" == "/dev/stdin" ]] || [[ "${src}" == /dev/*/fd/* ]] || [[ -p "${src}" ]]; then
+        trap 'rm -f "${tmp_file}"' EXIT
+        tmp_file="$(mktemp)"
+        cat < "${src}" > "${tmp_file}"
+        real_src="${tmp_file}"
+    else
+        real_src="${src}"
+    fi
+
+    while true; do
+        if [[ ! -e "${dest}" ]]; then
+            if [[ "${dest}" == */* ]]; then
+                until "${wrapper_cmd}" mkdir -p "${dest%/*}"; do
+                    echo -E $'\x1b[0;1;33m'"Failed to create directory ${dest%/*}"$'\x1b[0m' > /dev/tty
+                    case "$(decide_interactively "a:abort" "r:retry" "s:skip")" in
+                        a) return 1;;
+                        s) return 0;;
+                        r) continue;;
+                    esac
+                    return 1
+                done
+            fi
+            until "${wrapper_cmd}" cp --preserve=mode --update=none-fail --dereference --no-target-directory "${real_src}" "${dest}"; do
+                echo -E $'\x1b[0;1;33m' "Failed to copy ${src} to ${dest}"$'\x1b[0m' > /dev/tty
+                case "$(decide_interactively "a:abort" "r:retry" "s:skip")" in
+                    a) return 1;;
+                    s) return 0;;
+                    r) continue;;
+                esac
+                return 1
+            done
+            return
+        fi
+        if [[ ! -f "${dest}" ]]; then
+            echo -E $'\x1b[0;1;33mFile '"${dest}"' exists and is not a regular file...\x1b[0m' > /dev/tty
+            case "$(decide_interactively "a:abort" "r:retry (check again)" "s:skip")" in
+                a) return 1;;
+                s) return 0;;
+                r) continue;;
+            esac
+            return 1
+        fi
+        until "${wrapper_cmd}" diff --unified --minimal --expand-tabs --tabsize=4 --show-c-function --color=always "${dest}" "${real_src}"; do
+            echo -E $'\x1b[0;1;33mOverwriting file '"${dest} with ${src} would introduce the above changes."$'\x1b[0m' > /dev/tty
+            case "$(decide_interactively "a:abort" "o:overwrite" "r:retry (check again)" "s:skip")" in
+                a) return 1;;
+                o) break;;
+                r) continue;;
+                s) return 0;;
+            esac
+            return 1
+        done
+        # Copy the file. --remove-destination ensures we don't override other paths hard-linked to the dest file.
+        until "${wrapper_cmd}" cp --preserve=mode --remove-destination --dereference --no-target-directory "${real_src}" "${dest}"; do
+            echo -E $'\x1b[0;1;33m'"Failed to copy ${src} to ${dest}"$'\x1b[0m' > /dev/tty
+            case "$(decide_interactively "a:abort" "r:retry" "s:skip")" in
+                a) return 1;;
+                r) continue;;
+                s) return 0;;
+            esac
+            return 1
         done
         return
-    fi
+    done
+)
 
-    function is_safe_to_copy() {
-        local src="$1"
-        local dest="$2"
-        if [ ! -e "${dest}" ]; then
-            return 0
-        fi
-        if diff --brief "${src}" "${dest}" > /dev/null; then
-            return 0
-        fi
-        function is_file_tracked() {
-            git ls-files --error-unmatch -- "$1" > /dev/null 2> /dev/null
-        }
-        # Check if any previous revision of ${src} equals ${dest}
-        if is_file_tracked "${src}"; then
-            local rev
-            for rev in $(git log --format=format:%H -- "${src}"); do
-                if diff --brief <(git show "$rev:./${src}") "${dest}" > /dev/null; then
-                    return 0
-                fi
-            done
-        fi
-        return 1
-    }
-
-    local src="$1"
-    local dest="$2"
-    # To support usages:
-    # - safe_copy <(...) dest
-    # - safe_copy /dev/stdin dest <<< "abc"
-    if [[ "${src}" == /dev/fd/* ]] || [[ "${src}" == /proc/self/fd/* ]] || [ -L "${src}" ]; then
-        cat < "${src}" > "$tmp_dir/src"
-        src="$tmp_dir/src"
-    fi
-
-    if ! is_safe_to_copy "${src}" "${dest}"; then
-        echo "Installing ${src} would overwrite unexpected changes in ${dest}:"
-        diff "${dest}" "${src}"
-        return 1
-    fi
-
-    mkdir --parents $(dirname -- "${dest}")
-    # cp --link does not fail if ${src} and ${dest} are the same file (their inodes are equal) and
-    # cp --link --force replaces the destination with the hard link if the destination file exists
-    ([[ ! -v link ]] && cp --no-target-directory --link --force "${src}" "${dest}" 2> /dev/null) ||
-    cp --no-target-directory --remove-destination "${src}" "${dest}"
+function safe_copy() {
+    safe_copy_impl "env" "$@"
 }
 
 function sudo_safe_copy() {
-    local i
-    for i in "$@"; do
-        if [ "${i}" == "--link" ]; then
-            /bin/echo -e "\033[1;31mBUG: sudo_safe_copy with --link is disallowed for safety reasons: it is unsafe to have the file owned by root being editable by a non-root user\033[m"
-            exit 1
-        fi
-    done
-    sudo bash -c "$(declare -f safe_copy); safe_copy \"\$@\"" "$0" "$@"
+    safe_copy_impl "sudo" "$@"
 }
 
 function print_step() {

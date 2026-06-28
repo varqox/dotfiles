@@ -4,24 +4,24 @@ source "$(dirname -- "$0")/../common.sh"
 
 print_step "scripts: install connect-to-wifi.sh"
 paruS networkmanager fzf
-safe_copy --link connect-to-wifi.sh "$HOME/.local/bin/connect-to-wifi.sh"
+safe_copy connect-to-wifi.sh "$HOME/.local/bin/connect-to-wifi.sh"
 
 print_step "scripts: install share-wifi.sh"
 paruS networkmanager iwd fzf qrencode
-safe_copy --link share-wifi.sh "$HOME/.local/bin/share-wifi.sh"
+safe_copy share-wifi.sh "$HOME/.local/bin/share-wifi.sh"
 
 print_step "scripts: install connect-bluetooth.sh"
 paruS bluez-utils fzf
-safe_copy --link connect-bluetooth.sh "$HOME/.local/bin/connect-bluetooth.sh"
+safe_copy connect-bluetooth.sh "$HOME/.local/bin/connect-bluetooth.sh"
 
 print_step "scripts: install translate-subs"
 paruS python-selenium
-safe_copy --link translate-subs "$HOME/.local/bin/translate-subs"
+safe_copy translate-subs "$HOME/.local/bin/translate-subs"
 
 print_step "scripts: install backup"
-safe_copy --link backup "$HOME/.local/bin/backup"
+safe_copy backup "$HOME/.local/bin/backup"
 
 # This needs systemd-resolved configured
 print_step "scripts: install bypass_dns_for"
 paruS iproute2
-safe_copy --link bypass_dns_for "$HOME/.local/bin/bypass_dns_for"
+safe_copy bypass_dns_for "$HOME/.local/bin/bypass_dns_for"

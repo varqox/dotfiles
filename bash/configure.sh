@@ -6,7 +6,7 @@ print_step "bash: copy my.bash configs"
 my_bash_dir="${HOME}/.my.bash"
 mkdir -p "${my_bash_dir}"
 find my.bash/ -mindepth 1 -print0 | while IFS= read -d '' -r path; do
-    safe_copy --link "${path}" "${my_bash_dir}/${path##*/}"
+    safe_copy "${path}" "${my_bash_dir}/${path##*/}"
 done
 
 print_step "bash: activate my.bash in .bashrc"

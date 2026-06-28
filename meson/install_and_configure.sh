@@ -12,4 +12,6 @@ paruS pkgconf # for pkg-config in cross files
 paruS binutils # for strip in cross files
 
 print_step "meson: copy configs"
-safe_copy --link --recursive cross "${XDG_DATA_HOME:-$HOME/.local/share}/meson/cross"
+find cross/ -mindepth 1 -print0 | while IFS= read -d '' -r path; do
+	safe_copy "${path}" "${XDG_DATA_HOME:-$HOME/.local/share}/meson/cross/${path##*/}"
+done

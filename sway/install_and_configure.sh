@@ -65,13 +65,13 @@ sed -i "s/^# <<output laptop>$/output \"${edp_name}\" mode ${edp_width}x${edp_he
 sed -i "s/^# <<output external monitor>>$/output \"${external_name}\" mode ${external_width}x${external_height}@144.000Hz adaptive_sync on pos ${external_x} ${external_y}/" "${tmp_dir}/sway-config"
 safe_copy "${tmp_dir}/sway-config" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config"
 # Other configs
-safe_copy --link wallpaper.jpg "${XDG_CONFIG_HOME:-$HOME/.config}/sway/wallpaper.jpg"
-safe_copy --link zprofile "$HOME/.zprofile"
-safe_copy --link run-sway.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/run-sway.sh"
-safe_copy --link lock_screen.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/lock_screen.sh"
-safe_copy --link lock_screen_if_no_external_display.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/lock_screen_if_no_external_display.sh"
-safe_copy --link toggle_bluetooth.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/toggle_bluetooth.sh"
-safe_copy --link warn_about_dotfiles_change.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/warn_about_dotfiles_change.sh"
+safe_copy wallpaper.jpg "${XDG_CONFIG_HOME:-$HOME/.config}/sway/wallpaper.jpg"
+safe_copy zprofile "$HOME/.zprofile"
+safe_copy run-sway.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/run-sway.sh"
+safe_copy lock_screen.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/lock_screen.sh"
+safe_copy lock_screen_if_no_external_display.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/lock_screen_if_no_external_display.sh"
+safe_copy toggle_bluetooth.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/toggle_bluetooth.sh"
+safe_copy warn_about_dotfiles_change.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/warn_about_dotfiles_change.sh"
 
 tmp_paruS gcc
 print_step "sway: build and copy mediactl"

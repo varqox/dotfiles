@@ -6,10 +6,10 @@ print_step "zsh: install used utilities"
 paruS ccache clang gcc exo procps-ng gdb git meson ffmpeg speedtest-cli fzf bat xdg-utils miniserve
 
 print_step "zsh: copy configs"
-safe_copy --link zshrc "$HOME/.zshrc"
-safe_copy --link zshenv "$HOME/.zshenv"
-safe_copy --link p10k.zsh "$HOME/.p10k.zsh"
-safe_copy --link zshrc.local "$HOME/.zshrc.local"
+safe_copy zshrc "$HOME/.zshrc"
+safe_copy zshenv "$HOME/.zshenv"
+safe_copy p10k.zsh "$HOME/.p10k.zsh"
+safe_copy zshrc.local "$HOME/.zshrc.local"
 
 print_step "zsh: change shell to zsh"
 [ "$SHELL" = "/usr/bin/zsh" ] || sudo chsh -s /usr/bin/zsh "${USER}"

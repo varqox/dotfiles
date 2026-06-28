@@ -19,5 +19,5 @@ print_step "keyd: enable per-application shortcuts"
 kill_and_await_death keyd-applicatio
 sudo usermod --append --groups keyd "$(id -un)"
 mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/keyd"
-safe_copy --link app.conf "${XDG_CONFIG_HOME:-$HOME/.config}/keyd/app.conf"
+safe_copy app.conf "${XDG_CONFIG_HOME:-$HOME/.config}/keyd/app.conf"
 keyd-application-mapper --daemonize

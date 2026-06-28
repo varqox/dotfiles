@@ -3,13 +3,13 @@ set -euo pipefail
 source "$(dirname -- "$0")/../common.sh"
 
 print_step "waybar: copy configs"
-safe_copy --link config "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/config"
-safe_copy --link style.css "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/style.css"
+safe_copy config "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/config"
+safe_copy style.css "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/style.css"
 
 print_step "waybar: copy scripts"
-safe_copy --link run-waybar.sh "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/run-waybar.sh"
-safe_copy --link go_to_sleep_warning.cc "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/go_to_sleep_warning.cc"
-safe_copy --link Makefile "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/Makefile"
+safe_copy run-waybar.sh "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/run-waybar.sh"
+safe_copy go_to_sleep_warning.cc "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/go_to_sleep_warning.cc"
+safe_copy Makefile "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/Makefile"
 
 tmp_paruS gcc
 print_step "waybar: compile scripts"

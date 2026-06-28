@@ -59,145 +59,145 @@ endif
 FORCE:
 
 keyd: FORCE
-	keyd/install_and_configure.sh
+	keyd/install_and_configure.sh < /dev/tty
 
 pacman: FORCE
-	pacman/configure.sh
+	pacman/configure.sh < /dev/tty
 
 paru: pacman FORCE
-	paru/install.sh
-	paru/configure.sh
+	paru/install.sh < /dev/tty
+	paru/configure.sh < /dev/tty
 
 booting: FORCE
-	booting/install_and_configure.sh
+	booting/install_and_configure.sh < /dev/tty
 
 hibernation: FORCE booting
-	hibernation/install_and_configure.sh
+	hibernation/install_and_configure.sh < /dev/tty
 
 install-%: FORCE paru
-	bash -c 'source common.sh; print_step "install: $*"; paruS $*'
+	bash -c 'source common.sh; print_step "install: $*"; paruS $*'  < /dev/tty
 
 sudo: FORCE
-	sudo/install_and_configure.sh
+	sudo/install_and_configure.sh < /dev/tty
 
 pam: FORCE
-	pam/lower_failed_password_delay.sh
-	pam/increase_faillock.sh
+	pam/lower_failed_password_delay.sh < /dev/tty
+	pam/increase_faillock.sh < /dev/tty
 
 locales: FORCE
-	locales/configure.sh
+	locales/configure.sh < /dev/tty
 
 networkmanager: FORCE
-	networkmanager/install.sh
-	networkmanager/configure.sh
+	networkmanager/install.sh < /dev/tty
+	networkmanager/configure.sh < /dev/tty
 
 dns: FORCE
-	dns/install_and_configure.sh
+	dns/install_and_configure.sh < /dev/tty
 
 ssd: FORCE
-	ssd/set_up_periodic_trim.sh
+	ssd/set_up_periodic_trim.sh < /dev/tty
 
 ntp: FORCE
-	ntp/enable.sh
+	ntp/enable.sh < /dev/tty
 
 earlyoom: FORCE
-	earlyoom/install_and_configure.sh
+	earlyoom/install_and_configure.sh < /dev/tty
 
 tlp: FORCE
-	tlp/install_and_configure.sh
+	tlp/install_and_configure.sh < /dev/tty
 
 tdp: FORCE
-	tdp/install_and_configure.sh
+	tdp/install_and_configure.sh < /dev/tty
 
 prevent-touchpad-resuming-framework-16-from-sleep: FORCE
-	prevent-touchpad-resuming-framework-16-from-sleep/configure.sh
+	prevent-touchpad-resuming-framework-16-from-sleep/configure.sh < /dev/tty
 
 zsh: FORCE install-zsh nvim
-	zsh/configure.sh
+	zsh/configure.sh < /dev/tty
 
 tmux: FORCE
-	tmux/install_and_configure.sh
+	tmux/install_and_configure.sh < /dev/tty
 
 scripts: FORCE
-	scripts/install.sh
+	scripts/install.sh < /dev/tty
 
 nvim: FORCE
-	nvim/install_and_configure.sh
+	nvim/install_and_configure.sh < /dev/tty
 
 git: FORCE install-git nvim
-	git/configure.sh
+	git/configure.sh < /dev/tty
 
 pipewire: FORCE
-	pipewire/install.sh
+	pipewire/install.sh < /dev/tty
 
 systemd: FORCE
-	systemd/disable_handling_of_power_button.sh
-	systemd/disable_handling_lid_events_when_plugged_or_docked.sh
+	systemd/disable_handling_of_power_button.sh < /dev/tty
+	systemd/disable_handling_lid_events_when_plugged_or_docked.sh < /dev/tty
 
 fonts: FORCE
-	fonts/install_and_configure.sh
+	fonts/install_and_configure.sh < /dev/tty
 
 alacritty: FORCE
-	alacritty/install.sh
-	alacritty/configure.sh
+	alacritty/install.sh < /dev/tty
+	alacritty/configure.sh < /dev/tty
 
 thunar: FORCE alacritty
-	thunar/install_and_configure.sh
+	thunar/install_and_configure.sh < /dev/tty
 
 kickoff: FORCE
-	kickoff/install.sh
-	kickoff/configure.sh
+	kickoff/install.sh < /dev/tty
+	kickoff/configure.sh < /dev/tty
 
 mako: FORCE install-mako fonts
-	mako/configure.sh
+	mako/configure.sh < /dev/tty
 
 keepassxc: FORCE install-keepassxc install-qt5-wayland fonts
 
 sway: FORCE keyd networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar hibernation
-	sway/install_and_configure.sh
+	sway/install_and_configure.sh < /dev/tty
 
 swaylock: FORCE
-	swaylock/install.sh
-	swaylock/configure.sh
+	swaylock/install.sh < /dev/tty
+	swaylock/configure.sh < /dev/tty
 
 waybar: FORCE pipewire alacritty networkmanager
-	waybar/install.sh
-	waybar/configure.sh
+	waybar/install.sh < /dev/tty
+	waybar/configure.sh < /dev/tty
 
 sublime-text: FORCE install-sublime-text-4 fonts
-	sublime-text/configure.sh
+	sublime-text/configure.sh < /dev/tty
 
 sublime-merge: FORCE install-sublime-merge fonts
-	sublime-merge/configure.sh
+	sublime-merge/configure.sh < /dev/tty
 
 zed: FORCE fonts
-	zed/install_and_configure.sh
+	zed/install_and_configure.sh < /dev/tty
 
 meson: FORCE
-	meson/install_and_configure.sh
+	meson/install_and_configure.sh < /dev/tty
 
 firefox: FORCE fonts thunar dns
-	firefox/install.sh
-	firefox/configure.sh
+	firefox/install.sh < /dev/tty
+	firefox/configure.sh < /dev/tty
 
 audacious: FORCE install-audacious fonts
-	audacious/configure.sh
+	audacious/configure.sh < /dev/tty
 
 age: FORCE
-	age/install_and_configure.sh
+	age/install_and_configure.sh < /dev/tty
 
 mpv: FORCE
-	mpv/install.sh
-	mpv/configure.sh
-	mpv/install-plugin-auto-save-state.sh
-	mpv/install-plugin-autosub.sh
-	mpv/install-plugin-autosubsync.sh
+	mpv/install.sh < /dev/tty
+	mpv/configure.sh < /dev/tty
+	mpv/install-plugin-auto-save-state.sh < /dev/tty
+	mpv/install-plugin-autosub.sh < /dev/tty
+	mpv/install-plugin-autosubsync.sh < /dev/tty
 
 sublimehq: FORCE sublime-text sublime-merge age
-	sublimehq/install_and_run_pacman_hook_patching_sublime_executables.sh
+	sublimehq/install_and_run_pacman_hook_patching_sublime_executables.sh < /dev/tty
 
 ticktick: FORCE
-	ticktick/install_and_configure.sh
+	ticktick/install_and_configure.sh < /dev/tty
 
 beeper: FORCE
-	beeper/install_and_configure.sh
+	beeper/install_and_configure.sh < /dev/tty

@@ -10,7 +10,7 @@ kill_and_await_death beepertexts
 
 print_step "beeper: configure"
 mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/BeeperTexts"
-safe_copy --link custom.css "${XDG_CONFIG_HOME:-$HOME/.config}/BeeperTexts/custom.css"
+safe_copy custom.css "${XDG_CONFIG_HOME:-$HOME/.config}/BeeperTexts/custom.css"
 
 print_step "beeper: fix dictionaries"
 preferences_file="${XDG_CONFIG_HOME:-$HOME/.config}/BeeperTexts/Preferences"

@@ -66,7 +66,7 @@ for prefs_js in "${HOME}/.mozilla/firefox/"*/prefs.js; do
         sed -i 's@^// \(user_pref("media.av1.enabled", false);\)@\1@' "${tmp_dir}/firefox-user.js"
         safe_copy "${tmp_dir}/firefox-user.js" "${ff_dir}/user.js"
     else
-        safe_copy --link user.js "${ff_dir}/user.js"
+        safe_copy user.js "${ff_dir}/user.js"
     fi
 done
 

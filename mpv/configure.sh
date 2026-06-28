@@ -10,9 +10,9 @@ if cat /proc/cpuinfo | grep '^model name' | grep 'i5-8250U' --quiet; then
 	sed -i 's/^cscale=ewa_lanczossharp/#cscale=ewa_lanczossharp/' "${tmp_dir}/mpv.conf"
 	safe_copy "${tmp_dir}/mpv.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/mpv/mpv.conf"
 else
-	safe_copy --link mpv.conf "${XDG_CONFIG_HOME:-$HOME/.config}/mpv/mpv.conf"
+	safe_copy mpv.conf "${XDG_CONFIG_HOME:-$HOME/.config}/mpv/mpv.conf"
 fi
-safe_copy --link input.conf "${XDG_CONFIG_HOME:-$HOME/.config}/mpv/input.conf"
+safe_copy input.conf "${XDG_CONFIG_HOME:-$HOME/.config}/mpv/input.conf"
 
 print_step "mpv: enable hardware acceleration via VA-API"
 case "$(cpu_vendor)" in

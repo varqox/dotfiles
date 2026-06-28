@@ -10,7 +10,7 @@ kill_and_await_death ticktick
 
 print_step "ticktick: enable wayland support"
 mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/ticktick"
-safe_copy --link user-flags.conf "${XDG_CONFIG_HOME:-$HOME/.config}/ticktick/user-flags.conf"
+safe_copy user-flags.conf "${XDG_CONFIG_HOME:-$HOME/.config}/ticktick/user-flags.conf"
 
 print_step "ticktick: fix dictionaries"
 preferences_file="${XDG_CONFIG_HOME:-$HOME/.config}/ticktick/Preferences"

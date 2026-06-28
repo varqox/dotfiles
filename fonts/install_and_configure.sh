@@ -7,7 +7,7 @@ paruS ttf-hack ttf-ubuntu-font-family # fonts
 paruS glib2 # for gsettings
 
 print_step "fonts: configure"
-safe_copy --link fonts.conf "${XDG_CONFIG_HOME:-$HOME/.config}/fontconfig/font.conf"
+safe_copy fonts.conf "${XDG_CONFIG_HOME:-$HOME/.config}/fontconfig/font.conf"
 gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
 gsettings reset org.gnome.desktop.interface document-font-name
 gsettings reset org.gnome.desktop.interface monospace-font-name
