@@ -11,6 +11,8 @@ export MOZ_ENABLE_WAYLAND=1
 # Together with the MOZ_ENABLE_WAYLAND enables apps running under xwayland to open URLs in a wayland firefox
 export MOZ_DBUS_REMOTE=1
 
+export WLR_RENDERER="${WLR_RENDERER-vulkan}"
+
 # systemd-cat redirects stdout and stderr to journal
 # To access journal use: journalctl --user -t sway
 cd $HOME && exec systemd-cat --identifier=sway sway

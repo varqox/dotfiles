@@ -14,7 +14,7 @@ decrease_interval = 48 # interval to decrease the number of launches
 
 [colors]
 # color format: rgb or rgba, if transparency is desired
-background = '#000000d8'
+background = '#000000f6'
 prompt = '#87afd7'
 # For search results
 text = '#ffffffff'
