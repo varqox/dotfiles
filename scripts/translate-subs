@@ -33,7 +33,7 @@ def exit_error(msg):
 
 if args.selenium != 'no':
     from selenium import webdriver
-    from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, ElementClickInterceptedException, JavascriptException
+    from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, ElementClickInterceptedException, JavascriptException, ElementNotInteractableException
     from selenium.webdriver.common.action_chains import ActionChains
     from selenium.webdriver.common.by import By
     from selenium.webdriver.common.keys import Keys
@@ -50,8 +50,17 @@ if args.selenium != 'no':
         options = FirefoxOptions()
         if args.selenium == 'headless':
             options.add_argument('--headless')
-        driver = webdriver.Firefox(options)
-        driver.get('https://www.deepl.com/pl/translator')
+        options.web_socket_url = True # enable BiDi - required for driver.script.pin() to work
+        # Launch browser
+        driver = webdriver.Firefox(options=options)
+        driver.script.pin("""() => {
+                const orig = Element.prototype.attachShadow;
+                Element.prototype.attachShadow = function(init) {
+                    return orig.call(this, { ...init, mode: 'open' });
+                };
+            }""")
+        # Enter the Translator
+        driver.get(f'https://www.{bytes.fromhex('646565706c').decode('utf-8')}.com/pl/translator')
 
         print_info("Changing target language to Polish...")
         SLEEP_INTERVAL = 0.1
@@ -80,14 +89,25 @@ if args.selenium != 'no':
                     if args.debug:
                         print_info("Selecting target language: Polish...")
                     driver.execute_script('document.querySelector(\'[data-testid="translator-lang-option-pl"]\').click()')
+            except (ElementClickInterceptedException, ElementNotInteractableException) as e:
+                if args.debug:
+                    print_warning(e)
+                print_info("Dismissing the cookie banner...");
+                e = driver.find_element(By.CSS_SELECTOR, '#usercentrics-cmp-ui')
+                if args.debug:
+                    print_info(f"1: {e}")
+                e = e.shadow_root.find_element(By.CSS_SELECTOR, '#accept')
+                if args.debug:
+                    print_info(f"2: {e}")
+                e.click();
             except (NoSuchElementException, StaleElementReferenceException, JavascriptException) as e:
                 if args.debug:
                     print_warning(e)
             if time.clock_gettime(time.CLOCK_MONOTONIC) - start_time > TIMEOUT_SEC:
-                raise Exception('DeepL: changing target language to Polish timeout')
+                raise Exception('Translator: changing target language to Polish timeout')
             time.sleep(SLEEP_INTERVAL)
 
-    def deepl_translate(text):
+    def do_translate(text):
         global args
         global driver
         # Find elements every time, so that if the page changes layout it works.
@@ -96,11 +116,51 @@ if args.selenium != 'no':
         lang_switch_div_elem = driver.find_element(By.CSS_SELECTOR, '[data-layout-id="languageSwitchButton"] button')
         target_lang_button = driver.find_element(By.CSS_SELECTOR, 'button[data-testid="translator-target-lang-btn"]')
 
-        print_info("Erasing the previous source text from DeepL...")
-        input_elem.send_keys(Keys.CONTROL + 'a', Keys.BACKSPACE)
-
-        print_info("Waiting for the DeepL to clear the translation...")
+        print_info("Erasing the previous source text from translator...")
         SLEEP_INTERVAL = 0.1
+        timeout_sec = 8
+        start_time = time.clock_gettime(time.CLOCK_MONOTONIC)
+        while True:
+            if args.debug:
+                print_info("Sending Ctrl+a, Backspace...")
+            try:
+                input_elem.send_keys(Keys.CONTROL + 'a', Keys.BACKSPACE)
+                break
+            except ElementNotInteractableException as e:
+                if args.debug:
+                    print_info("Sending failed. Dismissing the challenge dialog...")
+                try:
+                    e = driver.find_element(By.CSS_SELECTOR, 'iframe[title="challenge"]')
+                    if args.debug:
+                        print_info(f"1: {e}")
+                    driver.switch_to.frame(e)
+                    if args.debug:
+                        print_info("switched frame")
+                    e = driver.find_element(By.CSS_SELECTOR, '#cf-challenge > div')
+                    if args.debug:
+                        print_info(f"2: {e}")
+                    e = e.shadow_root.find_element(By.CSS_SELECTOR, 'iframe')
+                    if args.debug:
+                        print_info(f"3: {e}")
+                    driver.switch_to.frame(e)
+                    if args.debug:
+                        print_info("switched frame")
+                    e = driver.find_element(By.CSS_SELECTOR, 'body')
+                    if args.debug:
+                        print_info(f"4: {e}")
+                    e = e.shadow_root.find_element(By.CSS_SELECTOR, 'input[type="checkbox"]')
+                    if args.debug:
+                        print_info(f"5: {e}")
+                    e.click()
+                except (NoSuchElementException, ElementNotInteractableException) as e:
+                    pass
+                finally:
+                    driver.switch_to.default_content()
+            if time.clock_gettime(time.CLOCK_MONOTONIC) - start_time > timeout_sec:
+                raise Exception('Translator: dismissing check timeout')
+            time.sleep(SLEEP_INTERVAL)
+
+        print_info("Waiting for the Translator to clear the translation...")
         timeout_sec = 8
         start_time = time.clock_gettime(time.CLOCK_MONOTONIC)
         while True:
@@ -110,18 +170,18 @@ if args.selenium != 'no':
             if output_len == 0:
                 break
             if time.clock_gettime(time.CLOCK_MONOTONIC) - start_time > timeout_sec:
-                raise Exception('DeepL: clearing translation timeout')
+                raise Exception('Translator: clearing translation timeout')
             time.sleep(SLEEP_INTERVAL)
 
-        print_info("Pasting chunk into DeepL...")
+        print_info("Pasting chunk into translator...")
         input_elem.send_keys(text)
 
-        print_info("Waiting for DeepL to translate the chunk...")
+        print_info("Waiting for translator to translate the chunk...")
         timeout_sec = 16
         start_time = time.clock_gettime(time.CLOCK_MONOTONIC)
         while True:
             if target_lang_button.get_attribute('disabled') is not None:
-                raise Exception('DeepL translator broke')
+                raise Exception('The underlying translator broke')
             if lang_switch_div_elem.get_attribute('disabled') is None:
                 print_info("Translation completed.")
                 translation = output_elem.text
@@ -129,13 +189,13 @@ if args.selenium != 'no':
                     print_info(f"len(translation): {len(translation)}")
                 return translation
             if time.clock_gettime(time.CLOCK_MONOTONIC) - start_time > timeout_sec:
-                raise Exception('DeepL: awaiting translation timeout')
+                raise Exception('Translator: awaiting translation timeout')
             time.sleep(SLEEP_INTERVAL)
 
     def close_browser():
         global driver
         if driver is not None:
-            driver.close()
+            driver.quit()
             driver = None
 
 @dataclass
@@ -196,8 +256,8 @@ class Translator:
         text: str
         mark: str
 
-    # It is hard to make DeepL not ignore the marks during translation...
-    MARK_REGEX = re.compile(r'\b\d{4,}\b') # 4 not 5 in case DeepL removes the leading 0
+    # It is hard to make the underlying translator not ignore the marks during translation...
+    MARK_REGEX = re.compile(r'\b\d{4,}\b') # 4 not 5 in case the underlying translator removes the leading 0
     def mark(sub_id, mark_num):
         return f"0{sub_id}{mark_num:03}"
 
@@ -317,15 +377,15 @@ class Translator:
                     print_info(f"{progress} Please translate the clipboard content and paste the translation here:")
                     translated_lines_iter = yield_input_lines()
                 else:
-                    print_info(f"{progress} Translating chunk via DeepL...")
+                    print_info(f"{progress} Translating chunk...")
                     TRANSLATION_MAX_RETRIES = 3
                     if consecutive_parsing_errors_without_progress > 0:
-                        print_warning('Restarting browser in case DeepL broke severely...')
+                        print_warning('Restarting browser in case the translator broke severely...')
                         close_browser()
                     for try_num in range(1, TRANSLATION_MAX_RETRIES + 1):
                         try:
                             open_browser()
-                            translation = deepl_translate(chunk)
+                            translation = do_translate(chunk)
                             if args.debug:
                                 print_info("Translation:")
                                 print(translation)
