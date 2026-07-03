@@ -171,5 +171,3 @@ exec "$HOME/.config/sway/warn_about_dotfiles_change.sh"
 
 # Enable custom per-application key remaps
 exec keyd-application-mapper --daemonize
-
-bindsym --no-repeat Ctrl+Alt+q [con_id=__focused__ app_id=^BeeperTexts$] kill, exec pkill -x beepertexts && sleep 1 && pkill -KILL -x beepertexts
