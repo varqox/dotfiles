@@ -72,6 +72,7 @@ safe_copy lock_screen.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/lock_screen.sh"
 safe_copy lock_screen_if_no_external_display.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/lock_screen_if_no_external_display.sh"
 safe_copy toggle_bluetooth.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/toggle_bluetooth.sh"
 safe_copy warn_about_dotfiles_change.sh "${XDG_CONFIG_HOME:-$HOME/.config}/sway/warn_about_dotfiles_change.sh"
+safe_copy change-brightness.bash "${XDG_CONFIG_HOME:-$HOME/.config}/sway/change-brightness.bash"
 
 tmp_paruS gcc
 print_step "sway: build and copy mediactl"
