@@ -21,6 +21,10 @@ safe_copy translate-subs "$HOME/.local/bin/translate-subs"
 print_step "scripts: install backup"
 safe_copy backup "$HOME/.local/bin/backup"
 
+print_step "scripts: install format-drive"
+paruS parted
+safe_copy format-drive "$HOME/.local/bin/format-drive"
+
 # This needs systemd-resolved configured
 print_step "scripts: install bypass_dns_for"
 paruS iproute2

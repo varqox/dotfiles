@@ -1,0 +1,186 @@
+#!/bin/bash
+set -euo pipefail
+
+if (($# < 2 || $# > 3)); then
+    echo 'Usage: format-drive <DEVICE> <FS_TYPE> [LABEL]' >&2
+    echo 'FS_TYPE: fat32, exfat, ntfs, ext2, ext3, ext4' >&2
+    echo 'Example: format-drive /dev/sdd exfat' >&2
+    exit 1
+fi
+
+device="$1"
+fs_type_arg="${2,,}"
+
+if [[ ! -b "${device}" ]]; then
+    echo "error: '${device}' is not a block device" >&2
+    exit 1
+fi
+
+# Make sure the device is not mounted.
+if lsblk -nrpo NAME,MOUNTPOINT "${device}" |
+    awk '$2 != "" { found=1 } END { exit !found }'
+then
+    echo "error: something on '${device}' is mounted" >&2
+    lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT "${device}" >&2
+    exit 1
+fi
+
+if [[ -v 3 ]]; then
+    name="$3"
+else
+    size="$(sudo lsblk "${device}" --output SIZE --nodeps --noheadings)"
+    serial="$(sudo udevadm info "${device}" --query=property --property=ID_USB_SERIAL --value || true)"
+    serial_short="$(sudo udevadm info "${device}" --query=property --property=ID_USB_SERIAL_SHORT --value || true)"
+
+    if [[ -n "${serial}" && -n "${serial_short}" ]]; then
+        name="${serial/"${serial_short}"}"
+    else
+        name=''
+    fi
+
+    name="${name//[^a-zA-Z]/ }"
+    name="$(tr --squeeze-repeats ' ' <<< "${name}")"
+    name="${name# }"
+    name="${name% }"
+
+    if [[ -z "${name}" ]]; then
+        echo "warning: could not deduce a sensible name; using an empty label" >&2
+        name=''
+    else
+        name+=" ${size}"
+    fi
+fi
+
+# Filesystem-specific label limits and mkfs arguments.
+mkfs_label_args=()
+case "${fs_type_arg}" in
+    ext2|ext3|ext4)
+        mbr_partition_type=0x83
+        gpt_partition_type=linux
+        parted_fs_type="${fs_type_arg}"
+        max_fs_label_len=16
+        mkfs_cmd=(mkfs."${fs_type_arg}")
+        mkfs_label_args=(-L)
+        ;;
+    exfat)
+        mbr_partition_type=0x07
+        gpt_partition_type=msftdata
+        parted_fs_type=''
+        max_fs_label_len=11
+        mkfs_cmd=(mkfs.exfat -F)
+        mkfs_label_args=(-L)
+        ;;
+    fat32)
+        mbr_partition_type=0x0C
+        gpt_partition_type=msftdata
+        parted_fs_type='fat32'
+        max_fs_label_len=11
+        mkfs_cmd=(mkfs.fat -F 32)
+        mkfs_label_args=(-n)
+        ;;
+    ntfs)
+        mbr_partition_type=0x07
+        gpt_partition_type=msftdata
+        parted_fs_type='ntfs'
+        max_fs_label_len=128
+        mkfs_cmd=(mkfs.ntfs --fast)
+        mkfs_label_args=(-L)
+        ;;
+    *)
+        echo "error: unsupported filesystem type: ${fs_type_arg}" >&2
+        exit 1
+        ;;
+esac
+
+# Shorten the fs label.
+fs_label="${name}"
+if [[ -v 3 ]]; then
+    label_len="$(LC_ALL=C printf '%s' "${fs_label}" | wc -c)" # Count bytes explicitly.
+    if ((label_len > max_fs_label_len)); then
+        echo "error: ${fs_label} is too long for ${fs_type_arg} label" >&2
+        echo "       maximum: ${max_fs_label_len} bytes/characters as applicable" >&2
+        exit 1
+    fi
+else
+    while true; do
+        label_len="$(LC_ALL=C printf '%s' "${fs_label}" | wc -c)"
+        if ((label_len <= max_fs_label_len)); then
+            break
+        fi
+        echo "warning: '${fs_label}' is too long for a file system label, will try to trim it..." >&2
+        fs_label=" ${fs_label}"
+        fs_label="${fs_label% *}"
+        fs_label="${fs_label# }"
+        echo "warning: Trying '${fs_label}'" >&2
+    done
+fi
+if [[ -z "${fs_label}" ]]; then
+    echo "error: all attempts were too long for ${fs_type_arg} label" >&2
+    echo "       maximum: ${max_fs_label_len} bytes" >&2
+    exit 1
+fi
+
+# Decide between MBR and GPT.
+#
+# MBR is preferred for compatibility, but cannot address arbitrarily
+# large disks. For ordinary USB flash drives this will almost always
+# select MBR.
+readonly sectors="$(sudo blockdev --getsz "${device}")"
+if (( sectors <= 0xffffffff )); then
+    table='msdos'
+else
+    table='gpt'
+fi
+
+echo "Device:      ${device}" >&2
+echo "Filesystem:  ${fs_type_arg}" >&2
+echo "Partition:   ${table^^}" >&2
+echo "Label:       ${fs_label}" >&2
+mkfs_cmd+=("${mkfs_label_args[@]}" "${fs_label}")
+
+# Create partition table and one partition.
+parted_cmd=(
+    parted --align optimal "${device}" --script
+    mklabel "${table}"
+)
+if [[ "${table}" == 'msdos' ]]; then
+    parted_cmd+=(mkpart primary)
+else
+    parted_cmd+=(mkpart DATA)
+fi
+if [[ -n "${parted_fs_type}" ]]; then
+    parted_cmd+=("${parted_fs_type}")
+fi
+# 1MiB is used as the beginning rather than 0%.
+parted_cmd+=(1MiB 100%)
+
+if [[ "${table}" == 'msdos' ]]; then
+    parted_cmd+=(type 1 "${mbr_partition_type}")
+else
+    parted_cmd+=(type 1 "${gpt_partition_type}")
+fi
+
+sudo "${parted_cmd[@]}"
+# Let udev/kernel finish creating the partition device.
+sudo udevadm settle
+
+readonly partition_device="$(
+    sudo lsblk -nrpo NAME,TYPE "${device}" |
+        awk '$2 == "part" { print $1; exit }'
+)"
+
+if [[ -z "${partition_device}" ]]; then
+    echo "error: partition device did not appear" >&2
+    exit 1
+fi
+
+echo "Partition:   ${partition_device}" >&2
+
+# Create filesystem.
+sudo "${mkfs_cmd[@]}" "${partition_device}"
+
+# Flush partition and filesystem metadata.
+sudo udevadm settle
+sync
+
+echo "Done." >&2
