@@ -80,7 +80,7 @@
         },
         "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "wpctl set-mute @DEFAULT_SOURCE@ toggle",
-        "on-click-middle": "pavucontrol",
+        "on-click-middle": "pwvucontrol",
         "on-scroll-up": "wpctl set-volume --limit 1 @DEFAULT_SINK@ \"$(wpctl inspect @DEFAULT_SINK@ | grep '^\\s*\\*\\s*node.name = \"bluez_output.4C_87_5D_07_5B_C4' --quiet && echo 4 || echo 5)%+\"",
         "on-scroll-down": "wpctl set-volume --limit 1 @DEFAULT_SINK@ \"$(wpctl inspect @DEFAULT_SINK@ | grep '^\\s*\\*\\s*node.name = \"bluez_output.4C_87_5D_07_5B_C4' --quiet && echo 4 || echo 5)%-\"",
         "smooth-scrolling-threshold": 2,
