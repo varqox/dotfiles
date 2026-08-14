@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+# Usage: iwatch <PATH...> [-- [COMMAND...]]
+# E.g. iwatch . -- echo @
+# E.g. iwatch src -- cargo run
 function iwatch() (
     set -uo pipefail
 
@@ -20,12 +23,39 @@ function iwatch() (
         shift
     done
     if (($# == 0)); then
-        set -- printf "%s\0" @
+        if [[ -t 1 ]]; then
+            set -- printf "%s\n" @
+        else
+            set -- printf "%s\0" @
+        fi
     fi
-
+    # Generate random token to replace args == @ with it, because xargs substitutes @ even if
+    # it is a substring, but we want equality, not substring...
+    token="${RANDOM}"
+    declare -i found=1
+    while ((found)); do
+        found=0
+        for arg in "$@"; do
+            if [[ "${arg}" == *"${token}"* ]]; then
+                found=1
+                break
+            fi
+        done
+    done
+    # Replace @ with token
+    args=()
+    for arg in "$@"; do
+        if [[ "${arg}" == @ ]]; then
+            args+=("${token}")
+        else
+            args+=("${arg}")
+        fi
+    done
+    # Watch the files
     inotifywait --monitor --recursive --event close_write,delete,moved_to,create --format "%w%f%0" --no-newline -- "${files[@]}" |
         if IFS= read -d '' -r p; then
             while true; do
+                # Remove duplicates for up to 50 ms
                 for ((i=0; i < 5; ++i)); do
                     if IFS= read -d '' -r -t 0.01 pn; then
                         if [[ "${pn}" != "${p}" ]]; then
@@ -44,7 +74,7 @@ function iwatch() (
                 fi
             done
         fi |
-            xargs --null -I @ -- "$@"
+            xargs --null -I "${token}" -- "${args[@]}"
 )
 
 # Execute function unless sourced
