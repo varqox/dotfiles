@@ -5,7 +5,7 @@ __my_bash_timezone='' # Overrides local time zone unless empty e.g. value 'Europ
 
 function __my_bash_warn {
     if [[ -t 2 ]]; then
-        echo $'\x1b[1;33mwarning:\x1b[0m '"$*" >&2
+        echo $'\x1b[0;1;33mwarning:\x1b[0m '"$*" >&2
     else
         echo "warning: $*" >&2
     fi
@@ -13,7 +13,7 @@ function __my_bash_warn {
 
 function __my_bash_error {
     if [[ -t 2 ]]; then
-        echo $'\x1b[1;31merror:\x1b[0m '"$*" >&2
+        echo $'\x1b[0;1;31merror:\x1b[0m '"$*" >&2
     else
         echo "error: $*" >&2
     fi
@@ -108,7 +108,7 @@ function __my_bash_interactive_prompt {
     local -r prompt_start_time="$(date +%s.%N)"
 
     # Disable printing of the input from the terminal
-    stty --file=/dev/tty -echo
+    stty -echo < /dev/tty
 
     function __my_bash_prompt_read_available_input {
         local input
@@ -159,7 +159,7 @@ function __my_bash_interactive_prompt {
         local dur_nsec=$((3${prompt_start_time#*.} - 1${__my_bash_prompt_prev_command_execution_time#*.} + 5000000))
         local -i dur_sec=$((${prompt_start_time%.*} - ${__my_bash_prompt_prev_command_execution_time%.*} + (dur_nsec / 1000000000) - 2))
         if (( dur_sec > 0 || 1${dur_nsec:1:2} > 109)); then
-            local msg=$'\x1b[0;3;90m'"$(__my_bash_date +%T -d "@${prompt_start_time}") "$'\x1b[0;2;3;34mtook \x1b[0;3;34m'"${dur_sec}.${dur_nsec:1:2}"$'\x1b[0;3;90m s'
+            local msg=$'\x1b[0;3;90m'"$(__my_bash_date +%T -d "@${prompt_start_time%.*}") "$'\x1b[0;2;3;34mtook \x1b[0;3;34m'"${dur_sec}.${dur_nsec:1:2}"$'\x1b[0;3;90m s'
             if ((dur_sec >= 60)); then
                 local msg_s=$'\x1b[0;3;34m'"$((dur_sec % 60)).${dur_nsec:1:2}"$'\x1b[0;3;90m s'
 
@@ -324,7 +324,7 @@ function __my_bash_interactive_prompt {
         __my_bash_prompt_workbuf_insert_at_cursor "[${__MY_BASH_CURRENT_NESTING_LEVEL}] "
     fi
     local -ir prompt_time_start_pos=$((cursor_pos))
-    __my_bash_prompt_workbuf_insert_at_cursor "$(__my_bash_date +%T -d "@${prompt_start_time}")" "3;90"
+    __my_bash_prompt_workbuf_insert_at_cursor "$(__my_bash_date +%T -d "@${prompt_start_time%.*}")" "3;90"
     local -ir prompt_time_end_pos=$((cursor_pos))
     __my_bash_prompt_workbuf_insert_at_cursor ' '
     __my_bash_prompt_workbuf_insert_at_cursor "$(id -un)" "1;32" # username
@@ -523,7 +523,7 @@ function __my_bash_interactive_prompt {
             fi
             local dir='.'
         elif [[ "${prefix}" == */* ]]; then
-            local dir="${prefix%/*}"
+            local dir="${prefix%/*}/"
         else
             local dir='.'
         fi
@@ -715,7 +715,7 @@ function __my_bash_interactive_prompt {
     # Move cursor to the beginning of the line below the workbuf
     echo > /dev/tty
     # Restore printing of the input from the terminal
-    stty --file=/dev/tty echo
+    stty echo < /dev/tty
 }
 
 if [[ -t 0 ]]; then
