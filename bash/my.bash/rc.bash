@@ -225,7 +225,8 @@ function __my_bash_interactive_prompt {
     local ret
 
     function __my_bash_prompt_set_ret_to_workbuf_range_contents {
-        ret="${workbuf:${1:?missing beginning} * workbuf_bytes_per_char:(${2:?missing end parameter} - ${1:?missing beginning parameter}) * workbuf_bytes_per_char}"
+        : ${1:?missing beginning} ${2:?missing end parameter} ${1:?missing beginning parameter}
+        ret="${workbuf:${1} * workbuf_bytes_per_char:(${2} - ${1}) * workbuf_bytes_per_char}"
         ret="${ret//$'\x1b['??????????}"
     }
 
