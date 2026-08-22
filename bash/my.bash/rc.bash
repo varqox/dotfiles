@@ -113,11 +113,10 @@ function __my_bash_interactive_prompt {
 
     # Older bashes don't store partially read input to the variable - here we detect it and choose a
     # different implementation for each case.
-    # if ((${__my_bash_prompt_read_stores_partial_read_on_timeout:=$(IFS= read -r -d '' -n 2 -t 0.01 input < <(printf 'a'; sleep 0.01); echo ${#input})})); then
-    if false; then
+    if ((${__my_bash_prompt_read_stores_partial_read_on_timeout:=$(IFS= read -r -d '' -n 2 -t 0.001 input < <(printf 'a'; sleep 0.001); echo ${#input})})); then
         function __my_bash_prompt_read_available_input {
             local input
-            while IFS= read -r -d '' -n 1000000 -t 0.01 input; do
+            while IFS= read -r -d '' -n 1000000 -t 0.001 input; do
                 __my_bash_prompt_saved_input+="${input}"
             done
             __my_bash_prompt_saved_input+="${input}"
@@ -126,13 +125,13 @@ function __my_bash_interactive_prompt {
         function __my_bash_prompt_read_available_input {
             local input
             local n=2
-            local t=0.01
+            local t=0.001
             while ((n > 0)); do
                 if IFS= read -r -d '' -n ${n} -t ${t} input; then
                     __my_bash_prompt_saved_input+="${input}"
-                    if IFS= read -r -d '' -n ${n} -t 0.01 input; then
+                    if IFS= read -r -d '' -n ${n} -t 0.001 input; then
                         __my_bash_prompt_saved_input+="${input}"
-                        t=0.01
+                        t=0.001
                         if ((n < 1000000)); then
                             # 2 successes in a row - scale up
                             n=$((n * 2))
@@ -145,7 +144,7 @@ function __my_bash_interactive_prompt {
                 __my_bash_prompt_saved_input+="${input}"
                 # We already waited - no need to wait long again - an immediate check is enough, but
                 # -t 0 always reads nothing, hence we use 1us.
-                t=0.000001
+                t=0.00001
                 n=$((n / 2))
             done
         }
