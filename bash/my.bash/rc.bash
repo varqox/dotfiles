@@ -104,7 +104,8 @@ declare -i __my_bash_prompt_saved_input_consumed_bytes
 : "${__my_bash_prompt_saved_input_consumed_bytes:=0}" # Set to 0 if unset
 
 function __my_bash_interactive_prompt {
-    local prev_command_exit_status=$?
+    local prev_command_exit_status="${__my_bash_prompt_prev_command_exit_status}"
+    unset __my_bash_prompt_prev_command_exit_status
     local -r prompt_start_time="$(date +%s.%N)"
 
     # Disable printing of the input from the terminal
@@ -744,5 +745,26 @@ function __my_bash_interactive_prompt {
 
 if [[ -t 0 ]]; then
     # Enable interactive prompt
-    PROMPT_COMMAND='__my_bash_interactive_prompt && if [[ "${__my_bash_prompt_prev_command:+x}" == "x" ]]; then eval "${__my_bash_prompt_prev_command}"; fi; eval "${PROMPT_COMMAND}"'
+    unset __my_bash_prompt_saved_stderr
+    unset __my_bash_prompt_saved_sigint_trap
+    PROMPT_COMMAND='
+        # If unset, set the execution status of the previous command
+        : "${__my_bash_prompt_prev_command_exit_status:=$?}"
+        if [[ "${__my_bash_prompt_saved_stderr+x}" == x ]]; then
+            exec 2>&${__my_bash_prompt_saved_stderr}-
+            unset __my_bash_prompt_saved_stderr
+            eval "${__my_bash_prompt_saved_sigint_trap-}"
+            unset __my_bash_prompt_saved_sigint_trap
+        fi
+        __my_bash_interactive_prompt && {
+            eval "${__my_bash_prompt_prev_command-}"
+            __my_bash_prompt_prev_command_exit_status=$?
+            # Restart the prompt without introducing more nesting when running with `set -x`. Loop or
+            # function would cause `break`, `continue`, `return` to have a meaning where they should not.
+            __my_bash_prompt_saved_sigint_trap="$(trap -p SIGINT)"
+            exec {__my_bash_prompt_saved_stderr}>&2-
+            trap - SIGINT
+            kill -INT $$
+        }
+    '
 fi
