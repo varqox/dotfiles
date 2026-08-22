@@ -364,17 +364,19 @@ function __my_bash_interactive_prompt {
     __my_bash_prompt_workbuf_insert_at_cursor "$(id -un)" "1;32" # username
     __my_bash_prompt_workbuf_insert_at_cursor "@" "97"
 
-    local -r hostname="$(uname --nodename)"
-    local hostname_hash
-    if hostname_hash="$(sha256sum <<< "#####${hostname}")"; then
-        local -r hostname_color="1;$((0x${hostname_hash:0:8} % 7 + 90))"
-    else
-        local -r hostname_color='33'
+    if [[ "${__my_bash_prompt_workbuf_hostname-"${HOSTNAME}x"}" != "${HOSTNAME}" ]]; then
+        __my_bash_prompt_workbuf_hostname="${HOSTNAME}"
+        local hostname_hash
+        if hostname_hash="$(sha256sum <<< "#####${__my_bash_prompt_workbuf_hostname}")"; then
+            __my_bash_prompt_workbuf_hostname_color="1;$((0x${hostname_hash:0:8} % 7 + 90))"
+        else
+            __my_bash_prompt_workbuf_hostname_color='33'
+        fi
     fi
-    __my_bash_prompt_workbuf_insert_at_cursor "${hostname}" "${hostname_color}"
+    __my_bash_prompt_workbuf_insert_at_cursor "${__my_bash_prompt_workbuf_hostname}" "${__my_bash_prompt_workbuf_hostname_color}"
 
     __my_bash_prompt_workbuf_insert_at_cursor ":" "97"
-    local prompt_cwd="$(pwd)"
+    local prompt_cwd="${PWD}"
     if [[ "${prompt_cwd}" == "${HOME}" ]]; then
         prompt_cwd="~"
     elif [[ "${prompt_cwd}" == "${HOME}"* ]]; then
