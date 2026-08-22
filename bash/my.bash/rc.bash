@@ -419,6 +419,9 @@ function __my_bash_interactive_prompt {
         __my_bash_prompt_workbuf_insert_at_cursor ' '
     fi
 
+    # Print the initial prompt before processing the input.
+    __my_bash_prompt_print_workbuf
+
     local -ir prompt_len=$((workbuf_len))
 
     function __my_bash_prompt_user_edit_move_cursor_to {
