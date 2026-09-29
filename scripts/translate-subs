@@ -131,28 +131,41 @@ if args.selenium != 'no':
                 if args.debug:
                     print_info("Sending failed. Dismissing the challenge dialog...")
                 try:
-                    e = driver.find_element(By.CSS_SELECTOR, 'iframe[title="challenge"]')
-                    if args.debug:
-                        print_info(f"1: {e}")
-                    driver.switch_to.frame(e)
-                    if args.debug:
-                        print_info("switched frame")
-                    e = driver.find_element(By.CSS_SELECTOR, '#cf-challenge > div')
-                    if args.debug:
-                        print_info(f"2: {e}")
-                    e = e.shadow_root.find_element(By.CSS_SELECTOR, 'iframe')
-                    if args.debug:
-                        print_info(f"3: {e}")
-                    driver.switch_to.frame(e)
-                    if args.debug:
-                        print_info("switched frame")
-                    e = driver.find_element(By.CSS_SELECTOR, 'body')
-                    if args.debug:
-                        print_info(f"4: {e}")
-                    e = e.shadow_root.find_element(By.CSS_SELECTOR, 'input[type="checkbox"]')
-                    if args.debug:
-                        print_info(f"5: {e}")
-                    e.click()
+                    def traverse_frame(level):
+                        def find_checkboxes_under(x):
+                            # Find all checkboxes and select them.
+                            for checkbox in x.find_elements(By.CSS_SELECTOR, 'input[type="checkbox"]'):
+                                if args.debug:
+                                    print(f'level {level}: Found checkbox: {checkbox}')
+                                if not checkbox.is_selected():
+                                    if args.debug:
+                                        print(f'level {level}: Selecting checkbox: {checkbox}')
+                                    checkbox.click();
+                        # Find all shadow roots and iframes including ones burrowed under shadow roots
+                        shadow_roots, iframes = driver.execute_script("""
+                            let iframes = Array.from(document.querySelectorAll('iframe'));
+                            let shadow_roots = Array.from(document.querySelectorAll('*'))
+                                .filter(el => el.shadowRoot !== null);
+                            for (let i = 0; i < shadow_roots.length; ++i) {
+                                shadow_roots.push(...Array.from(shadow_roots[i].shadowRoot.querySelectorAll('*'))
+                                .filter(el => el.shadowRoot !== null));
+                                iframes.push(...Array.from(shadow_roots[i].shadowRoot.querySelectorAll('iframe')))
+                            }
+                            return [shadow_roots, iframes];
+                        """)
+                        find_checkboxes_under(driver) # No shadow root
+                        for shadow_root in shadow_roots:
+                            find_checkboxes_under(shadow_root.shadow_root)
+                        # Recurse into iframes
+                        for frame in iframes:
+                            if args.debug:
+                                print(f'level {level}: Switching to frame: {frame}')
+                            driver.switch_to.frame(frame)
+                            traverse_frame(level + 1)
+                            driver.switch_to.parent_frame()
+
+                    traverse_frame(0)
+
                 except (NoSuchElementException, ElementNotInteractableException) as e:
                     pass
                 finally:
