@@ -216,7 +216,9 @@ def read_srt_file(file):
     for line in file:
         line = line.rstrip('\n')
         if len(line) == 0:
-            subtitles.append(Subtitle(num, span, text))
+            # Ignore wrong formatting.
+            if num is not None and span is not None and len(text) > 0:
+                subtitles.append(Subtitle(num, span, text))
             num = None
             span = None
             text = []
