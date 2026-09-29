@@ -15,6 +15,7 @@ parser.add_argument('-i', required=True, metavar='INPUT_FILE', help='Input subti
 parser.add_argument('-o', required=True, metavar='OUTPUT_FILE', help='Output subtitles file')
 parser.add_argument('-c', type=int, metavar='NUM', help='Max translation chunk size')
 parser.add_argument('-d', '--debug', action='store_true')
+parser.add_argument('--debug-stop-on-error', action='store_true')
 parser.add_argument('--selenium', choices=['no', 'headless', 'window'], default='headless', help='Whether and how to use Selenium')
 args = parser.parse_args()
 
@@ -399,6 +400,8 @@ class Translator:
                                 raise e
 
                             print_error(f"Got error: {e}, but we will try again...")
+                            if args.debug_stop_on_error:
+                                input()
                             close_browser()
 
                 # Process translation
