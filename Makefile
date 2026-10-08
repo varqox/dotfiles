@@ -40,6 +40,7 @@ all: mpv
 all: sublimehq
 all: ticktick
 all: beeper
+all: wireplumber
 all: install-procps-ng # pkill
 all: install-htop
 all: install-ripgrep # rg
@@ -153,7 +154,7 @@ mako: FORCE install-mako fonts
 
 keepassxc: FORCE install-keepassxc install-qt5-wayland fonts
 
-sway: FORCE keyd networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar hibernation
+sway: FORCE keyd networkmanager scripts pipewire systemd fonts swaylock waybar alacritty kickoff mako keepassxc thunar hibernation wireplumber
 	sway/install_and_configure.sh < /dev/tty
 
 swaylock: FORCE
@@ -201,3 +202,6 @@ ticktick: FORCE
 
 beeper: FORCE
 	beeper/install_and_configure.sh < /dev/tty
+
+wireplumber: FORCE
+	wireplumber/install_and_configure.sh < /dev/tty
