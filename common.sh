@@ -175,13 +175,19 @@ function filter_out_installed_packages {
         grep --invert-match --line-regexp --fixed-strings --file=<(paru -Q --quiet "$@" 2> /dev/null) || true
 }
 
+function filter_out_explicitly_installed_packages {
+    printf '%s\n' "$@" | \
+        grep --invert-match --line-regexp --fixed-strings --file=<(paru -Q --explicit --quiet "$@" 2> /dev/null) || true
+}
+
 function paruS {
     install_paru_if_absent
     # Filter arguments to only uninstalled packages (it is faster in case all packages are already installed)
     printf "%s\n" "$(filter_out_installed_packages "$@")" | \
         xargs --no-run-if-empty paru -S --noconfirm --needed
     # Mark specified packages as installed explicitly if they were previously installed as dependencies
-    paru -D --asexplicit "$@"
+    printf "%s\n" "$(filter_out_explicitly_installed_packages "$@")" | \
+        xargs --no-run-if-empty paru -D --asexplicit
 }
 
 function tmp_paruS {
