@@ -1,0 +1,32 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+if [[ ! -t 1 ]]; then
+    swaymsg 'for_window [app_id="^Alacritty$" title="^Which film to watch$"] floating enable'
+    exec alacritty --title "Which film to watch" --option font.size=15 --command "${BASH_SOURCE[0]}"
+fi
+
+# Find all film files
+find "$HOME/films/ready/" -type f -regextype egrep -regex '.*\.(mkv|mp4|avi|mov)' -print0 |
+    # Sort by time: newest first
+    xargs --null stat --printf='%Z %n\0' -- |
+    sort --zero-terminated --numeric-sort --reverse |
+    cut --zero-terminated --delimiter ' ' --fields 2- | # Strip timestamp
+    # xargs --null printf '%s\n'; exit
+    fzf --read0 --delimiter / --with-nth -1 --reverse --print0 | {
+        IFS= read -d '' -r film_path
+        tmp_script="$(mktemp --tmpdir film.XXXXXX)"
+        printf $'
+            # Make sure this script is removed
+            trap \'rm "${BASH_SOURCE[0]}"\' EXIT
+            # Mark film as the most recent
+            touch %q
+            # Open mpv
+            mpv --terminal=no --fullscreen --title=%q -- %q
+            # Switch to the previous workspace after watching
+            swaymsg workspace back_and_forth
+        ' "${film_path}" "${film_path}" "${film_path}" > "${tmp_script}"
+        # Switch to a dedicated workspace, then open mpv
+        swaymsg "workspace film output DP-0 DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8; workspace film; exec bash ${tmp_script}"
+        echo "${film_path}"
+    }

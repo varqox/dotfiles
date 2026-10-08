@@ -29,3 +29,7 @@ safe_copy format-drive "$HOME/.local/bin/format-drive"
 print_step "scripts: install bypass_dns_for"
 paruS iproute2
 safe_copy bypass_dns_for "$HOME/.local/bin/bypass_dns_for"
+
+print_step "scripts: install film"
+paruS fzf
+safe_copy film "$HOME/.local/bin/film"
