@@ -16,7 +16,7 @@ function debug_vars() {
     done
     for varname in "$@"; do
         local -n value="${varname}"
-        printf '\x1b[0;1;33m%*s\x1b[0;1m: \x1b[0;33m%s\x1b[0m\n' ${longest_varname_length} "${varname}" "${value}" &>2
+        printf '\x1b[0;1;33m%*s\x1b[0;1m: \x1b[0;33m%s\x1b[0m\n' ${longest_varname_length} "${varname}" "${value}" >&2
     done
 }
 
