@@ -33,3 +33,7 @@ safe_copy bypass_dns_for "$HOME/.local/bin/bypass_dns_for"
 print_step "scripts: install film"
 paruS fzf
 safe_copy film "$HOME/.local/bin/film"
+
+print_step "scripts: install film_replace_subtitles"
+paruS ffmpeg
+safe_copy film_replace_subtitles "$HOME/.local/bin/film_replace_subtitles"

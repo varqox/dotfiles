@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if (($# < 3)); then
+    echo "Usage: $0 <film> <subtitles> <out_film>" >&2
+    exit 1
+fi
+
+function debug_vars() {
+    local -i longest_varname_length=0
+    local varname
+    for varname in "$@"; do
+        if ((${#varname} > longest_varname_length)); then
+            longest_varname_length=${#varname}
+        fi
+    done
+    for varname in "$@"; do
+        local -n value="${varname}"
+        printf '\x1b[0;1;33m%*s\x1b[0;1m: \x1b[0;33m%s\x1b[0m\n' ${longest_varname_length} "${varname}" "${value}" &>2
+    done
+}
+
+film="${1:?missing film path}"
+subtitles="${2:?missing subtitles path}"
+out_film="${3:?missing output film path}"
+
+if [[ "${film}" -ef "${out_film}" ]]; then
+    echo "film and out_film are the same file: with current implementation this won't work" >&2
+    exit 1
+fi
+
+debug_vars film subtitles out_film
+
+trap '[[ -v tmp_dir ]] && rm -rf "${tmp_dir}"' EXIT
+tmp_dir=$(mktemp -d)
+srt_file="${tmp_dir}/subtitles.srt"
+
+case "${subtitles,,}" in
+    *.srt)
+        cp "${subtitles}" "${srt_file}"
+        ;;
+    *.sub)
+        frame_rate="$(ffprobe -v error -select_streams V:0 -show_entries stream=r_frame_rate -of csv=p=0 -- "${film}")"
+        debug_vars frame_rate
+        sub_file="${tmp_dir}/subtitles.sub"
+        # Strip the UTF-8 BOM mark and FPS line if present
+        sed --silent '1{ s/^\xEF\xBB\xBF//; /^{[01]}{[01]}.*/b }; p' -- "${subtitles}" > "${sub_file}"
+        ffmpeg -v error -subfps "${frame_rate}" -i "${sub_file}" "${srt_file}"
+        ;;
+    *)
+        echo "Unrecognized format of the subtitle file: ${subtitles}" >&2
+        exit 1
+        ;;
+esac
+
+extra_ffmpeg_args=()
+if [[ -t 2 ]]; then
+    extra_ffmpeg_args+=('-stats') # Print progress
+fi
+if [[ ! -t 0 ]]; then
+    extra_ffmpeg_args+=(-y) # Don't ask when overwriting the output file
+fi
+
+ffmpeg "${extra_ffmpeg_args[@]}" -hide_banner -loglevel warning -i "${film}" -i "${srt_file}" -map 0:V -map '0:a?' -map 1:s -c copy "${out_film}"
