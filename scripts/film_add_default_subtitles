@@ -61,4 +61,6 @@ if [[ ! -t 0 ]]; then
     extra_ffmpeg_args+=(-y) # Don't ask when overwriting the output file
 fi
 
-ffmpeg "${extra_ffmpeg_args[@]}" -hide_banner -loglevel warning -i "${film}" -i "${srt_file}" -map 0:V -map '0:a?' -map 1:s -c copy "${out_film}"
+ffmpeg "${extra_ffmpeg_args[@]}" -hide_banner -loglevel warning \
+    -i "${film}" -i "${srt_file}" \
+    -map 0:V -map '0:a?' -map 1:s -map '0:s?' -disposition:s:0 default -c copy "${out_film}"
