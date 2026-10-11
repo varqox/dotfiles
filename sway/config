@@ -77,6 +77,7 @@ bindsym --no-repeat --release --locked Ctrl+Alt+s exec systemctl suspend-then-hi
 bindsym --no-repeat Ctrl+Alt+Delete exec wlogout
 bindsym --no-repeat Ctrl+Alt+t exec alacritty msg create-window --working-directory "$HOME" || alacritty --working-directory "$HOME"
 bindsym --no-repeat Ctrl+Alt+f exec firefox
+bindsym --no-repeat Ctrl+Alt+e exec thunar
 bindsym --no-repeat Mod4+s exec subl --launch-or-new-window
 bindsym --no-repeat Mod4+k exec keepassxc
 # Kill focused window
