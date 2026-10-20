@@ -21,6 +21,8 @@ input type:touchpad {
 
 output * bg $HOME/.config/sway/wallpaper.jpg fill
 
+output 'Samsung Electric Company LG TV SSCR2 0x01010101' mode 4096x2160@60.000Hz adaptive_sync on hdr off
+
 font Hack 10
 font Ubuntu Mono 12
 
