@@ -40,6 +40,7 @@ all: age
 all: mpv
 all: sublimehq
 all: ticktick
+all: obsidian
 all: beeper
 all: wireplumber
 all: install-procps-ng # pkill
@@ -202,6 +203,9 @@ sublimehq: FORCE sublime-text sublime-merge age
 
 ticktick: FORCE
 	ticktick/install_and_configure.sh < /dev/tty
+
+obsidian: FORCE
+	obsidian/install_and_configure.sh < /dev/tty
 
 beeper: FORCE
 	beeper/install_and_configure.sh < /dev/tty
