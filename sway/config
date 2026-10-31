@@ -56,7 +56,9 @@ bindsym --no-repeat XF86AudioPlay exec waybar-mpris --send toggle
 bindsym XF86AudioNext exec waybar-mpris --send next
 bindsym XF86AudioPrev exec waybar-mpris --send prev
 bindsym --no-repeat XF86Display exec wdisplays
-bindsym XF86PowerOff exec wlogout
+bindsym --no-repeat XF86PowerOff exec wlogout
+bindsym --no-repeat --locked Mod4+l output "eDP-1" dpms toggle
+bindsym --no-repeat --locked XF86Tools output "eDP-1" dpms toggle
 bindsym --no-repeat XF86Bluetooth exec "$HOME/.config/sway/toggle_bluetooth.sh"
 bindsym --no-repeat XF86Favorites exec waybar-mpris --send toggle
 
