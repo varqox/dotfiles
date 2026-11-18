@@ -112,8 +112,8 @@ if args.selenium != 'no':
         global args
         global driver
         # Find elements every time, so that if the page changes layout it works.
-        input_elem = driver.find_element(By.CSS_SELECTOR, '[aria-labelledby="translation-source-heading"][aria-placeholder]')
-        output_elem = driver.find_element(By.CSS_SELECTOR, '[aria-labelledby="translation-target-heading"][aria-placeholder]')
+        input_elem = driver.find_element(By.CSS_SELECTOR, '[aria-labelledby="translator-source-heading"][aria-placeholder]')
+        output_elem = driver.find_element(By.CSS_SELECTOR, '[aria-labelledby="translator-target-heading"][aria-placeholder]')
         lang_switch_div_elem = driver.find_element(By.CSS_SELECTOR, '[data-layout-id="languageSwitchButton"] button')
         target_lang_button = driver.find_element(By.CSS_SELECTOR, 'button[data-testid="translator-target-lang-btn"]')
 
